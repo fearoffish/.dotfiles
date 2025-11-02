@@ -2,23 +2,7 @@
     useConfigOnly = true
     name = {{ .name | quote }}
     email = {{ .email | quote }}
-{{- if .is_macos }}
-    # Use SSH signing with 1Password on macOS
     signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGQr7b5+YourSSHKeyHere
-{{- else }}
-    # GPG signing key (only used if GPG signing is enabled)
-    signingkey = A3AA25F1895353964C1F5CA6850BCA9364ED67DA
-{{- end }}
-
-[gpg]
-{{- if .is_macos }}
-    format = ssh
-[gpg "ssh"]
-    program = "/Applications/1Password 7 - Password Manager.app/Contents/MacOS/op-ssh-sign"
-{{- else }}
-    # Use system GPG on Linux (when available)
-    format = openpgp
-{{- end }}
 
 [diff]
 {{- if .is_macos }}
@@ -60,12 +44,7 @@
 {{- end }}
 
 [commit]
-{{- if .is_macos }}
     gpgsign = true
-{{- else }}
-    # Disable signing on Linux by default (can be enabled manually if GPG is set up)
-    gpgsign = false
-{{- end }}
 
 [init]
     defaultBranch = main
@@ -75,13 +54,3 @@
 
 [pull]
     rebase = false
-
-{{- if .is_macos }}
-# 1Password SSH agent configuration
-[credential "https://github.com"]
-    helper =
-    helper = !/usr/local/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-    helper =
-    helper = !/usr/local/bin/gh auth git-credential
-{{- end }}
