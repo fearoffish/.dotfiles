@@ -1,0 +1,11 @@
+discord
+git
+curl
+wget
+jq
+htop
+tree
+neovim
+fish
+1password
+github-desktop

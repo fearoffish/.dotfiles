@@ -2,6 +2,10 @@
 
 set -e
 
+# Default options
+INSTALL_DESKTOP_APPS=true
+FORCE_INSTALL=false
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -137,18 +141,14 @@ install_1password_cli() {
             fi
             ;;
         linux)
-            if command_exists brew; then
-                brew install 1password-cli
-            else
-                # Install via official method for Linux
-                curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
-                echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main' | sudo tee /etc/apt/sources.list.d/1password.list
-                sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
-                curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
-                sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
-                curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
-                sudo apt update && sudo apt install 1password-cli
-            fi
+            # Install via official method for Linux
+            curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
+            echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main' | sudo tee /etc/apt/sources.list.d/1password.list
+            sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
+            curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
+            sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
+            curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
+            sudo apt update && sudo apt install 1password-cli
             ;;
         *)
             log_warning "Unsupported OS for 1Password CLI: $OS"
@@ -195,6 +195,20 @@ install_essentials() {
     esac
 
     log_success "Essential packages installed"
+}
+
+# Install desktop applications
+install_desktop_apps() {
+    log_info "Installing desktop applications..."
+
+    if [ -f "scripts/install-apps.sh" ]; then
+        ./scripts/install-apps.sh || log_warning "Desktop app installation failed"
+    else
+        log_error "Desktop app installer not found"
+        return 1
+    fi
+
+    log_success "Desktop applications installed"
 }
 
 # Initialize or update chezmoi
@@ -282,8 +296,64 @@ post_install() {
     esac
 }
 
+# Parse command line arguments
+parse_args() {
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --no-desktop-apps)
+                INSTALL_DESKTOP_APPS=false
+                shift
+                ;;
+            --force)
+                FORCE_INSTALL=true
+                shift
+                ;;
+            --help|-h)
+                show_help
+                exit 0
+                ;;
+            *)
+                log_error "Unknown option: $1"
+                show_help
+                exit 1
+                ;;
+        esac
+    done
+}
+
+# Show help information
+show_help() {
+    cat << EOF
+Chezmoi Dotfiles Installer
+
+Usage: $0 [options]
+
+Options:
+    --no-desktop-apps    Skip desktop application installation
+    --force             Force installation without prompts
+    --help, -h          Show this help message
+
+This script will:
+1. Install Homebrew (if not present)
+2. Install chezmoi
+3. Install 1Password CLI
+4. Install essential packages
+5. Install desktop applications (unless --no-desktop-apps is used)
+6. Set up chezmoi dotfiles
+7. Configure 1Password SSH integration
+
+Examples:
+    $0                   # Full installation
+    $0 --no-desktop-apps # Skip GUI applications
+    $0 --force           # Install without prompts
+
+EOF
+}
+
 # Main installation function
 main() {
+    parse_args "$@"
+
     log_info "Starting dotfiles installation..."
     log_info "======================================"
 
@@ -295,15 +365,19 @@ main() {
     install_1password_cli
     install_essentials
 
+    # Install desktop apps unless skipped
+    if [ "$INSTALL_DESKTOP_APPS" = true ]; then
+        install_desktop_apps
+    else
+        log_info "Skipping desktop applications (--no-desktop-apps specified)"
+    fi
+
     # Setup dotfiles
     setup_chezmoi
     apply_dotfiles
 
     # Platform-specific setup
     post_install
-
-    log_success "======================================"
-    log_success "Installation completed successfully!"
 
     # Run 1Password SSH setup if available
     if [ -f "scripts/setup-1password-ssh.sh" ]; then
@@ -324,6 +398,13 @@ main() {
     log_info "  - Test access: op whoami"
     log_info "  - List items: op item list"
     log_info "  - Setup SSH: ./scripts/setup-1password-ssh.sh"
+
+    if [ "$INSTALL_DESKTOP_APPS" = false ]; then
+        log_info ""
+        log_info "Desktop applications:"
+        log_info "  - Install later with: ./scripts/install-apps.sh"
+        log_info "  - Edit Brewfile (macOS) or linux-apps.txt (Linux) to customize"
+    fi
 }
 
 # Run main function

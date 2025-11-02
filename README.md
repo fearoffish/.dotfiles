@@ -25,6 +25,12 @@ chezmoi init --apply <your-repo-url>
 # Make the install script executable and run it
 chmod +x install.sh
 ./install.sh
+
+# Skip desktop applications
+./install.sh --no-desktop-apps
+
+# Force installation without prompts
+./install.sh --force
 ```
 
 ## What's Included
@@ -34,24 +40,29 @@ chmod +x install.sh
 - **Linux**: AMD64 and ARM64 support with automatic package manager detection
 
 ### Core Tools Installed
-- **Homebrew**: Package manager for both macOS and Linux
+- **Homebrew**: Package manager for both macOS and Linux (CLI tools only on Linux)
 - **chezmoi**: Dotfiles manager
 - **1Password CLI**: Password manager command-line interface
 - **Essential CLI tools**: git, curl, wget, jq, ripgrep, fd, bat, fzf, etc.
 - **Development tools**: neovim, fish shell, starship prompt
+- **Desktop applications**: Automated installation of GUI apps (browsers, editors, etc.)
 - **Git configuration**: Pre-configured with SSH signing via 1Password
 
 ### Platform-Specific Features
 #### macOS
-- GUI applications via Homebrew Cask (Rectangle, iTerm2, Zed, etc.)
+- **Homebrew Cask**: GUI applications (Rectangle, iTerm2, Zed, etc.)
+- **Homebrew**: CLI tools and development packages
 - Xcode command line tools installation
 - 1Password SSH agent integration
 - macOS-specific optimizations
 
 #### Linux
-- Distribution detection (apt, yum, pacman)
-- Linux-specific package installations
-- Proper Homebrew setup for Linux
+- **Homebrew**: CLI tools only (no casks - GUI apps not supported)
+- Multi-distro support (Ubuntu, Fedora, Arch, openSUSE)
+- Package manager detection (apt, dnf, pacman, zypper)
+- Flatpak and Snap application installation
+- AppImage support for additional applications
+- Direct download installation for specific apps
 - 1Password SSH agent setup (with desktop app)
 
 ## File Structure
@@ -65,7 +76,8 @@ chmod +x install.sh
 ├── dot_ssh/
 │   └── config.tmpl         # SSH configuration with 1Password
 ├── scripts/
-│   └── setup-1password-ssh.sh  # 1Password SSH setup script
+│   ├── setup-1password-ssh.sh  # 1Password SSH setup script
+│   └── install-desktop-apps.sh # Standalone desktop app installer
 └── README.md              # This file
 ```
 
@@ -82,6 +94,39 @@ The setup uses chezmoi's templating system to handle platform differences:
   - `is_macos_arm64`, `is_linux_amd64`, etc.
 
 ## Usage
+
+### Desktop Applications
+
+The installer can automatically install desktop applications:
+
+```bash
+# Install all applications (included in main installer by default)
+./scripts/install-desktop-apps.sh
+
+# Main installer without desktop apps
+./install.sh --no-desktop-apps
+```
+
+#### Supported Applications
+**All Platforms:**
+- Web browsers (Firefox, Google Chrome)
+- Code editors (VS Code, Zed)
+- Communication (Discord, Slack, Zoom)
+- Development tools (Docker)
+- Password manager (1Password)
+
+**macOS via Homebrew Cask:**
+- Rectangle (window management)
+- iTerm2 (terminal)
+- Kaleidoscope (diff tool)
+- Various fonts (Fira Code, JetBrains Mono, etc.)
+
+**Linux via Multiple Sources:**
+- Native package managers (apt, dnf, pacman, zypper)
+- Flatpak applications from Flathub
+- Snap packages (Ubuntu/derivatives)
+- AppImage applications
+- Direct downloads for specific apps
 
 ### Daily Operations
 ```bash
@@ -163,6 +208,41 @@ The install script automatically:
 - Installs fish shell
 - Sets fish as default shell
 - Configures starship prompt
+
+### Desktop Applications
+
+#### Installation Methods by Platform
+**macOS:**
+- Primary: Homebrew Cask (GUI apps) + Homebrew (CLI tools)
+- Fallback: Direct downloads from vendors
+
+**Linux:**
+- Homebrew: CLI tools only (no casks available on Linux)
+- GUI Applications via:
+  - Primary: Native package manager (apt/dnf/pacman/zypper)
+  - Secondary: Flatpak (cross-distribution)
+  - Tertiary: Snap packages (Ubuntu-focused)
+  - Last resort: AppImage and direct downloads
+
+#### Managing Desktop Apps
+```bash
+# Install only desktop apps
+./scripts/install-desktop-apps.sh
+
+# macOS: Update Homebrew casks
+brew upgrade --cask
+
+# Linux: Update Flatpak applications
+flatpak update
+
+# Linux: List installed Flatpak apps
+flatpak list --app
+
+# Linux: Remove a Flatpak app
+flatpak uninstall com.example.App
+
+# Note: Homebrew on Linux only handles CLI tools, not GUI applications
+```
 
 ## Troubleshooting
 
