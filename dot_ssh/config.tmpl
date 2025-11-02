@@ -1,0 +1,45 @@
+{{- if .is_macos }}
+# 1Password SSH Agent (macOS)
+Host *
+    IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+
+{{- else }}
+# 1Password SSH Agent (Linux) - requires 1Password desktop app
+# Host *
+#     IdentityAgent ~/.1password/agent.sock
+
+{{- end }}
+
+# GitHub
+Host github.com
+    HostName github.com
+    User git
+{{- if .is_macos }}
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/id_ed25519_github
+{{- end }}
+
+# GitLab
+Host gitlab.com
+    HostName gitlab.com
+    User git
+{{- if .is_macos }}
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/id_ed25519_gitlab
+{{- end }}
+
+# Default settings
+Host *
+    AddKeysToAgent yes
+    UseKeychain yes
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    IdentitiesOnly yes
+
+{{- if .is_macos }}
+    # macOS specific
+    UseKeychain yes
+{{- else }}
+    # Linux specific
+    ForwardAgent no
+{{- end }}

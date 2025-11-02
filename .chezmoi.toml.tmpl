@@ -1,0 +1,43 @@
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+
+{{- $chassisType := "desktop" -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   if contains "MacBook" (output "system_profiler" "SPHardwareDataType") -}}
+{{-     $chassisType = "laptop" -}}
+{{-   end -}}
+{{- else if stat "/sys/class/dmi/id/chassis_type" -}}
+{{-   $chassisType = (eq (trim (output "cat" "/sys/class/dmi/id/chassis_type")) "10") | ternary "laptop" "desktop" -}}
+{{- end -}}
+
+[data]
+    name = "Jamie van Dyke"
+    email = "me@fearof.fish"
+    osid = {{ $osid | quote }}
+    chassisType = {{ $chassisType | quote }}
+
+    # Platform detection
+    is_macos = {{ eq .chezmoi.os "darwin" }}
+    is_linux = {{ eq .chezmoi.os "linux" }}
+    is_arm64 = {{ eq .chezmoi.arch "arm64" }}
+    is_amd64 = {{ eq .chezmoi.arch "amd64" }}
+    is_laptop = {{ eq $chassisType "laptop" }}
+    is_desktop = {{ eq $chassisType "desktop" }}
+
+    # macOS specific
+    is_macos_arm64 = {{ and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
+    is_macos_amd64 = {{ and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "amd64") }}
+
+    # Linux specific
+    is_linux_arm64 = {{ and (eq .chezmoi.os "linux") (eq .chezmoi.arch "arm64") }}
+    is_linux_amd64 = {{ and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
+
+[edit]
+    command = "zed"
+    args = ["--wait"]
+
+[git]
+    autoCommit = true
+    autoPush = false

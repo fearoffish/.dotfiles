@@ -1,0 +1,85 @@
+[user]
+    useConfigOnly = true
+    name = {{ .name | quote }}
+    email = {{ .email | quote }}
+{{- if .is_macos }}
+    # Use SSH signing with 1Password on macOS
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGQr7b5+YourSSHKeyHere
+{{- else }}
+    # Use GPG signing on Linux (fallback)
+    signingkey = A3AA25F1895353964C1F5CA6850BCA9364ED67DA
+{{- end }}
+
+[gpg]
+{{- if .is_macos }}
+    format = ssh
+[gpg "ssh"]
+    program = "/Applications/1Password 7 - Password Manager.app/Contents/MacOS/op-ssh-sign"
+{{- else }}
+    # Use system GPG on Linux
+{{- end }}
+
+[diff]
+{{- if .is_macos }}
+    tool = Kaleidoscope
+[difftool "Kaleidoscope"]
+    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+{{- else }}
+    tool = vimdiff
+{{- end }}
+
+[difftool]
+    prompt = false
+{{- if .is_macos }}
+    trustExitCode = true
+{{- end }}
+
+[merge]
+{{- if .is_macos }}
+    tool = Kaleidoscope
+[mergetool "Kaleidoscope"]
+    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+    trustExitCode = true
+{{- else }}
+    tool = vimdiff
+{{- end }}
+
+[mergetool]
+    prompt = false
+
+[push]
+    autoSetupRemote = true
+
+[core]
+    excludesFile = ~/.gitignore
+{{- if .is_macos }}
+    editor = zed --wait
+{{- else }}
+    editor = nvim
+{{- end }}
+
+[commit]
+{{- if .is_macos }}
+    gpgsign = true
+{{- else }}
+    gpgsign = true
+{{- end }}
+
+[init]
+    defaultBranch = main
+
+[includeIf "gitdir:~/a/nevaya/"]
+    path = ~/a/nevaya/.gitconfig
+
+[pull]
+    rebase = false
+
+{{- if .is_macos }}
+# 1Password SSH agent configuration
+[credential "https://github.com"]
+    helper =
+    helper = !/usr/local/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+    helper =
+    helper = !/usr/local/bin/gh auth git-credential
+{{- end }}
