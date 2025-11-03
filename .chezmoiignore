@@ -1,0 +1,34 @@
+# Files and patterns to ignore when applying dotfiles
+
+# macOS
+.DS_Store
+*.swp
+*.swo
+
+# Lock files
+Brewfile.lock.json
+
+# Documentation and project files
+README.md
+TODO.md
+LICENSE
+LICENSE.md
+
+# Scripts that are only for bootstrapping (not dotfiles)
+install.sh
+bootstrap.sh
+
+# Git
+.git/
+.gitignore
+.gitmodules
+.github/
+
+# Editor specific
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.bak
+*~

@@ -1,6 +1,20 @@
 #!/bin/bash
 
+# [DEPRECATED] This script is deprecated in favor of chezmoi's native bootstrapping.
+# Use: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply fearoffish
+#
+# This script is kept for legacy/manual installations only.
+
 set -e
+
+echo "⚠️  WARNING: This bootstrap method is deprecated."
+echo "⚠️  Recommended: sh -c \"\$(curl -fsLS get.chezmoi.io)\" -- init --apply fearoffish"
+echo ""
+read -p "Continue with legacy bootstrap anyway? [y/N] " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    exit 1
+fi
 
 # Colors for output
 RED='\033[0;31m'

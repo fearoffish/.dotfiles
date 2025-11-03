@@ -1,10 +1,24 @@
 #!/bin/bash
 
+# [DEPRECATED] This script is deprecated in favor of chezmoi's native bootstrapping.
+# Use: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply fearoffish
+#
+# This script is kept for legacy/manual installations only.
+
 set -e
 
 # Default options
 INSTALL_DESKTOP_APPS=true
 FORCE_INSTALL=false
+
+echo "⚠️  WARNING: This installation method is deprecated."
+echo "⚠️  Consider using: chezmoi init --apply fearoffish/.dotfiles"
+echo ""
+read -p "Continue with legacy install anyway? [y/N] " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    exit 1
+fi
 
 # Colors for output
 RED='\033[0;31m'

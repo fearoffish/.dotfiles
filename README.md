@@ -1,137 +1,80 @@
 # Chezmoi Dotfiles
 
-This repository contains my personal dotfiles managed by [chezmoi](https://www.chezmoi.io/), designed to work seamlessly across my MacBook M2 and AMD64 Linux machines.
+Personal dotfiles managed by [chezmoi](https://www.chezmoi.io/), designed to work seamlessly across macOS and Linux machines.
 
-## Quick Start
+## 🚀 Quick Start
 
-### Option 1: Bootstrap from scratch
-```bash
-# Clone this repository to your chezmoi source directory
-git clone <your-repo-url> ~/.local/share/chezmoi
-cd ~/.local/share/chezmoi
+### Fresh Machine Setup (Recommended)
 
-# Run the bootstrap script
-./bootstrap.sh
-```
-
-### Option 2: Use chezmoi directly
-```bash
-# Initialize and apply dotfiles from a git repository
-chezmoi init --apply <your-repo-url>
-```
-
-### Option 3: Manual installation
-```bash
-# Make the install script executable and run it
-chmod +x install.sh
-./install.sh
-
-# Skip desktop applications
-./install.sh --no-desktop-apps
-
-# Force installation without prompts
-./install.sh --force
-```
-
-## What's Included
-
-### Cross-Platform Support
-- **macOS**: Full support for both Intel and Apple Silicon Macs
-- **Linux**: AMD64 and ARM64 support with automatic package manager detection
-
-### Core Tools Installed
-- **Homebrew**: Package manager for both macOS and Linux (CLI tools only on Linux)
-- **chezmoi**: Dotfiles manager
-- **1Password CLI**: Password manager command-line interface
-- **Essential CLI tools**: git, curl, wget, jq, ripgrep, fd, bat, fzf, etc.
-- **Development tools**: neovim, fish shell, starship prompt
-- **Desktop applications**: Automated installation of GUI apps (browsers, editors, etc.)
-- **Git configuration**: Pre-configured with SSH signing via 1Password
-
-### Platform-Specific Features
-#### macOS
-- **Homebrew Cask**: GUI applications (Rectangle, iTerm2, Zed, etc.)
-- **Homebrew**: CLI tools and development packages
-- Xcode command line tools installation
-- 1Password SSH agent integration
-- macOS-specific optimizations
-
-#### Linux
-- **Homebrew**: CLI tools only (no casks - GUI apps not supported)
-- Multi-distro support (Ubuntu, Fedora, Arch, openSUSE)
-- Package manager detection (apt, dnf, pacman, zypper)
-- Flatpak and Snap application installation
-- AppImage support for additional applications
-- Direct download installation for specific apps
-- 1Password SSH agent setup (with desktop app)
-
-## File Structure
-
-```
-├── install.sh              # Main installation script
-├── bootstrap.sh            # Simple bootstrap runner
-├── .chezmoi.toml.tmpl      # Chezmoi configuration template
-├── Brewfile.tmpl           # Platform-aware Homebrew packages
-├── dot_gitconfig.tmpl      # Git configuration template
-├── dot_ssh/
-│   └── config.tmpl         # SSH configuration with 1Password
-├── scripts/
-│   ├── setup-1password-ssh.sh  # 1Password SSH setup script
-│   └── install-desktop-apps.sh # Standalone desktop app installer
-└── README.md              # This file
-```
-
-## Configuration
-
-The setup uses chezmoi's templating system to handle platform differences:
-
-- **`.chezmoi.toml.tmpl`**: Main configuration with platform detection
-- **`Brewfile.tmpl`**: Conditional package installation based on OS/architecture
-- **Platform variables**: Available in all templates
-  - `is_macos`, `is_linux`
-  - `is_arm64`, `is_amd64`
-  - `is_laptop`, `is_desktop`
-  - `is_macos_arm64`, `is_linux_amd64`, etc.
-
-## Usage
-
-### Desktop Applications
-
-The installer can automatically install desktop applications:
+On a brand new machine, run this single command:
 
 ```bash
-# Install all applications (included in main installer by default)
-./scripts/install-desktop-apps.sh
-
-# Main installer without desktop apps
-./install.sh --no-desktop-apps
+# Bootstrap everything from GitHub
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply fearoffish
 ```
 
-#### Supported Applications
-**All Platforms:**
-- Web browsers (Firefox, Google Chrome)
-- Code editors (VS Code, Zed)
-- Communication (Discord, Slack, Zoom)
-- Development tools (Docker)
-- Password manager (1Password)
+Or if you prefer the full GitHub URL:
 
-**macOS via Homebrew Cask:**
-- Rectangle (window management)
-- iTerm2 (terminal)
-- Kaleidoscope (diff tool)
-- Various fonts (Fira Code, JetBrains Mono, etc.)
+```bash
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/fearoffish/.dotfiles.git
+```
 
-**Linux via Multiple Sources:**
-- Native package managers (apt, dnf, pacman, zypper)
-- Flatpak applications from Flathub
-- Snap packages (Ubuntu/derivatives)
-- AppImage applications
-- Direct downloads for specific apps
+This will automatically:
+1. Install chezmoi
+2. Clone your dotfiles
+3. Install Homebrew
+4. Install essential tools (git, curl, wget, 1Password CLI)
+5. Configure macOS system defaults (if on macOS)
+6. Apply all dotfiles to your home directory
+7. Install all packages from Brewfile
+8. Set fish as your default shell
 
-### Daily Operations
+### If You Already Have Chezmoi Installed
+
+```bash
+chezmoi init --apply fearoffish/.dotfiles
+```
+
+## 📦 What Gets Installed
+
+### Automatically Installed Prerequisites
+- **Homebrew**: Package manager for macOS/Linux
+- **1Password CLI**: Secure credential management
+- **Essential tools**: git, curl, wget
+- **Xcode Command Line Tools** (macOS only)
+
+### From Brewfile
+- **Development tools**: neovim, fish shell, starship, mise, docker, etc.
+- **CLI utilities**: bat, fzf, ripgrep, eza, zoxide, lazygit, etc.
+- **Desktop apps** (macOS): iTerm2, Ghostty, Kitty, Raycast, Zed, 1Password, etc.
+- **Fonts**: Nerd Fonts, JetBrains Mono, Iosevka, etc.
+- **Mac App Store apps** (via `mas`): Things, Keynote, Logic Pro, etc.
+
+### Configuration Files
+- Git configuration with SSH signing via 1Password
+- SSH configuration with 1Password agent
+- Fish shell configuration
+- Starship prompt
+- Neovim/Lazygit/Terminal configs
+
+## 🔄 How It Works
+
+The bootstrap process runs these scripts in order:
+
+1. **`run_once_before_install-prerequisites.sh`** - Installs Homebrew, 1Password CLI, essential tools
+2. **`run_once_before_macos-defaults.sh`** - Configures macOS settings (keyboard repeat, Finder, Dock, etc.)
+3. **Dotfiles Applied** - All `dot_*` files are copied to your home directory
+4. **`run_onchange_install-packages.sh`** - Installs packages from Brewfile (re-runs when Brewfile changes)
+5. **`run_once_after_setup-shell.sh`** - Sets fish as default shell, reminds about 1Password setup
+
+## 🛠️ Daily Usage
+
 ```bash
 # Check what would change
 chezmoi status
+
+# Preview changes
+chezmoi diff
 
 # Apply changes
 chezmoi apply
@@ -142,174 +85,178 @@ chezmoi edit ~/.gitconfig
 # Add a new dotfile
 chezmoi add ~/.newconfig
 
-# Update from source repository
+# Update from git and apply
 chezmoi update
 ```
 
-### 1Password CLI Setup
+## 📝 Managing Packages
+
+### Adding New Packages
+
+Edit the Brewfile in your chezmoi source directory:
+
 ```bash
-# Sign in to your 1Password account
+chezmoi edit Brewfile
+```
+
+Add your package:
+```ruby
+brew "your-new-package"
+cask "your-new-app"  # macOS only
+mas "App Name", id: 123456789  # Mac App Store
+```
+
+Then apply:
+```bash
+chezmoi apply
+```
+
+The `run_onchange_install-packages.sh` script will automatically detect the Brewfile changed and run `brew bundle`.
+
+### Updating Brewfile from Currently Installed Packages
+
+If you've installed packages manually with `brew install` and want to update your Brewfile:
+
+```bash
+# Dump all currently installed packages to Brewfile
+brew bundle dump --file=~/.local/share/chezmoi/Brewfile --force
+
+# Review the changes
+chezmoi diff
+
+# Add and commit the updated Brewfile
+cd ~/.local/share/chezmoi
+git add Brewfile
+git commit -m "Update Brewfile with new packages"
+git push
+```
+
+**Pro tip**: Keep your Brewfile clean by reviewing what `brew bundle dump` adds. It includes all dependencies, which you may not want to explicitly track.
+
+### Alternative: Selective Adding
+
+Instead of dumping everything, you can manually add what you installed:
+
+```bash
+# After installing something manually
+brew install new-tool
+
+# Add it to your Brewfile
+chezmoi edit Brewfile
+# (add the line: brew "new-tool")
+
+# Commit the change
+cd ~/.local/share/chezmoi
+git add Brewfile
+git commit -m "Add new-tool to Brewfile"
+git push
+```
+
+## 🔧 Configuration
+
+### Platform Detection
+
+All templates have access to these variables (from `.chezmoi.toml.tmpl`):
+
+- `is_macos`, `is_linux`
+- `is_arm64`, `is_amd64`
+- `is_laptop`, `is_desktop`
+- `is_macos_arm64`, `is_linux_amd64`, etc.
+
+### Personal Information
+
+Your name and email are configured in `.chezmoi.toml.tmpl`:
+
+```toml
+[data]
+    name = "Jamie van Dyke"
+    email = "me@fearof.fish"
+```
+
+Edit with: `chezmoi edit-config`
+
+## 🔐 1Password Setup
+
+### Initial Setup
+
+```bash
+# Sign in to 1Password
 op signin
 
-# Verify you're signed in
+# Verify
 op whoami
 
-# List your items
-op item list
-
-# Get a password (example)
-op item get "GitHub" --fields password
-
-# Setup SSH signing with 1Password
+# Enable SSH agent in 1Password app preferences
+# Then run:
 ./scripts/setup-1password-ssh.sh
 ```
 
-### Managing Templates
+### Git Signing
+
+The dotfiles automatically configure Git to use SSH signing via 1Password:
+
+1. Add your SSH key to 1Password
+2. Enable SSH agent in 1Password preferences
+3. Add your public key to GitHub/GitLab
+4. Commits will be automatically signed
+
+## 📂 File Structure
+
+```
+.dotfiles/
+├── .chezmoi.toml.tmpl                    # Chezmoi config with platform detection
+├── .chezmoiignore                        # Files to ignore
+├── Brewfile                              # Package definitions
+├── dot_gitconfig.tmpl                    # Git configuration
+├── dot_ssh/
+│   └── config.tmpl                       # SSH configuration
+├── dot_config/
+│   ├── fish/                             # Fish shell config
+│   ├── kitty/                            # Kitty terminal config
+│   └── ...
+├── run_once_before_install-prerequisites.sh.tmpl
+├── run_once_before_macos-defaults.sh.tmpl
+├── run_onchange_install-packages.sh.tmpl
+├── run_once_after_setup-shell.sh.tmpl
+├── scripts/
+│   └── setup-1password-ssh.sh
+├── install.sh                            # [DEPRECATED] Legacy installer
+├── bootstrap.sh                          # [DEPRECATED] Legacy bootstrap
+└── README.md
+```
+
+## 🚨 Troubleshooting
+
+### Reset Chezmoi State
+
 ```bash
-# Edit the Brewfile template
-chezmoi edit Brewfile.tmpl
-
-# Apply and install new packages
-chezmoi apply
-brew bundle --file=~/.local/share/chezmoi/Brewfile
-```
-
-### Platform-Specific Files
-Use chezmoi's suffix system for platform-specific files:
-- `file.darwin` - macOS only
-- `file.linux` - Linux only  
-- `file.arm64` - ARM64 only
-- `file.amd64` - AMD64 only
-
-## Customization
-
-### Adding New Packages
-Edit `Brewfile.tmpl` and use conditional blocks:
-```ruby
-{{- if .is_macos }}
-cask "mac-only-app"
-{{- end }}
-
-{{- if .is_linux }}
-brew "linux-specific-tool"
-{{- end }}
-```
-
-### Personal Information
-Update `.chezmoi.toml.tmpl` with your details:
-```toml
-[data]
-    name = "Your Name"
-    email = "your.email@example.com"
-```
-
-### Shell Configuration
-The install script automatically:
-- Installs fish shell
-- Sets fish as default shell
-- Configures starship prompt
-
-### Desktop Applications
-
-#### Installation Methods by Platform
-**macOS:**
-- Primary: Homebrew Cask (GUI apps) + Homebrew (CLI tools)
-- Fallback: Direct downloads from vendors
-
-**Linux:**
-- Homebrew: CLI tools only (no casks available on Linux)
-- GUI Applications via:
-  - Primary: Native package manager (apt/dnf/pacman/zypper)
-  - Secondary: Flatpak (cross-distribution)
-  - Tertiary: Snap packages (Ubuntu-focused)
-  - Last resort: AppImage and direct downloads
-
-#### Managing Desktop Apps
-```bash
-# Install only desktop apps
-./scripts/install-desktop-apps.sh
-
-# macOS: Update Homebrew casks
-brew upgrade --cask
-
-# Linux: Update Flatpak applications
-flatpak update
-
-# Linux: List installed Flatpak apps
-flatpak list --app
-
-# Linux: Remove a Flatpak app
-flatpak uninstall com.example.App
-
-# Note: Homebrew on Linux only handles CLI tools, not GUI applications
-```
-
-## Troubleshooting
-
-### Permission Issues
-```bash
-# Make scripts executable
-chmod +x install.sh bootstrap.sh
-```
-
-### Homebrew Issues on Linux
-```bash
-# Ensure Homebrew is in PATH
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-```
-
-### Chezmoi State Issues
-```bash
-# Reset chezmoi state
 chezmoi state reset
-
-# Re-initialize
 chezmoi init --apply
 ```
 
-## Migration from Dotbot
+### Re-run Scripts
 
-If migrating from a dotbot setup:
-1. Review your existing dotbot configuration
-2. Add equivalent files to chezmoi: `chezmoi add <file>`
-3. Convert any complex linking logic to chezmoi templates
-4. Test on a clean system before fully switching
+```bash
+# Force re-run of run_once scripts
+rm ~/.config/chezmoi/chezmoistate.boltdb
+chezmoi apply
+```
 
-## Contributing
+### Homebrew PATH Issues (Linux)
 
-1. Test changes on both macOS and Linux if possible
-2. Use platform conditionals for OS-specific configurations
-3. Keep the installation script idempotent
-4. Update this README for significant changes
+```bash
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+```
 
-## Security Notes
+## 🔄 Migrating from Dotbot
 
-The setup includes comprehensive 1Password integration:
+See `TODO.md` for the full migration checklist. The key differences:
 
-### 1Password CLI
-- Automatically installed on both macOS and Linux
-- Use `op signin` to authenticate after installation
-- Integrate with other tools for secure credential access
+- **Dotbot**: Uses symlinks, manual `install` script
+- **Chezmoi**: Copies files, automatic templating, built-in scripts
+- **No more**: install.conf.yaml, dotbot submodules
+- **Now using**: `run_once_*` scripts, chezmoi templates
 
-### SSH Key Management with 1Password
-- **macOS**: Full SSH agent integration via 1Password app
-- **Linux**: SSH agent support with 1Password desktop app
-- Git signing uses SSH keys instead of GPG for better UX
-- Automatic SSH key loading from 1Password vault
+## 📄 License
 
-### Setup Process
-1. Install 1Password app (macOS/Linux desktop)
-2. Enable SSH agent in 1Password preferences
-3. Add SSH keys to your 1Password vault
-4. Run `./scripts/setup-1password-ssh.sh` for automatic configuration
-5. Add public keys to GitHub/GitLab for commit signing
-
-### Git Signing
-- Uses SSH signing format (more reliable than GPG)
-- Automatically configured based on platform
-- macOS: Uses 1Password SSH agent seamlessly
-- Linux: Falls back to GPG if 1Password desktop unavailable
-
-## License
-
-[Your License Here]
+Personal dotfiles - feel free to fork and adapt!
