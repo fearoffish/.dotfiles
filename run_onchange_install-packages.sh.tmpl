@@ -54,19 +54,18 @@ fi
 
 # Run brew bundle
 cd "$SOURCE_DIR"
-if brew bundle --file="$BREWFILE" --no-lock; then
+if brew bundle --file="$BREWFILE"; then
     log_success "Packages installed successfully from Brewfile"
+{{- if eq .chezmoi.os "darwin" }}
+    if command_exists mas; then
+        log_info "Mac App Store apps installed via brew bundle"
+    else
+        log_warning "mas not installed - Mac App Store apps were skipped"
+    fi
+{{- end }}
 else
     log_warning "Some packages may have failed to install"
     exit 1
 fi
-
-{{- if eq .chezmoi.os "darwin" }}
-# macOS specific: Install Mac App Store apps if mas is available
-if command_exists mas; then
-    log_info "Installing Mac App Store applications..."
-    brew bundle --file="$BREWFILE" --no-lock || log_warning "Some Mac App Store apps may have failed to install"
-fi
-{{- end }}
 
 log_success "Package installation complete!"
