@@ -10,3 +10,4 @@ fish
 1password
 github-desktop
 gpgv
+kitty
