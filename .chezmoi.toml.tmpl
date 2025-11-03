@@ -35,8 +35,7 @@
     is_linux_amd64 = {{ and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
 
 [edit]
-    command = "zed"
-    args = ["--wait"]
+    command = "nvim"
 
 [git]
     autoCommit = true

@@ -1,0 +1,32 @@
+{{- if .is_macos }}
+
+{{- else }}
+/home/linuxbrew/.linuxbrew/bin/brew shellenv | source
+# Use 1Password SSH agent
+set -gx SSH_AUTH_SOCK ~/.1password/agent.sock
+{{- end }}
+
+if type -q zoxide
+    if not test -r $__fish_cache_dir/zoxide_init.fish
+        zoxide init fish >$__fish_cache_dir/zoxide_init.fish
+    end
+    source $__fish_cache_dir/zoxide_init.fish
+end
+
+# Disable new user greeting.
+set fish_greeting
+
+# Initialize starship.
+if type -q starship
+    set -gx STARSHIP_CONFIG $__fish_config_dir/themes/starship.toml
+    if not test -r $__fish_cache_dir/starship_init.fish
+        starship init fish --print-full-init >$__fish_cache_dir/starship_init.fish
+    end
+    source $__fish_cache_dir/starship_init.fish
+end
+
+if status is-interactive
+    mise activate fish | source
+else
+    mise activate fish --shims | source
+end

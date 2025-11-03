@@ -2,7 +2,7 @@
     useConfigOnly = true
     name = {{ .name | quote }}
     email = {{ .email | quote }}
-    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGQr7b5+YourSSHKeyHere
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAsofD55EXCI4Ohh1j8mybzGNgTc9TpQTZat6tdjJzhf
 
 [diff]
 {{- if .is_macos }}
@@ -45,6 +45,15 @@
 
 [commit]
     gpgsign = true
+
+[gpg]
+    format = ssh
+
+[gpg "ssh"]
+{{- if .is_linux }}
+    program = "/opt/1Password/op-ssh-sign"
+{{- end }}
+    allowedSignersFile = ~/.ssh/allowed_signers
 
 [init]
     defaultBranch = main
