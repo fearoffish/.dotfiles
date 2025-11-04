@@ -1,0 +1,12 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[user]
+name = "Jamie van Dyke"
+email = "me@fearof.fish"
+
+[ui]
+paginate = "never"
+default-command = "log"
+
+[revsets]
+log = "committer_date(after:\"1 week ago\")"
