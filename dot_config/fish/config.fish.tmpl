@@ -15,6 +15,11 @@ if type -q zoxide
     source $__fish_cache_dir/zoxide_init.fish
 end
 
+# Initialize atuin.
+if type -q atuin
+    atuin init fish | source
+end
+
 # Disable new user greeting.
 set fish_greeting
 
