@@ -85,6 +85,9 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 # Increase sound quality for Bluetooth headphones/headsets
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
+# Fix mouse acceleration
+defaults write .GlobalPreferences com.apple.mouse.scaling -1
+
 ###############################################################################
 # Energy saving                                                               #
 ###############################################################################
