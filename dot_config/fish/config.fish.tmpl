@@ -8,6 +8,9 @@ set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/age
 set -gx SSH_AUTH_SOCK ~/.1password/agent.sock
 {{- end }}
 
+# Add ~/.local/bin to PATH
+fish_add_path -g ~/.local/bin
+
 if type -q zoxide
     if not test -r $__fish_cache_dir/zoxide_init.fish
         zoxide init fish >$__fish_cache_dir/zoxide_init.fish
@@ -17,7 +20,14 @@ end
 
 # Initialize atuin.
 if type -q atuin
+    set -gx ATUIN_NOBIND "true"
     atuin init fish | source
+
+    # Bind atuin after fish is fully initialized
+    bind \cr _atuin_search
+    bind -M insert \cr _atuin_search
+    bind up _atuin_bind_up
+    bind -M insert up _atuin_bind_up
 end
 
 # Disable new user greeting.
@@ -34,3 +44,6 @@ if status is-interactive
 else
     mise activate fish --shims | source
 end
+
+# Set the claude-code model
+set -gx ANTHROPIC_MODEL "claude-opus-4-5-20251101"
