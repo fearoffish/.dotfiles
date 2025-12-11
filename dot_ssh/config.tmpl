@@ -5,21 +5,3 @@ Host *
 {{- else }}
     IdentityAgent ~/.1password/agent.sock
 {{- end }}
-
-# GitHub
-Host github.com
-    HostName github.com
-    User git
-{{- if .is_macos }}
-    IdentitiesOnly yes
-    IdentityFile ~/.ssh/id_ed25519_github
-{{- end }}
-
-# GitLab
-Host gitlab.com
-    HostName gitlab.com
-    User git
-{{- if .is_macos }}
-    IdentitiesOnly yes
-    IdentityFile ~/.ssh/id_ed25519_gitlab
-{{- end }}
