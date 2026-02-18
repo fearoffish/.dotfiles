@@ -17,7 +17,7 @@ window-save-state = always
 mouse-hide-while-typing = true
 
 # Scrollback
-scrollback-limit = 50000
+scrollback-limit = 100000
 
 # Theme - Catppuccin Mocha
 background = 1e1e2e

@@ -5,8 +5,19 @@ name = "Jamie van Dyke"
 email = "me@fearof.fish"
 
 [ui]
-paginate = "never"
+paginate = "auto"
 default-command = "log"
 
 [revsets]
 log = "committer_date(after:\"1 week ago\")"
+
+[signing]
+sign-all = true
+backend = "ssh"
+key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAsofD55EXCI4Ohh1j8mybzGNgTc9TpQTZat6tdjJzhf"
+
+[signing.backends.ssh]
+program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[remotes.origin]
+auto-track-bookmarks = "*"

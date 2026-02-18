@@ -15,3 +15,9 @@ alias awsexec 'AWS_REGION=eu-west-1 AWS_PROFILE=staging aws ecs execute-command 
         --interactive \
         --command "/bin/bash" \
         --task '
+
+# jj related
+alias jjd  'jj diff'
+alias jjdf 'jj diff --stat'
+alias jjgf 'jj git fetch'
+alias jjl  'jj log -n 10'
