@@ -9,7 +9,7 @@ paginate = "auto"
 default-command = "log"
 
 [revsets]
-log = "committer_date(after:\"1 week ago\")"
+# log = "committer_date(after:\"1 week ago\")"
 
 [signing]
 sign-all = true
