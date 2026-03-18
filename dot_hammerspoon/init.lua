@@ -5,11 +5,13 @@
 local hyper = {"cmd", "alt", "shift", "ctrl"}
 local frameTolerance = 2
 local undoMaxHistory = 20
-hs.window.animationDuration = 0.3
+hs.window.animationDuration = 0.1
 
 -- State
 local cycleState = {}
 local undoHistory = {}
+local dualCycleIndex = 0
+local dualCycleWindows = {}
 
 -- Position definitions (unit rects: x, y, w, h)
 local positions = {
@@ -154,6 +156,52 @@ local function moveToScreen(direction)
   win:moveToUnit({unitX, unitY, unitW, unitH})
 end
 
+-- Dual-window layout pairs: {front window, back window}
+local dualLayouts = {
+  -- Front window on left
+  {{0, 0, 0.5, 1},   {0.5, 0, 0.5, 1}},   -- half / half
+  {{0, 0, 2/3, 1},   {2/3, 0, 1/3, 1}},    -- 2/3 / 1/3
+  {{0, 0, 1/3, 1},   {1/3, 0, 2/3, 1}},    -- 1/3 / 2/3
+  -- Front window on right
+  {{0.5, 0, 0.5, 1}, {0, 0, 0.5, 1}},      -- half / half
+  {{2/3, 0, 1/3, 1}, {0, 0, 2/3, 1}},       -- 1/3 / 2/3
+  {{1/3, 0, 2/3, 1}, {0, 0, 1/3, 1}},       -- 2/3 / 1/3
+}
+
+-- Core: cycle two frontmost windows through paired layouts
+local function cycleDualLayout()
+  local allWindows = hs.window.orderedWindows()
+  if #allWindows < 2 then return end
+
+  local frontWin = allWindows[1]
+  local backWin = allWindows[2]
+
+  -- If same pair as last time, advance; otherwise reset
+  local sameWindows = #dualCycleWindows == 2
+    and ((dualCycleWindows[1] == frontWin:id() and dualCycleWindows[2] == backWin:id())
+      or (dualCycleWindows[1] == backWin:id() and dualCycleWindows[2] == frontWin:id()))
+
+  if sameWindows then
+    dualCycleIndex = (dualCycleIndex % #dualLayouts) + 1
+  else
+    dualCycleIndex = 1
+    dualCycleWindows = {frontWin:id(), backWin:id()}
+  end
+
+  local layout = dualLayouts[dualCycleIndex]
+
+  -- Move back window to front window's screen if needed
+  local targetScreen = frontWin:screen()
+  if backWin:screen() ~= targetScreen then
+    backWin:moveToScreen(targetScreen)
+  end
+
+  undoPush(frontWin)
+  undoPush(backWin)
+  frontWin:moveToUnit(layout[1])
+  backWin:moveToUnit(layout[2])
+end
+
 -- Core: undo last move
 local function undoLast()
   local win = hs.window.focusedWindow()
@@ -185,6 +233,9 @@ hs.hotkey.bind(hyper, "c", function() centerWindow() end)
 -- Key bindings: multi-monitor
 hs.hotkey.bind(hyper, "]", function() moveToScreen(1) end)
 hs.hotkey.bind(hyper, "[", function() moveToScreen(-1) end)
+
+-- Key bindings: dual-window layout cycle
+hs.hotkey.bind(hyper, "i", function() cycleDualLayout() end)
 
 -- Key bindings: undo
 hs.hotkey.bind(hyper, "z", function() undoLast() end)
