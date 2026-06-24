@@ -227,8 +227,13 @@ hs.hotkey.bind(hyper, "return", function()
   moveWindow(win, {0, 0, 1, 1})
 end)
 
--- Key bindings: center
-hs.hotkey.bind(hyper, "c", function() centerWindow() end)
+-- Key bindings: center/maximize cycle
+hs.hotkey.bind(hyper, "c", function()
+  cycleWindow("c", {
+    {1/6, 1/6, 2/3, 2/3},  -- centered two-thirds
+    {0, 0, 1, 1},           -- maximize
+  })
+end)
 
 -- Key bindings: multi-monitor
 hs.hotkey.bind(hyper, "]", function() moveToScreen(1) end)
