@@ -1,0 +1,10 @@
+#!/bin/bash
+# Guard for scripts that must never run under a coding agent.
+# Call at the top of a script: refuse-coding-agent "$(basename "$0")"
+set -euo pipefail
+
+agent_env="${CODING_AGENT_SHELL:-}${CLAUDECODE:-}${CLAUDE_CODE_ENTRYPOINT:-}${CLAUDE_CODE_SESSION_ID:-}${CODEX_CI:-}${CODEX_THREAD_ID:-}${CODEX_TUI_SESSION_LOG_PATH:-}"
+[[ -z "${agent_env}" ]] && exit 0
+
+echo "Error: ${1:-this script} refuses to run under a coding agent." >&2
+exit 1

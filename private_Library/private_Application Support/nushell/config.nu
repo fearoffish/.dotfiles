@@ -26,6 +26,9 @@ $env.config.rm.always_trash = true
 $env.config.completions.algorithm = "fuzzy"
 $env.config.buffer_editor = ["zed", "-w"]
 
+# Use 1Password SSH agent (git commit signing + SSH auth)
+$env.SSH_AUTH_SOCK = ($env.HOME | path join "Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock")
+
 # AWS defaults
 $env.AWS_PROFILE = "staging"
 $env.AWS_REGION = "eu-west-1"

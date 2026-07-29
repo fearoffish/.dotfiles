@@ -16,3 +16,8 @@
 #
 # You can remove these comments if you want or leave
 # them for future reference.
+
+# Mark shells spawned by coding agents so scripts and prompts can detect them.
+if ([CLAUDECODE CLAUDE_CODE_ENTRYPOINT CLAUDE_CODE_SESSION_ID CODEX_CI CODEX_THREAD_ID CODEX_TUI_SESSION_LOG_PATH] | any {|v| $v in $env }) {
+    $env.CODING_AGENT_SHELL = "1"
+}
