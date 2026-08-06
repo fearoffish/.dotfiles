@@ -1,0 +1,3 @@
+# The global excludes file ignores CLAUDE.md so personal agent instructions
+# never land in project repos. This repo is where it is meant to live.
+!dot_claude/CLAUDE.md
