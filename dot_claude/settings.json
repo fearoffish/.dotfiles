@@ -51,7 +51,7 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "claude-fable-5[1m]",
+  "model": "opus[1m]",
   "hooks": {
     "SessionStart": [
       {
@@ -157,9 +157,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "ccstatusline",
-    "padding": 0,
-    "refreshInterval": 10
+    "command": "sh ~/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
     "all-ios-skills@swift-ios-skills": true,
@@ -171,7 +169,12 @@
     "ruby-lsp@claude-plugins-official": true,
     "superpowers@superpowers-marketplace": false,
     "swift-lsp@claude-plugins-official": true,
-    "worktrunk@worktrunk": true
+    "worktrunk@worktrunk": true,
+    "setup-fastlane@fastlane-skill": true,
+    "beta@fastlane-skill": true,
+    "release@fastlane-skill": true,
+    "match@fastlane-skill": true,
+    "snapshot@fastlane-skill": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -202,6 +205,12 @@
       "source": {
         "source": "github",
         "repo": "dpearson2699/swift-ios-skills"
+      }
+    },
+    "fastlane-skill": {
+      "source": {
+        "source": "github",
+        "repo": "greenstevester/fastlane-skill"
       }
     }
   },

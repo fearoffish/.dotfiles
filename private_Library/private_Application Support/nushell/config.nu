@@ -123,6 +123,20 @@ $env.config.abbreviations = {
 
 alias lg = lazygit
 
+# Run fastlane with secrets injected from 1Password, so no passphrase, keychain password or
+# App Store Connect key ever sits on disk. `fastlane/.env.op` holds only op:// references.
+#
+# Falls back to plain fastlane in repos that have not moved to `op run` yet, so this is safe
+# to use everywhere. `--wrapped` keeps fastlane's own arguments intact, both flags
+# (`--verbose`) and lane options (`skip_build_increment:true`).
+def --wrapped fl [...args] {
+  if ("fastlane/.env.op" | path exists) {
+    ^op run --env-file fastlane/.env.op -- fastlane ...$args
+  } else {
+    ^fastlane ...$args
+  }
+}
+
 # Rewrite every commit on the current branch so each one gets signed (1Password SSH key).
 def gsign [base?: string] {
   let onto = if ($base | is-not-empty) { $base } else {
