@@ -20,6 +20,7 @@
 {{- end }}
 
 [merge]
+    conflictstyle = zdiff3
 {{- if .is_macos }}
     tool = Kaleidoscope
 [mergetool "Kaleidoscope"]
@@ -36,7 +37,9 @@
     autoSetupRemote = true
 
 [core]
-    excludesFile = ~/.gitignore
+    excludesFile = ~/.config/git/ignore
+    hooksPath = ~/.config/git/hooks
+    pager = delta
 {{- if .is_macos }}
     editor = zed --wait
 {{- else }}
@@ -63,3 +66,22 @@
 
 [pull]
     rebase = false
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    dark = true
+    syntax-theme = Monokai Extended
+    side-by-side = true
+    line-numbers = true
+    hyperlinks = true
+    hyperlinks-file-link-format = zed://file/{path}:{line}
+{{- if .is_macos }}
+
+[safe]
+    directory = /Users/Shared/sv-{{ .username }}/repositories/*
+    directory = /Users/Shared/sv-{{ .username }}/worktrees/*
+    directory = /Users/Shared/sv-{{ .username }}/worktrees/*/*
+{{- end }}
