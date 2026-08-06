@@ -1,8 +1,8 @@
-{{- if .is_macos }}
+{{- if .is_macos -}}
 /opt/homebrew/bin/brew shellenv | source
 # Use 1Password SSH agent
 set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
-{{- else }}
+{{- else -}}
 /home/linuxbrew/.linuxbrew/bin/brew shellenv | source
 # Use 1Password SSH agent
 set -gx SSH_AUTH_SOCK ~/.1password/agent.sock
@@ -11,31 +11,15 @@ set -gx SSH_AUTH_SOCK ~/.1password/agent.sock
 # Add ~/.local/bin to PATH
 fish_add_path -g ~/.local/bin
 
-if type -q zoxide
-    if not test -r $__fish_cache_dir/zoxide_init.fish
-        zoxide init fish >$__fish_cache_dir/zoxide_init.fish
-    end
-    source $__fish_cache_dir/zoxide_init.fish
-end
-
-# Initialize atuin.
-if type -q atuin
-    set -gx ATUIN_NOBIND "true"
-    atuin init fish | source
-
-    # Bind atuin after fish is fully initialized
-    bind \cr _atuin_search
-    bind -M insert \cr _atuin_search
-    bind up _atuin_bind_up
-    bind -M insert up _atuin_bind_up
-end
-
 # Disable new user greeting.
 set fish_greeting
 
-# Initialize starship.
+# AWS defaults
+set -gx AWS_PROFILE staging
+set -gx AWS_REGION eu-west-1
+
+# Initialize starship. Config lives at the default ~/.config/starship.toml.
 if type -q starship
-    set -gx STARSHIP_CONFIG $__fish_config_dir/themes/starship.toml
     starship init fish | source
 end
 
@@ -45,5 +29,10 @@ else
     mise activate fish --shims | source
 end
 
-# Set the claude-code model
-set -gx ANTHROPIC_MODEL "claude-opus-4-5-20251101"
+set -gx HOMEBREW_NO_ENV_HINTS 1
+
+# Set our editors
+set -xg EDITOR 'zed --wait'
+
+# Add bun binary location
+fish_add_path ~/.bun/bin

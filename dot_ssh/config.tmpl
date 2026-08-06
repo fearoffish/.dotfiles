@@ -1,3 +1,9 @@
+Include ~/.ssh/conductor_config
+
+Include ~/.colima/ssh_config
+
+Include ~/.ssh/1Password/config
+
 # 1Password SSH Agent (macOS)
 Host *
 {{- if .is_macos }}
@@ -5,3 +11,7 @@ Host *
 {{- else }}
     IdentityAgent ~/.1password/agent.sock
 {{- end }}
+
+Host ec2-18-201-231-60.eu-west-1.compute.amazonaws.com
+    PubkeyAcceptedKeyTypes=+ssh-rsa
+    HostKeyAlgorithms=+ssh-rsa
