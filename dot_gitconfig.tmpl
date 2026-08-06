@@ -81,7 +81,7 @@
 {{- if .is_macos }}
 
 [safe]
-    directory = /Users/Shared/sv-{{ .username }}/repositories/*
-    directory = /Users/Shared/sv-{{ .username }}/worktrees/*
-    directory = /Users/Shared/sv-{{ .username }}/worktrees/*/*
+    directory = /Users/Shared/sv-{{ .chezmoi.username }}/repositories/*
+    directory = /Users/Shared/sv-{{ .chezmoi.username }}/worktrees/*
+    directory = /Users/Shared/sv-{{ .chezmoi.username }}/worktrees/*/*
 {{- end }}
