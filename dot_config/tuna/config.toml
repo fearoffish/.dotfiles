@@ -188,19 +188,6 @@ label = 'Aerospace'
     type = 'group'
 
         [[comboMode.bindings.destination.bindings]]
-        key = 'c'
-
-            [comboMode.bindings.destination.bindings.destination]
-            type = 'command'
-
-                [comboMode.bindings.destination.bindings.destination.command]
-                actionIdentifier = 'tuna.common-actions/open-url'
-                behavior = 'run'
-                presentation = 'automatic'
-                subjectIdentifiers = [ 'url:raycast://extensions/raycast/window-management/center' ]
-                type = 'savedCommand'
-
-        [[comboMode.bindings.destination.bindings]]
         key = 'e'
         label = 'workspace e'
 

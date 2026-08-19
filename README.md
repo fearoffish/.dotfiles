@@ -42,7 +42,7 @@ chezmoi apply
 ### From Brewfile
 - **Development tools**: neovim, fish shell, starship, mise, docker, etc.
 - **CLI utilities**: bat, fzf, ripgrep, eza, zoxide, lazygit, etc.
-- **Desktop apps** (macOS): iTerm2, Ghostty, Kitty, Raycast, Zed, 1Password, etc.
+- **Desktop apps** (macOS): iTerm2, Ghostty, Kitty, Tuna, Zed, 1Password, etc.
 - **Fonts**: Nerd Fonts, JetBrains Mono, Iosevka, etc.
 - **Mac App Store apps** (via `mas`): Things, Keynote, Logic Pro, etc.
 
