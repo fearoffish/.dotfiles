@@ -1,0 +1,34 @@
+#!/bin/sh
+# Point hunk at the light or dark palette before handing off to the real
+# binary, so its diff colours follow the system appearance.
+set -eu
+
+CONFIG_DIR="$HOME/.config/hunk"
+
+if is-this-dark-mode; then
+    SOURCE="$CONFIG_DIR/config.dark.toml"
+else
+    SOURCE="$CONFIG_DIR/config.light.toml"
+fi
+
+if [ -f "$SOURCE" ]; then
+    temporary=$(mktemp "$CONFIG_DIR/config.toml.XXXXXX")
+    trap 'rm -f "$temporary"' EXIT HUP INT TERM
+    cp "$SOURCE" "$temporary"
+    mv -f "$temporary" "$CONFIG_DIR/config.toml"
+    trap - EXIT HUP INT TERM
+fi
+
+# Find the real hunk, skipping this wrapper.
+REAL_HUNK=${REAL_HUNK:-}
+if [ -z "$REAL_HUNK" ]; then
+    self=$(command -v hunk 2>/dev/null && realpath "$(command -v hunk)")
+    REAL_HUNK=$(which -a hunk | while IFS= read -r candidate; do
+        [ "$(realpath "$candidate")" = "$(realpath "$0")" ] && continue
+        printf '%s\n' "$candidate"
+        break
+    done)
+fi
+
+[ -n "$REAL_HUNK" ] || { echo "hunk: real executable not found; set REAL_HUNK" >&2; exit 127; }
+exec "$REAL_HUNK" "$@"

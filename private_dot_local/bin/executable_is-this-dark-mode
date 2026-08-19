@@ -1,0 +1,2 @@
+#!/bin/sh
+[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]
