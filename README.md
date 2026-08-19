@@ -9,8 +9,8 @@ Personal dotfiles managed by [chezmoi](https://www.chezmoi.io/), for macOS.
 Clone the repo and run one script:
 
 ```bash
-git clone https://github.com/fearoffish/.dotfiles.git ~/.local/share/chezmoi
-cd ~/.local/share/chezmoi && ./setup.sh
+git clone https://github.com/fearoffish/.dotfiles.git ~/a/dotfiles
+cd ~/a/dotfiles && ./setup.sh
 ```
 
 It walks through, in order:
@@ -115,13 +115,13 @@ If you've installed packages manually with `brew install` and want to update you
 
 ```bash
 # Dump all currently installed packages to Brewfile
-brew bundle dump --file=~/.local/share/chezmoi/Brewfile --force
+brew bundle dump --file=~/a/dotfiles/Brewfile --force
 
 # Review the changes
 chezmoi diff
 
 # Add and commit the updated Brewfile
-cd ~/.local/share/chezmoi
+cd ~/a/dotfiles
 git add Brewfile
 git commit -m "Update Brewfile with new packages"
 git push
@@ -142,7 +142,7 @@ chezmoi edit Brewfile
 # (add the line: brew "new-tool")
 
 # Commit the change
-cd ~/.local/share/chezmoi
+cd ~/a/dotfiles
 git add Brewfile
 git commit -m "Add new-tool to Brewfile"
 git push

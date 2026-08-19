@@ -2,8 +2,8 @@
 #
 # One-shot setup for a new Mac.
 #
-#   git clone https://github.com/fearoffish/.dotfiles.git ~/.local/share/chezmoi
-#   cd ~/.local/share/chezmoi && ./setup.sh
+#   git clone https://github.com/fearoffish/.dotfiles.git ~/a/dotfiles
+#   cd ~/a/dotfiles && ./setup.sh
 #
 # Safe to re-run: every step checks before it acts.
 
