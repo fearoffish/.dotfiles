@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 export TRANSPARENT=0x00000000
-export BAR_COLOR=$TRANSPARENT
 
 # Appearance palettes. The original colors are the dark palette; the light
 # palette keeps the same roles with darker, higher-contrast counterparts.
@@ -12,6 +11,7 @@ if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
   export YELLOW=0xffffe4bf
   export ORANGE=0xfff5a97f
 
+  export BAR_COLOR=0x60000000
   export TEXT_PRIMARY=0xffffffff
   export TEXT_MUTED=0xffcad3f5
   export ITEM_BG_COLOR=0x22ffffff
@@ -23,6 +23,7 @@ else
   export YELLOW=0xff9a6700
   export ORANGE=0xffc2410c
 
+  export BAR_COLOR=0x60ffffff
   export TEXT_PRIMARY=0xff1e1e2e
   export TEXT_MUTED=0xff666666
   export ITEM_BG_COLOR=0x1f000000
