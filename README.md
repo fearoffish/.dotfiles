@@ -177,9 +177,7 @@ op signin
 # Verify
 op whoami
 
-# Enable SSH agent in 1Password app preferences
-# Then run:
-./scripts/setup-1password-ssh.sh
+# Then enable the SSH agent in 1Password → Settings → Developer
 ```
 
 ### Git Signing
@@ -209,8 +207,6 @@ The dotfiles automatically configure Git to use SSH signing via 1Password:
 ├── run_once_before_macos-defaults.sh.tmpl
 ├── run_onchange_install-packages.sh.tmpl
 ├── run_once_after_setup-shell.sh.tmpl
-├── scripts/
-│   └── setup-1password-ssh.sh
 └── README.md
 ```
 
