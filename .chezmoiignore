@@ -8,15 +8,16 @@
 # Lock files
 Brewfile.lock.json
 
+# Repo infrastructure, read from the source dir and never applied to home
+Brewfile
+linux-apps.txt
+scripts/
+
 # Documentation and project files
 README.md
 TODO.md
 LICENSE
 LICENSE.md
-
-# Scripts that are only for bootstrapping (not dotfiles)
-install.sh
-bootstrap.sh
 
 # Git
 .git/
