@@ -1,4 +1,3 @@
-{{- if eq .chezmoi.os "darwin" -}}
 #!/usr/bin/env bash
 
 # macOS System Defaults Configuration
@@ -85,8 +84,8 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 # Increase sound quality for Bluetooth headphones/headsets
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
-# Fix mouse acceleration
-defaults write .GlobalPreferences com.apple.mouse.scaling -1
+# Mouse tracking speed, matching the setting in daily use
+defaults write .GlobalPreferences com.apple.mouse.scaling -float 0.875
 
 ###############################################################################
 # Energy saving                                                               #
@@ -247,7 +246,7 @@ defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
 defaults write com.apple.ActivityMonitor IconType -int 5
 
 # Show all processes in Activity Monitor
-defaults write com.apple.ActivityMonitor ShowCategory -int 0
+defaults write com.apple.ActivityMonitor ShowCategory -int 100
 
 # Sort Activity Monitor results by CPU usage
 defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
@@ -305,4 +304,3 @@ for app in "Activity Monitor" \
 done
 
 echo "Done! Some changes may require a logout/restart to take effect."
-{{- end -}}
