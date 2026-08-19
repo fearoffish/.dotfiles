@@ -216,7 +216,7 @@
   },
   "alwaysThinkingEnabled": true,
   "tui": "fullscreen",
-  "skipDangerousModePermissionPrompt": false,
+  "skipDangerousModePermissionPrompt": true,
   "skipAutoPermissionPrompt": true,
   "voiceEnabled": false
 }
