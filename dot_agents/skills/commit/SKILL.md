@@ -28,8 +28,9 @@ description: Write git commit messages and manage branches. Use when asked to co
 
 - Use real newlines, not literal `\n`; pass multiline messages through
   `git commit -F -` with a heredoc.
-- Do not add agent `Co-Authored-By` lines or GPG-sign agent commits; pass
-  `-c commit.gpgsign=false` when committing.
+- Do not add agent `Co-Authored-By` lines.
+- Sign commits normally. The 1Password SSH agent holds the signing key, so
+  agent commits are signed like any other; do not pass `commit.gpgsign=false`.
 - Never `git push`. Pushing is always done by hand.
 
 ## Examples
