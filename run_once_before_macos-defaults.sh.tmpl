@@ -192,6 +192,14 @@ defaults write com.apple.dock dashboard-in-overlay -bool true
 # Don't automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
 
+# AeroSpace parks hidden windows in a screen corner, which makes Mission
+# Control draw everything tiny. Grouping by application works around it.
+defaults write com.apple.dock expose-group-apps -bool true
+
+# Turn off "Displays have separate Spaces". AeroSpace is more stable without
+# it, since the Apple APIs it uses are not Spaces-aware. Needs a logout.
+defaults write com.apple.spaces spans-displays -bool true
+
 # Remove the auto-hiding Dock delay
 defaults write com.apple.dock autohide-delay -float 0
 
