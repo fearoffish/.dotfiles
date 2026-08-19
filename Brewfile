@@ -779,8 +779,6 @@ cask "navigator"
 cask "obsidian"
 # All-in-one bookmark manager
 cask "raindropio"
-# Control your tools with a few keystrokes
-cask "raycast"
 # Web browser
 cask "safari-technology-preview"
 # Plugin for AWS CLI to start and end sessions that connect to managed instances
