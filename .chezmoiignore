@@ -2,8 +2,12 @@
 
 # macOS
 .DS_Store
+**/.DS_Store
 *.swp
 *.swo
+
+# Never manage a nested repo's internals. Some skills are git checkouts.
+**/.git
 
 # Lock files
 Brewfile.lock.json

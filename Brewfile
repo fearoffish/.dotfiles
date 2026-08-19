@@ -547,8 +547,6 @@ brew "rtmpdump"
 brew "rubberband"
 # Command-line tool for the Amazon S3 service
 brew "s3cmd"
-# Run AI agents isolated in a sandboxed macOS user account
-brew "sandvault"
 # Database of common MIME types
 brew "shared-mime-info"
 # Command-line interface for https://speedtest.net bandwidth tests
