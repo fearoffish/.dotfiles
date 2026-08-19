@@ -379,6 +379,8 @@ brew "heroku"
 brew "httpie"
 # Portable abstraction of the hierarchical topology of modern architectures
 brew "hwloc"
+# Command-line calendar access, feeds the sketchybar event item
+brew "ical-buddy"
 # Read your tfstate or HCL to generate a graph
 brew "inframap"
 # Git-compatible distributed version control system
@@ -692,6 +694,8 @@ brew "ttscoff/thelab/mk"
 brew "withgraphite/tap/graphite"
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
+# i3-like tiling window manager for macOS, no SIP changes needed
+cask "nikitabobko/tap/aerospace"
 # Stand alone ad blocker
 cask "adguard"
 # Application uninstaller
@@ -727,6 +731,7 @@ cask "font-material-design-icons-webfont"
 cask "font-monaspice-nerd-font"
 cask "font-noto-color-emoji"
 cask "font-noto-emoji"
+cask "font-sketchybar-app-font"
 cask "font-source-code-pro-for-powerline"
 cask "font-symbols-only-nerd-font"
 cask "font-victor-mono-nerd-font"

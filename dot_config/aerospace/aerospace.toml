@@ -1,0 +1,153 @@
+# Place a copy of this config to ~/.aerospace.toml
+# After that, you can edit ~/.aerospace.toml to your liking
+
+# Config version for compatibility and deprecations
+# Fallback value (if you omit the key): config-version = 1
+config-version = 2
+
+# You can use it to add commands that run after AeroSpace startup.
+# Available commands : https://nikitabobko.github.io/AeroSpace/commands
+after-startup-command = ['exec-and-forget brew services restart sketchybar']
+
+# Start AeroSpace at login
+start-at-login = true
+
+# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# See: https://nikitabobko.github.io/AeroSpace/guide#layouts
+# The 'accordion-padding' specifies the size of accordion padding
+# You can set 0 to disable the padding feature
+accordion-padding = 20
+
+# Possible values: tiles|accordion
+default-root-container-layout = 'accordion'
+
+# Possible values: horizontal|vertical|auto
+# 'auto' means: wide monitor (anything wider than high) gets horizontal orientation,
+#               tall monitor (anything higher than wide) gets vertical orientation
+default-root-container-orientation = 'auto'
+
+# Mouse follows focus when focused monitor changes
+# Drop it from your config, if you don't like this behavior
+# See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
+# See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
+# Fallback value (if you omit the key): on-focused-monitor-changed = []
+# on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
+# Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
+# Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
+automatically-unhide-macos-hidden-apps = false
+
+# List of workspaces that should stay alive even when they contain no windows,
+# even when they are invisible.
+# This config version is only available since 'config-version = 2'
+# Fallback value (if you omit the key): persistent-workspaces = []
+persistent-workspaces = ["a1", "b1", "b2", "b3", "b4"]
+
+# Hooks
+
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
+on-focus-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_changed']
+on-mode-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_changed']
+
+# Possible values: (qwerty|dvorak|colemak)
+# See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
+[key-mapping]
+preset = 'qwerty'
+
+# Gaps between windows (inner-*) and between monitor edges (outer-*).
+# Possible values:
+# - Constant:     gaps.outer.top = 8
+# - Per monitor:  gaps.outer.top = [{ monitor.main = 16 }, { monitor."some-pattern" = 32 }, 24]
+#                 In this example, 24 is a default value when there is no match.
+#                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
+#                 See:
+#                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+[gaps]
+inner.horizontal = 8
+inner.vertical = 8
+outer.left = 8
+outer.bottom = 8
+outer.top = [
+{ monitor."built-in" = 12 },
+{ monitor."main" = 42 },
+42
+]
+outer.right = 8
+
+# 'main' binding mode declaration
+# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+# 'main' binding mode must be always presented
+# Fallback value (if you omit the key): mode.main.binding = {}
+[mode.main.binding]
+alt-h = 'focus --boundaries all-monitors-outer-frame left'
+alt-l = 'focus --boundaries all-monitors-outer-frame right'
+# alt-h = 'focus left --boundaries-action wrap-around-the-workspace'
+# alt-l = 'focus right --boundaries-action wrap-around-the-workspace'
+# alt-h = 'focus left'
+# alt-l = 'focus right'
+alt-j = 'focus down --boundaries-action wrap-around-the-workspace'
+alt-k = 'focus up --boundaries-action wrap-around-the-workspace'
+shift-alt-h = 'workspace prev'
+shift-alt-l = 'workspace next'
+
+[mode.resize.binding]
+minus = "resize smart -50"
+shift-equal = "resize smart +50"
+equal = "balance-sizes"
+esc = "mode main"
+ctrl-c = "mode main"
+enter = "mode main"
+
+# make all windows float by default
+# [[on-window-detected]]
+# check-further-callbacks = true
+# run = "layout accordion"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = "layout floating"
+
+# [[on-window-detected]]
+# if.app-id = 'pl.maketheweb.cleanshotx'
+# run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.brnbw.Tuna'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Preview'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.QuickTimePlayerX'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.github.Electron'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.raycast.macos'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = "layout floating"
+
+# The external display is main, the laptop screen is secondary.
+[workspace-to-monitor-force-assignment]
+a1 = "secondary"
+b1 = "main"
+b2 = "main"
+b3 = "main"
+b4 = "main"
+
+# vim: ft=toml

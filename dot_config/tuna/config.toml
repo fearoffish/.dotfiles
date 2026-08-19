@@ -1,0 +1,729 @@
+[catalogs]
+searchPriorities = []
+sortOrders = []
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'brew.packages'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.effects'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.emoji'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+[[comboMode.bindings]]
+key = 't'
+
+    [comboMode.bindings.destination]
+    type = 'command'
+
+        [comboMode.bindings.destination.command]
+        actionIdentifier = 'tuna.common-actions/open'
+        behavior = 'run'
+        presentation = 'automatic'
+        subjectIdentifiers = [ 'tuna.applications//Applications/iTerm.app' ]
+        type = 'savedCommand'
+
+[[comboMode.bindings]]
+key = 'f'
+
+    [comboMode.bindings.destination]
+    type = 'command'
+
+        [comboMode.bindings.destination.command]
+        actionIdentifier = 'tuna.common-actions/open'
+        behavior = 'run'
+        presentation = 'automatic'
+        subjectIdentifiers = [ 'path:/System/Library/CoreServices/Finder.app' ]
+        type = 'savedCommand'
+
+[[comboMode.bindings]]
+key = 'm'
+
+    [comboMode.bindings.destination]
+    type = 'command'
+
+        [comboMode.bindings.destination.command]
+        actionIdentifier = 'tuna.common-actions/open'
+        behavior = 'run'
+        presentation = 'automatic'
+        subjectIdentifiers = [ 'path:/System/Applications/Messages.app' ]
+        type = 'savedCommand'
+
+[[comboMode.bindings]]
+key = 'n'
+
+    [comboMode.bindings.destination]
+    type = 'command'
+
+        [comboMode.bindings.destination.command]
+        actionIdentifier = 'tuna.common-actions/open'
+        behavior = 'run'
+        presentation = 'automatic'
+        subjectIdentifiers = [ 'tuna.applications//Applications/Bear.app' ]
+        type = 'savedCommand'
+
+[[comboMode.bindings]]
+key = 'd'
+
+    [comboMode.bindings.destination]
+    type = 'command'
+
+        [comboMode.bindings.destination.command]
+        actionIdentifier = 'tuna.common-actions/open'
+        behavior = 'run'
+        presentation = 'automatic'
+        subjectIdentifiers = [ 'path:/Users/jamievandyke/Downloads' ]
+        type = 'savedCommand'
+
+[[comboMode.bindings]]
+key = 'h'
+
+    [comboMode.bindings.destination]
+    type = 'command'
+
+        [comboMode.bindings.destination.command]
+        actionIdentifier = 'tuna.common-actions/open'
+        behavior = 'run'
+        presentation = 'automatic'
+        subjectIdentifiers = [ 'path:/Users/jamievandyke' ]
+        type = 'savedCommand'
+
+[[comboMode.bindings]]
+iconPath = '/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app'
+key = 'b'
+label = 'Browsers'
+
+    [comboMode.bindings.destination]
+    type = 'group'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'b'
+        label = 'Zen'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/open'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'tuna.applications//Applications/Zen.app' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 's'
+        label = 'Safari'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/open'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'tuna.applications//System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'c'
+        label = 'Chrome'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/open'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'tuna.applications//Applications/Google Chrome.app' ]
+                type = 'savedCommand'
+
+[[comboMode.bindings]]
+key = 'o'
+label = 'Orchestrator'
+
+    [comboMode.bindings.destination]
+    type = 'command'
+
+        [comboMode.bindings.destination.command]
+        actionIdentifier = 'tuna.common-actions/open'
+        behavior = 'run'
+        presentation = 'automatic'
+        subjectIdentifiers = [ 'tuna.applications//Applications/Agent Orchestrator.app' ]
+        type = 'savedCommand'
+
+[[comboMode.bindings]]
+key = 'l'
+label = 'Links'
+
+    [comboMode.bindings.destination]
+    type = 'group'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'a'
+        label = 'AWS Console'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'url'
+
+                [comboMode.bindings.destination.bindings.destination.url]
+                relative = 'https://accounts.google.com/o/saml2/initsso?idpid=C041a81td&spid=432877161643&forceauthn=false'
+
+[[comboMode.bindings]]
+iconPath = 'rectangle.grid.2x2'
+key = 'w'
+label = 'Aerospace'
+
+    [comboMode.bindings.destination]
+    type = 'group'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'c'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/open-url'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'url:raycast://extensions/raycast/window-management/center' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'e'
+        label = 'workspace e'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace workspace b3' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'f'
+        label = 'fullscreen'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace fullscreen && sketchybar --trigger aerospace_mode_changed' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'F'
+        label = 'flatten-workspace-tree'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [
+                    'text:/opt/homebrew/bin/aerospace flatten-workspace-tree && sketchybar --trigger aerospace_mode_changed'
+                ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'j'
+        label = 'join-with'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'group'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'h'
+                label = 'left'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace join-with left' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'j'
+                label = 'down'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace join-with down' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'k'
+                label = 'up'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace join-with up' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'l'
+                label = 'right'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace join-with right' ]
+                        type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'l'
+        label = 'layout'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'group'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'a'
+                label = 'accordion'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [
+                            'text:/opt/homebrew/bin/aerospace layout accordion horizontal vertical && sketchybar --trigger aerospace_mode_changed'
+                        ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'f'
+                label = 'floating'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [
+                            'text:/opt/homebrew/bin/aerospace layout floating tiling && sketchybar --trigger aerospace_mode_changed'
+                        ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 't'
+                label = 'tiles'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [
+                            'text:/opt/homebrew/bin/aerospace layout tiles vertical horizontal && sketchybar --trigger aerospace_mode_changed'
+                        ]
+                        type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'm'
+        label = 'move'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'group'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'E'
+                label = 'move-node-to-workspace b3'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace move-node-to-workspace b3' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'e'
+                label = 'move-node-to-workspace b3'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace move-node-to-workspace b3 --focus-follows-window' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'h'
+                label = 'left'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace move left' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'j'
+                label = 'down'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace move down' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'k'
+                label = 'up'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace move up' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'l'
+                label = 'right'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace move right' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'Q'
+                label = 'move-node-to-workspace b1'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace move-node-to-workspace b1' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'q'
+                label = 'move-node-to-workspace b1'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace move-node-to-workspace b1 --focus-follows-window' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'R'
+                label = 'move-node-to-workspace b4'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace move-node-to-workspace b4' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'r'
+                label = 'move-node-to-workspace b4'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace move-node-to-workspace b4 --focus-follows-window' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'T'
+                label = 'move-node-to-workspace a1'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace move-node-to-workspace a1' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 't'
+                label = 'move-node-to-workspace a1'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace move-node-to-workspace a1 --focus-follows-window' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'W'
+                label = 'move-node-to-workspace b2'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace move-node-to-workspace b2' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'w'
+                label = 'move-node-to-workspace b2'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace move-node-to-workspace b2 --focus-follows-window' ]
+                        type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'q'
+        label = 'workspace q'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace workspace b1' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'R'
+        label = 'reload-config'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace reload-config' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'r'
+        label = 'workspace r'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace workspace b4' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 's'
+        label = 'mode resize'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace mode resize && sketchybar --trigger aerospace_mode_changed' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 't'
+        label = 'workspace t'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace workspace a1' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'w'
+        label = 'workspace w'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/opt/homebrew/bin/aerospace workspace b2' ]
+                type = 'savedCommand'
+
+[hotkeys.app.activate]
+carbonKeyCode = 49
+carbonModifiers = 256
+
+[hotkeys.app.comboMode]
+carbonKeyCode = 38
+carbonModifiers = 6912
+
+[hotkeys.app.dictation]
+carbonKeyCode = 80
+carbonModifiers = 0
+
+[[hotkeys.custom]]
+id = '40D93EE3-3DD0-4BDD-B026-19995845BAC8'
+
+    [hotkeys.custom.command]
+    actionIdentifier = 'tuna.common-actions/browse'
+    behavior = 'run'
+    presentation = 'show'
+    subjectIdentifiers = [ 'tuna.clipboard/clipboard.history.root' ]
+    type = 'savedCommand'
+
+    [hotkeys.custom.shortcut]
+    carbonKeyCode = 39
+    carbonModifiers = 6912
+
+[settings]
+comboModeDoublePressTrigger = 'leftCommand'
+comboModeTriggerType = 'doublePress'
+dictationActivationMode = 'toggle'
+dictationWindowPosition = 'bottomCenter'
+resultListNavigationBindings = 'vimStyle'
+screenPreference = 'primary'
+shortcutDisplayUsesHyperSymbol = false
+spacebarBehavior = 'switchToTextMode'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'AWS Console'
+requiresInput = true
+template = 'https://accounts.google.com/o/saml2/initsso?idpid=C041a81td&spid=432877161643&forceauthn=false'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'Amazon'
+requiresInput = true
+template = 'https://www.amazon.co.uk/s?k={{input}}&s=review-rank'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'GitHub'
+requiresInput = true
+template = 'https://github.com/search?q={{input}}'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'Kagi'
+requiresInput = true
+template = 'https://www.kagi.com/search?q={{input}}'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'YouTube'
+requiresInput = true
+template = 'https://www.youtube.com/results?search_query={{input}}'
+
+[[catalogSettings]]
+catalogIdentifier = 'com.brnbw.tuna.plugins.mymind'
+
+    [catalogSettings.values]
+    AccessLevel = 'full-access'
+    KeyID = 'ey986l1gRv6hGGJyMyamkW'
+
+[[catalogSettings]]
+catalogIdentifier = 'tuna.prompts'
+
+    [catalogSettings.values]
+    Provider = 'apple'
