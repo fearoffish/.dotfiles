@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+#
+# ~/.agents/skills is the single source of truth for agent skills.
+# Claude Code and pi each read their own directory, so both get symlinks
+# pointing back at the shared store.
+#
+# Re-runs whenever a skill is added or removed, because the list below
+# is part of this script's contents.
+#
+# skills: {{ range (glob (printf "%s/dot_agents/skills/*" .chezmoi.sourceDir)) }}{{ base . }} {{ end }}
+
+set -uo pipefail
+
+SHARED="$HOME/.agents/skills"
+CLAUDE_DIR="$HOME/.claude/skills"
+PI_DIR="$HOME/.pi/agent/skills"
+
+[ -d "$SHARED" ] || { echo "no $SHARED, nothing to link"; exit 0; }
+
+linked=0
+pruned=0
+
+link_into() {
+    local target_dir="$1" prefix="$2" link_name="$3" rel="$4"
+    [ -d "$target_dir" ] || return 0
+    local link="$target_dir/$link_name"
+    [ -L "$link" ] && [ -e "$link" ] && return 0
+    [ -e "$link" ] && [ ! -L "$link" ] && return 0   # never clobber a real directory
+    ln -sfn "$prefix$rel" "$link"
+    linked=$((linked + 1))
+}
+
+# Top-level skills, plus one level of nesting for containers like xcode-skills
+# that hold several skills and have no SKILL.md of their own.
+for dir in "$SHARED"/*/; do
+    [ -d "$dir" ] || continue
+    name="$(basename "$dir")"
+    if [ -f "$dir/SKILL.md" ]; then
+        link_into "$CLAUDE_DIR" "../../" "$name" ".agents/skills/$name"
+        link_into "$PI_DIR" "../../../" "$name" ".agents/skills/$name"
+    else
+        for sub in "$dir"*/; do
+            [ -f "$sub/SKILL.md" ] || continue
+            subname="$(basename "$sub")"
+            link_into "$CLAUDE_DIR" "../../" "$subname" ".agents/skills/$name/$subname"
+            link_into "$PI_DIR" "../../../" "$subname" ".agents/skills/$name/$subname"
+        done
+    fi
+done
+
+# Drop links whose skill has gone away.
+for d in "$CLAUDE_DIR" "$PI_DIR"; do
+    [ -d "$d" ] || continue
+    for link in "$d"/*; do
+        [ -L "$link" ] || continue
+        [ -e "$link" ] && continue
+        rm -f "$link"
+        pruned=$((pruned + 1))
+    done
+done
+
+echo "skills: $linked linked, $pruned stale removed"

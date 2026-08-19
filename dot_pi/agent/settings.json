@@ -1,0 +1,7 @@
+{
+  "packages": [
+    "npm:pi-hide-providers"
+  ],
+  "lastChangelogVersion": "0.80.6",
+  "theme": "dark"
+}
