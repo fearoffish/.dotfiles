@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+#
+# Verify the 1Password SSH agent chain end to end.
+#
+# Prints one line per check and, for anything failing, the exact thing to do
+# about it. Exits 0 only when every check passes, so it is safe to loop on.
+
+set -uo pipefail
+
+AGENT_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+AGENT_TOML="$HOME/.config/1Password/ssh/agent.toml"
+
+# Work regardless of which shell invoked us, or how early in setup we are.
+export SSH_AUTH_SOCK="$AGENT_SOCK"
+
+GREEN=$'\033[0;32m'; RED=$'\033[0;31m'; DIM=$'\033[2m'; NC=$'\033[0m'
+FAILED=0
+
+pass() { printf '  %s✓%s %s\n' "$GREEN" "$NC" "$1"; }
+fail() {
+    printf '  %s✗%s %s\n' "$RED" "$NC" "$1"
+    printf '    %s→ %s%s\n' "$DIM" "$2" "$NC"
+    FAILED=$((FAILED + 1))
+}
+
+echo "1Password SSH agent check"
+echo
+
+# ---------------------------------------------------------------- installed --
+if [ -d "/Applications/1Password.app" ]; then
+    pass "1Password app installed"
+else
+    fail "1Password app not installed" "brew install --cask 1password"
+fi
+
+if command -v op >/dev/null 2>&1; then
+    pass "1Password CLI installed"
+else
+    fail "1Password CLI not installed" "brew install --cask 1password-cli"
+fi
+
+# -------------------------------------------------------------------- agent --
+if [ -S "$AGENT_SOCK" ]; then
+    pass "agent socket present"
+else
+    fail "agent socket missing" \
+         "open 1Password, sign in, then Settings > Developer > Use the SSH agent"
+fi
+
+KEY_COUNT=0
+if ssh-add -l >/dev/null 2>&1; then
+    KEY_COUNT=$(ssh-add -l 2>/dev/null | grep -c .)
+    pass "agent is serving $KEY_COUNT key(s)"
+elif [ -S "$AGENT_SOCK" ]; then
+    fail "agent has no keys" "unlock 1Password, and check the vaults in $AGENT_TOML"
+fi
+
+# ---------------------------------------------------------------- dotfiles ---
+if [ -f "$AGENT_TOML" ]; then
+    VAULTS=$(grep -c '^\[\[ssh-keys\]\]' "$AGENT_TOML" 2>/dev/null || echo 0)
+    pass "agent.toml present, enabling $VAULTS vault(s)"
+else
+    fail "agent.toml missing" "chezmoi apply, then quit and reopen 1Password"
+fi
+
+SIGNERS=$(git config --global --get gpg.ssh.allowedSignersFile 2>/dev/null || true)
+SIGNERS="${SIGNERS/#\~/$HOME}"
+if [ -n "$SIGNERS" ] && [ -f "$SIGNERS" ]; then
+    pass "allowed signers file present"
+else
+    fail "allowed signers file missing" "chezmoi apply"
+fi
+
+# ------------------------------------------------------------ signing key ----
+SIGNING_KEY=$(git config --global --get user.signingkey 2>/dev/null || true)
+if [ -z "$SIGNING_KEY" ]; then
+    fail "git has no signing key configured" "chezmoi apply"
+elif [ "$KEY_COUNT" -gt 0 ]; then
+    WANT=$(printf '%s\n' "$SIGNING_KEY" | ssh-keygen -lf - 2>/dev/null | awk '{print $2}')
+    if [ -n "$WANT" ] && ssh-add -l 2>/dev/null | awk '{print $2}' | grep -qxF "$WANT"; then
+        pass "git signing key is loaded in the agent"
+    else
+        fail "git signing key is not in the agent" \
+             "check the key's vault is listed in $AGENT_TOML, then reopen 1Password"
+    fi
+fi
+
+# -------------------------------------------------------------- github ------
+if [ "$KEY_COUNT" -gt 0 ]; then
+    GH=$(ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10 \
+            -T git@github.com 2>&1 || true)
+    if printf '%s' "$GH" | grep -q "successfully authenticated"; then
+        pass "GitHub accepts the key"
+    else
+        fail "GitHub did not authenticate" \
+             "add the public key at https://github.com/settings/keys"
+    fi
+fi
+
+echo
+if [ "$FAILED" -eq 0 ]; then
+    printf '%sAll checks passed.%s\n' "$GREEN" "$NC"
+else
+    printf '%s%d check(s) failed.%s Fix the above, then run 1p-check again.\n' \
+        "$RED" "$FAILED" "$NC"
+fi
+exit "$FAILED"

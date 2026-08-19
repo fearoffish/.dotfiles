@@ -4,35 +4,31 @@ Personal dotfiles managed by [chezmoi](https://www.chezmoi.io/), for macOS.
 
 ## 🚀 Quick Start
 
-### Fresh Machine Setup (Recommended)
+### Fresh Machine Setup
 
-On a brand new machine, run this single command:
+Clone the repo and run one script:
 
 ```bash
-# Bootstrap everything from GitHub
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply fearoffish
+git clone https://github.com/fearoffish/.dotfiles.git ~/.local/share/chezmoi
+cd ~/.local/share/chezmoi && ./setup.sh
 ```
 
-Or if you prefer the full GitHub URL:
+It walks through, in order:
+
+1. Xcode command line tools
+2. Homebrew
+3. A pause to sign in to the App Store, so the `mas` apps are not skipped
+4. Every package in the Brewfile, which takes a while and needs no input
+5. A pause to sign in to 1Password and turn on its SSH agent
+6. Dotfiles, macOS defaults, and fish as the login shell
+7. `1p-check`, looping until the 1Password chain verifies
+
+Safe to re-run. Every step checks before it acts.
+
+### On a machine that is already set up
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/fearoffish/.dotfiles.git
-```
-
-This will automatically:
-1. Install chezmoi
-2. Clone your dotfiles
-3. Install Homebrew
-4. Install essential tools (git, curl, wget, 1Password CLI)
-5. Configure macOS system defaults (if on macOS)
-6. Apply all dotfiles to your home directory
-7. Install all packages from Brewfile
-8. Set fish as your default shell
-
-### If You Already Have Chezmoi Installed
-
-```bash
-chezmoi init --apply fearoffish/.dotfiles
+chezmoi apply
 ```
 
 ## 📦 What Gets Installed
@@ -168,40 +164,48 @@ Edit with: `chezmoi edit-config`
 
 ## 🔐 1Password Setup
 
-### Initial Setup
+1Password's own settings are tamper-protected, so turning on the SSH agent
+cannot be scripted. Everything either side of it is:
+
+- `.config/1Password/ssh/agent.toml` picks which vaults offer keys
+- `.ssh/config` points `IdentityAgent` at the agent socket
+- `.ssh/allowed_signers` and `.gitconfig` wire up SSH commit signing
+
+After signing in, turn on **Settings → Developer → Use the SSH agent**, then
+quit and reopen 1Password so it re-reads `agent.toml`.
+
+### Checking it works
 
 ```bash
-# Sign in to 1Password
-op signin
-
-# Verify
-op whoami
-
-# Then enable the SSH agent in 1Password → Settings → Developer
+1p-check
 ```
 
-### Git Signing
+Verifies the whole chain: socket, loaded keys, `agent.toml`, allowed signers,
+that Git's signing key is actually in the agent, and that GitHub accepts it.
+Prints a fix for anything that fails, and exits non-zero, so it is safe to
+loop on.
 
-The dotfiles automatically configure Git to use SSH signing via 1Password:
-
-1. Add your SSH key to 1Password
-2. Enable SSH agent in 1Password preferences
-3. Add your public key to GitHub/GitLab
-4. Commits will be automatically signed
+Note that commits are signed, so `git commit` and any `chezmoi add` or
+`chezmoi edit` will fail until this passes.
 
 ## 📂 File Structure
 
 ```
 .dotfiles/
-├── .chezmoi.toml.tmpl                    # Chezmoi config with platform detection
-├── .chezmoiignore                        # Files to ignore
+├── setup.sh                              # Entry point for a new Mac
+├── .chezmoi.toml.tmpl                    # Name, email, editor, git
+├── .chezmoiignore                        # Repo files never applied to home
 ├── Brewfile                              # Package definitions
 ├── dot_gitconfig.tmpl                    # Git configuration
-├── dot_ssh/
-│   └── config.tmpl                       # SSH configuration
+├── private_dot_ssh/
+│   ├── config                            # SSH configuration
+│   └── allowed_signers                   # Public keys trusted for signing
+├── private_dot_local/bin/
+│   └── executable_1p-check               # Verifies the 1Password SSH chain
 ├── dot_config/
 │   ├── fish/                             # Fish shell config
 │   ├── kitty/                            # Kitty terminal config
+│   ├── private_1Password/ssh/            # Which vaults offer SSH keys
 │   └── ...
 ├── run_once_before_install-prerequisites.sh.tmpl
 ├── run_once_before_macos-defaults.sh.tmpl

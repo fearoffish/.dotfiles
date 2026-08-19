@@ -10,6 +10,7 @@ Brewfile.lock.json
 
 # Repo infrastructure, read from the source dir and never applied to home
 Brewfile
+setup.sh
 
 # Documentation and project files
 README.md
