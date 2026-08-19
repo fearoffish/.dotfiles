@@ -1,6 +1,6 @@
 # Chezmoi Dotfiles
 
-Personal dotfiles managed by [chezmoi](https://www.chezmoi.io/), designed to work seamlessly across macOS and Linux machines.
+Personal dotfiles managed by [chezmoi](https://www.chezmoi.io/), for macOS.
 
 ## 🚀 Quick Start
 
@@ -38,7 +38,7 @@ chezmoi init --apply fearoffish/.dotfiles
 ## 📦 What Gets Installed
 
 ### Automatically Installed Prerequisites
-- **Homebrew**: Package manager for macOS/Linux
+- **Homebrew**: Package manager
 - **1Password CLI**: Secure credential management
 - **Essential tools**: git, curl, wget
 - **Xcode Command Line Tools** (macOS only)
@@ -154,15 +154,6 @@ git push
 
 ## 🔧 Configuration
 
-### Platform Detection
-
-All templates have access to these variables (from `.chezmoi.toml.tmpl`):
-
-- `is_macos`, `is_linux`
-- `is_arm64`, `is_amd64`
-- `is_laptop`, `is_desktop`
-- `is_macos_arm64`, `is_linux_amd64`, etc.
-
 ### Personal Information
 
 Your name and email are configured in `.chezmoi.toml.tmpl`:
@@ -238,12 +229,6 @@ chezmoi init --apply
 # Force re-run of run_once scripts
 rm ~/.config/chezmoi/chezmoistate.boltdb
 chezmoi apply
-```
-
-### Homebrew PATH Issues (Linux)
-
-```bash
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 ```
 
 ## 🔄 Migrating from Dotbot

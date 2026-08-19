@@ -45,17 +45,7 @@ if command_exists brew; then
 else
     log_info "Installing Homebrew..."
 
-{{- if eq .chezmoi.os "darwin" }}
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-{{- else if eq .chezmoi.os "linux" }}
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-    # Add Homebrew to PATH for Linux
-    if [ -f ~/.bashrc ]; then
-        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
-    fi
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-{{- end }}
 
     log_success "Homebrew installed successfully"
 fi
@@ -66,26 +56,9 @@ fi
 
 log_info "Installing essential packages..."
 
-{{- if eq .chezmoi.os "darwin" }}
-# macOS essentials
 if command_exists brew; then
     brew install git curl wget || log_warning "Some essential packages may have failed to install"
 fi
-{{- else if eq .chezmoi.os "linux" }}
-# Linux essentials
-if command -v apt-get >/dev/null 2>&1; then
-    sudo apt-get update
-    sudo apt-get install -y git curl wget build-essential
-elif command -v yum >/dev/null 2>&1; then
-    sudo yum install -y git curl wget gcc gcc-c++ make
-elif command -v pacman >/dev/null 2>&1; then
-    sudo pacman -S --noconfirm git curl wget base-devel
-fi
-
-if command_exists brew; then
-    brew install gcc || log_warning "gcc installation via Homebrew failed"
-fi
-{{- end }}
 
 log_success "Essential packages installed"
 
@@ -98,22 +71,11 @@ if command_exists op; then
 else
     log_info "Installing 1Password CLI..."
 
-{{- if eq .chezmoi.os "darwin" }}
     if command_exists brew; then
         brew install --cask 1password-cli || log_warning "1Password CLI installation failed"
     else
         log_warning "Homebrew not found, skipping 1Password CLI installation"
     fi
-{{- else if eq .chezmoi.os "linux" }}
-    # Install via official method for Linux
-    curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
-    echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main' | sudo tee /etc/apt/sources.list.d/1password.list
-    sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
-    curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
-    sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
-    curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
-    sudo apt update && sudo apt install -y 1password 1password-cli || log_warning "1Password CLI installation failed"
-{{- end }}
 
     if command_exists op; then
         log_success "1Password CLI installed successfully"
@@ -122,9 +84,8 @@ else
     fi
 fi
 
-{{- if eq .chezmoi.os "darwin" }}
 ###############################################################################
-# macOS specific setup
+# Xcode command line tools
 ###############################################################################
 
 # Install Xcode command line tools if not installed
@@ -132,6 +93,5 @@ if ! xcode-select -p >/dev/null 2>&1; then
     log_info "Installing Xcode command line tools..."
     xcode-select --install || log_warning "Xcode command line tools installation may have failed"
 fi
-{{- end }}
 
 log_success "Prerequisites installation complete!"

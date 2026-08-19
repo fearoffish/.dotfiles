@@ -31,12 +31,6 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Detect OS
-detect_platform() {
-    OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-    log_info "Detected platform: $OS"
-}
-
 # Setup 1Password SSH agent
 setup_1password_ssh() {
     log_info "Setting up 1Password SSH integration..."
@@ -54,18 +48,7 @@ setup_1password_ssh() {
         exit 1
     fi
 
-    case $OS in
-        darwin)
-            setup_macos_ssh
-            ;;
-        linux)
-            setup_linux_ssh
-            ;;
-        *)
-            log_error "Unsupported OS: $OS"
-            exit 1
-            ;;
-    esac
+    setup_macos_ssh
 }
 
 # Setup SSH for macOS
@@ -119,67 +102,14 @@ setup_macos_ssh() {
     fi
 }
 
-# Setup SSH for Linux
-setup_linux_ssh() {
-    log_info "Setting up 1Password SSH for Linux..."
-
-    # Check if 1Password desktop app is available
-    if ! command_exists 1password; then
-        log_warning "1Password desktop app not found."
-        log_info "For full SSH agent support on Linux, install 1Password desktop app:"
-        log_info "https://support.1password.com/install-linux/"
-        log_info ""
-        log_info "Alternatively, you can use GPG signing instead of SSH signing."
-        return
-    fi
-
-    # Set up SSH agent socket
-    SOCKET_PATH="$HOME/.1password/agent.sock"
-    if [ -S "$SOCKET_PATH" ]; then
-        log_success "1Password SSH agent socket found"
-
-        # Add to shell configuration
-        for shell_config in ~/.bashrc ~/.zshrc ~/.config/fish/config.fish; do
-            if [ -f "$shell_config" ]; then
-                if ! grep -q "SSH_AUTH_SOCK.*1password" "$shell_config"; then
-                    echo "" >> "$shell_config"
-                    echo "# 1Password SSH agent" >> "$shell_config"
-                    echo "export SSH_AUTH_SOCK=\"$SOCKET_PATH\"" >> "$shell_config"
-                    log_info "Added SSH_AUTH_SOCK to $shell_config"
-                fi
-            fi
-        done
-
-        export SSH_AUTH_SOCK="$SOCKET_PATH"
-
-        # Configure git for SSH signing
-        git config --global gpg.format ssh
-        git config --global commit.gpgsign true
-        log_success "Git configured for SSH signing"
-    else
-        log_warning "1Password SSH agent socket not found at $SOCKET_PATH"
-        log_info "Please ensure 1Password desktop app is running and SSH agent is enabled"
-    fi
-}
-
 # Test SSH setup
 test_ssh_setup() {
     log_info "Testing SSH setup..."
 
-    case $OS in
-        darwin)
-            if [ -S "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock" ]; then
-                log_success "1Password SSH agent socket found"
-                export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-            fi
-            ;;
-        linux)
-            if [ -S "$HOME/.1password/agent.sock" ]; then
-                log_success "1Password SSH agent socket found"
-                export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
-            fi
-            ;;
-    esac
+    if [ -S "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock" ]; then
+        log_success "1Password SSH agent socket found"
+        export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    fi
 
     # Test SSH agent
     if ssh-add -l >/dev/null 2>&1; then
@@ -206,7 +136,6 @@ main() {
     log_info "1Password SSH Setup"
     log_info "==================="
 
-    detect_platform
     setup_1password_ssh
     test_ssh_setup
 
@@ -221,8 +150,7 @@ main() {
     log_info ""
     log_info "Troubleshooting:"
     log_info "- Restart your terminal after setup"
-    log_info "- On macOS: Check 1Password → Preferences → Developer"
-    log_info "- On Linux: Ensure 1Password desktop app is running"
+    log_info "- Check 1Password → Settings → Developer"
 }
 
 # Run main function

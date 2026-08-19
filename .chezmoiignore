@@ -10,7 +10,6 @@ Brewfile.lock.json
 
 # Repo infrastructure, read from the source dir and never applied to home
 Brewfile
-linux-apps.txt
 scripts/
 
 # Documentation and project files
