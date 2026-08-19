@@ -1,0 +1,26 @@
+onboarding = false
+
+[ui.toast]
+delivery = "system"
+
+[theme]
+name = "catppuccin"
+auto_switch = false
+
+[[keys.command]]
+key = "prefix+shift+k"
+type = "shell"
+command = "herdr plugin action invoke open-board --plugin herdr-board"
+description = "open herdr-board kanban (overlay)"
+
+[[keys.command]]
+key = "prefix+up"
+type = "plugin_action"
+command = "cloudmanic.herdr-plus.projects"
+description = "herdr-plus: projects"
+
+[[keys.command]]
+key = "prefix+down"
+type = "plugin_action"
+command = "cloudmanic.herdr-plus.quick-actions"
+description = "herdr-plus: quick actions"

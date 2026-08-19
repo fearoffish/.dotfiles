@@ -1,0 +1,12 @@
+repo = "*"          # matches the worktree's repo name (case-insensitive)
+
+[[tabs]]
+name = "claude"
+command = "command claude"
+
+[[tabs]]
+name = "lazygit"
+command = "lazygit"
+
+[[tabs]]
+name = "terminal"              # no command — just an empty shell

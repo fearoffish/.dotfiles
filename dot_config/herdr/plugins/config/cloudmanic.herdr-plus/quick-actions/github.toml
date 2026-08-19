@@ -1,0 +1,16 @@
+# select — pick from a second fuzzy list; the choice becomes {{.Value}}
+name = "Open Repo"
+type = "select"
+command = "open https://github.com/nevayaltd/{{.Value}}"
+
+[[options]]
+label = "keeper"
+value = "keeper"
+
+[[options]]
+label = "seeker"
+value = "seeker"
+
+[[options]]
+label = "genie"
+value = "genieacs-docker"

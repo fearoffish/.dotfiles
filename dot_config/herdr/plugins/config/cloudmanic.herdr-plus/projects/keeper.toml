@@ -1,0 +1,14 @@
+name = "Keeper"
+description = "Keeper"
+working_dir = "~/a/nevaya/keeper"   # ~ and $VARS expand
+
+[[tabs]]
+name = "claude"
+command = "command claude"
+
+[[tabs]]
+name = "lazygit"
+command = "lazygit"
+
+[[tabs]]
+name = "terminal"   # no command — just an empty shell
