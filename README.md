@@ -220,8 +220,6 @@ The dotfiles automatically configure Git to use SSH signing via 1Password:
 ├── run_once_after_setup-shell.sh.tmpl
 ├── scripts/
 │   └── setup-1password-ssh.sh
-├── install.sh                            # [DEPRECATED] Legacy installer
-├── bootstrap.sh                          # [DEPRECATED] Legacy bootstrap
 └── README.md
 ```
 
