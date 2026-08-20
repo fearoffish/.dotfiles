@@ -189,7 +189,7 @@ label = 'Aerospace'
 
         [[comboMode.bindings.destination.bindings]]
         key = 'e'
-        label = 'workspace e'
+        label = 'E'
 
             [comboMode.bindings.destination.bindings.destination]
             type = 'command'
@@ -358,7 +358,7 @@ label = 'Aerospace'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
                 key = 'E'
-                label = 'move-node-to-workspace b3'
+                label = 'E'
 
                     [comboMode.bindings.destination.bindings.destination.bindings.destination]
                     type = 'command'
@@ -372,7 +372,7 @@ label = 'Aerospace'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
                 key = 'e'
-                label = 'move-node-to-workspace b3'
+                label = 'E'
 
                     [comboMode.bindings.destination.bindings.destination.bindings.destination]
                     type = 'command'
@@ -442,7 +442,7 @@ label = 'Aerospace'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
                 key = 'Q'
-                label = 'move-node-to-workspace b1'
+                label = 'Q'
 
                     [comboMode.bindings.destination.bindings.destination.bindings.destination]
                     type = 'command'
@@ -456,7 +456,7 @@ label = 'Aerospace'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
                 key = 'q'
-                label = 'move-node-to-workspace b1'
+                label = 'Q'
 
                     [comboMode.bindings.destination.bindings.destination.bindings.destination]
                     type = 'command'
@@ -470,7 +470,7 @@ label = 'Aerospace'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
                 key = 'R'
-                label = 'move-node-to-workspace b4'
+                label = 'R'
 
                     [comboMode.bindings.destination.bindings.destination.bindings.destination]
                     type = 'command'
@@ -484,7 +484,7 @@ label = 'Aerospace'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
                 key = 'r'
-                label = 'move-node-to-workspace b4'
+                label = 'R'
 
                     [comboMode.bindings.destination.bindings.destination.bindings.destination]
                     type = 'command'
@@ -498,7 +498,7 @@ label = 'Aerospace'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
                 key = 'T'
-                label = 'move-node-to-workspace a1'
+                label = 'laptop'
 
                     [comboMode.bindings.destination.bindings.destination.bindings.destination]
                     type = 'command'
@@ -512,7 +512,7 @@ label = 'Aerospace'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
                 key = 't'
-                label = 'move-node-to-workspace a1'
+                label = 'laptop'
 
                     [comboMode.bindings.destination.bindings.destination.bindings.destination]
                     type = 'command'
@@ -526,7 +526,7 @@ label = 'Aerospace'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
                 key = 'W'
-                label = 'move-node-to-workspace b2'
+                label = 'W'
 
                     [comboMode.bindings.destination.bindings.destination.bindings.destination]
                     type = 'command'
@@ -540,7 +540,7 @@ label = 'Aerospace'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
                 key = 'w'
-                label = 'move-node-to-workspace b2'
+                label = 'W'
 
                     [comboMode.bindings.destination.bindings.destination.bindings.destination]
                     type = 'command'
@@ -554,7 +554,7 @@ label = 'Aerospace'
 
         [[comboMode.bindings.destination.bindings]]
         key = 'q'
-        label = 'workspace q'
+        label = 'Q'
 
             [comboMode.bindings.destination.bindings.destination]
             type = 'command'
@@ -582,7 +582,7 @@ label = 'Aerospace'
 
         [[comboMode.bindings.destination.bindings]]
         key = 'r'
-        label = 'workspace r'
+        label = 'R'
 
             [comboMode.bindings.destination.bindings.destination]
             type = 'command'
@@ -610,7 +610,7 @@ label = 'Aerospace'
 
         [[comboMode.bindings.destination.bindings]]
         key = 't'
-        label = 'workspace t'
+        label = 'laptop'
 
             [comboMode.bindings.destination.bindings.destination]
             type = 'command'
@@ -624,7 +624,7 @@ label = 'Aerospace'
 
         [[comboMode.bindings.destination.bindings]]
         key = 'w'
-        label = 'workspace w'
+        label = 'W'
 
             [comboMode.bindings.destination.bindings.destination]
             type = 'command'
