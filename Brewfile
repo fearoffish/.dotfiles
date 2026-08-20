@@ -737,8 +737,6 @@ cask "font-victor-mono-nerd-font"
 cask "ghostty"
 # Git client
 cask "gitfox"
-# Tiling window manager with tree layouts
-cask "glide"
 # Web browser
 cask "google-chrome"
 # Tools to protect your files
