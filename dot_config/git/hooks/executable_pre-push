@@ -1,0 +1,38 @@
+#!/bin/sh
+# Global hook: refuse to push unsigned commits, then chain to the repo's own pre-push.
+
+zero=0000000000000000000000000000000000000000
+input=$(cat)
+
+if [ -n "$input" ]; then
+  printf '%s\n' "$input" | while read -r local_ref local_sha remote_ref remote_sha; do
+    [ -z "$local_sha" ] && continue
+    [ "$local_sha" = "$zero" ] && continue
+    if [ "$remote_sha" = "$zero" ]; then
+      range="$local_sha --not --remotes"
+    else
+      range="$remote_sha..$local_sha"
+    fi
+    # G only: a U is a real signature by a key that is not in allowed_signers,
+    # which is exactly the case this gate exists to catch.
+    bad=$(git log --format='%h %G? %an: %s' $range | awk '$2 != "G"')
+    if [ -n "$bad" ]; then
+      echo "push rejected ($local_ref): commits without a valid signature:" >&2
+      echo "$bad" >&2
+      echo "" >&2
+      echo "sign them with:  gsign   (signs in place, so merge commits do not replay)" >&2
+      echo "bypass once with: git push --no-verify" >&2
+      exit 1
+    fi
+  done || exit 1
+fi
+
+repo_hook="$(git rev-parse --git-dir)/hooks/pre-push"
+if [ -x "$repo_hook" ]; then
+  if [ -n "$input" ]; then
+    printf '%s\n' "$input" | "$repo_hook" "$@" || exit 1
+  else
+    "$repo_hook" "$@" </dev/null || exit 1
+  fi
+fi
+exit 0

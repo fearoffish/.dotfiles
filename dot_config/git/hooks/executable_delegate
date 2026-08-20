@@ -1,0 +1,4 @@
+#!/bin/sh
+repo_hook="$(git rev-parse --git-dir)/hooks/$(basename "$0")"
+[ -x "$repo_hook" ] && exec "$repo_hook" "$@"
+exit 0
