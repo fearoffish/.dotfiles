@@ -383,8 +383,6 @@ brew "hwloc"
 brew "ical-buddy"
 # Read your tfstate or HCL to generate a graph
 brew "inframap"
-# Git-compatible distributed version control system
-brew "jj"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Network authentication protocol
@@ -837,7 +835,6 @@ go "cmd/go"
 go "cmd/gofmt"
 go "golang.org/x/tools/gopls"
 cargo "json-mcp-server"
-cargo "starship-jj"
 uv "rich-cli"
 uv "trafilatura"
 npm "@earendil-works/pi-coding-agent"
