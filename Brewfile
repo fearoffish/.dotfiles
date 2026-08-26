@@ -629,8 +629,6 @@ brew "xvid"
 brew "yaml-language-server"
 # JavaScript package manager
 brew "yarn"
-# Feature-rich command-line audio/video downloader
-brew "yt-dlp"
 # Suite of barcodes-reading tools
 brew "zbar"
 # Pluggable terminal workspace, with terminal multiplexer as the base feature
@@ -781,8 +779,6 @@ cask "setapp"
 cask "signal"
 # Team communication and collaboration software
 cask "slack"
-# Snippet manager & text expander
-cask "snippety"
 # Sound and audio controller
 cask "soundsource"
 # Terminal for orchestrating agents
