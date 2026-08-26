@@ -49,15 +49,16 @@ sketchybar --add item appearance_observer left \
   --set appearance_observer drawing=off script="$PLUGIN_DIR/appearance.sh" \
   --subscribe appearance_observer appearance_changed
 
-for sid in b1 b2 b3 b4 a1; do
+for sid in a1 a2 a3 a4 b1 b2; do
   # Determine icon based on workspace ID
   space_icon=""
   case "$sid" in
-  a1) space_icon="T" ;;
-  b1) space_icon="Q" ;;
-  b2) space_icon="W" ;;
-  b3) space_icon="E" ;;
-  b4) space_icon="R" ;;
+  a1) space_icon="Q" ;;
+  a2) space_icon="W" ;;
+  a3) space_icon="E" ;;
+  a4) space_icon="R" ;;
+  b1) space_icon="T" ;;
+  b2) space_icon="Y" ;;
   *) space_icon="$sid" ;;
   esac
 

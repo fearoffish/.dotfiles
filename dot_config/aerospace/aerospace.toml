@@ -45,7 +45,7 @@ automatically-unhide-macos-hidden-apps = false
 # even when they are invisible.
 # This config version is only available since 'config-version = 2'
 # Fallback value (if you omit the key): persistent-workspaces = []
-persistent-workspaces = ["a1", "b1", "b2", "b3", "b4"]
+persistent-workspaces = ["a1", "a2", "a3", "a4", "b1", "b2"]
 
 # Hooks
 
@@ -138,12 +138,89 @@ run = "layout floating"
 if.app-id = 'com.apple.systempreferences'
 run = "layout floating"
 
-# The external display is main, the laptop screen is secondary.
+# Send each app to the workspace it belongs to. AeroSpace stops at the first
+# matching rule, so these must not overlap with the floating rules above.
+
+# Q: the terminal.
+
+[[on-window-detected]]
+if.app-id = 'com.googlecode.iterm2'
+run = "move-node-to-workspace a1"
+
+# W: browsers.
+
+[[on-window-detected]]
+if.app-id = 'app.zen-browser.zen'
+run = "move-node-to-workspace a2"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = "move-node-to-workspace a2"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.SafariTechnologyPreview'
+run = "move-node-to-workspace a2"
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = "move-node-to-workspace a2"
+
+# E: comms.
+
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = "move-node-to-workspace a3"
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = "move-node-to-workspace a3"
+
+[[on-window-detected]]
+if.app-id = 'org.whispersystems.signal-desktop'
+run = "move-node-to-workspace a3"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = "move-node-to-workspace a3"
+
+# R: Linear.
+
+[[on-window-detected]]
+if.app-id = 'com.linear'
+run = "move-node-to-workspace a4"
+
+# T: Xcode, on the laptop screen. Xcode-beta shares the release bundle ID.
+
+[[on-window-detected]]
+if.app-id = 'com.apple.dt.Xcode'
+run = "move-node-to-workspace b1"
+
+# Y: media, also on the laptop screen. Float them, since a video player wants
+# its own aspect ratio rather than whatever shape the tiler hands it. AeroSpace
+# has no per-workspace floating default, so this is per-app: anything else
+# moved to Y still tiles.
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Music'
+run = ["layout floating", "move-node-to-workspace b2"]
+
+[[on-window-detected]]
+if.app-id = 'com.apple.TV'
+run = ["layout floating", "move-node-to-workspace b2"]
+
+[[on-window-detected]]
+if.app-id = 'com.firecore.infuse'
+run = ["layout floating", "move-node-to-workspace b2"]
+
+# The external display is main, the laptop screen is secondary. Names sort
+# alphabetically, and 'workspace next/prev' follows that order, so the a* names
+# come first to keep the cycle reading Q W E R T Y.
 [workspace-to-monitor-force-assignment]
-a1 = "secondary"
-b1 = "main"
-b2 = "main"
-b3 = "main"
-b4 = "main"
+a1 = "main"
+a2 = "main"
+a3 = "main"
+a4 = "main"
+b1 = "secondary"
+b2 = "secondary"
 
 # vim: ft=toml
