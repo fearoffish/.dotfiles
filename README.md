@@ -205,7 +205,6 @@ Note that commits are signed, so `git commit` and any `chezmoi add` or
 │   └── executable_1p-check               # Verifies the 1Password SSH chain
 ├── dot_config/
 │   ├── fish/                             # Fish shell config
-│   ├── kitty/                            # Kitty terminal config
 │   ├── private_1Password/ssh/            # Which vaults offer SSH keys
 │   └── ...
 ├── run_once_before_install-prerequisites.sh.tmpl

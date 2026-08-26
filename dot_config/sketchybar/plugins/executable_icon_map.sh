@@ -384,9 +384,6 @@ function __icon_map() {
   "Kiro")
     icon_result=":kiro:"
     ;;
-  "kitty")
-    icon_result=":kitty:"
-    ;;
   "Kodi")
     icon_result=":kodi:"
     ;;

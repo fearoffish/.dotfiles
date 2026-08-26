@@ -757,8 +757,6 @@ cask "karabiner-elements"
 cask "keyboard-maestro"
 # ZSA keyboard firmware flasher
 cask "keymapp"
-# GPU-based terminal emulator
-cask "kitty"
 # App to manage software development and track bugs
 cask "linear"
 # Host-based application firewall
