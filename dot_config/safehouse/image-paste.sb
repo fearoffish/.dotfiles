@@ -1,0 +1,14 @@
+;; ---------------------------------------------------------------------------
+;; Image paste for Claude Code
+;;
+;; Text flavours on the pasteboard need only com.apple.pasteboard.1, which the
+;; built-in `clipboard` feature grants. Image flavours also go through
+;; HIServices, which no optional profile grants except macos-gui and
+;; chromium-headless. Both are far broader than this one service.
+;;
+;; Load with: safehouse --enable=clipboard --append-profile <this file>
+;; ---------------------------------------------------------------------------
+
+(allow mach-lookup
+    (global-name "com.apple.hiservices-xpcservice")
+)
