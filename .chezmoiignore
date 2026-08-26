@@ -11,6 +11,7 @@
 
 # Lock files
 Brewfile.lock.json
+.config/nvim/lazy-lock.json
 
 # Repo infrastructure, read from the source dir and never applied to home
 Brewfile
