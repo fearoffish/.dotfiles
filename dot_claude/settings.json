@@ -55,14 +55,6 @@
   "hooks": {
     "SessionStart": [
       {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"/Users/jamievandyke/.claude/hooks/context-mode-cache-heal.mjs\""
-          }
-        ]
-      },
-      {
         "matcher": "*",
         "hooks": [
           {
@@ -160,7 +152,7 @@
     "command": "sh ~/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "context-mode@context-mode": true,
+    "context-mode@context-mode": false,
     "context7@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
     "home-assistant-skills@home-assistant-skills": true,
@@ -217,5 +209,6 @@
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": false
+  "voiceEnabled": false,
+  "agentPushNotifEnabled": true
 }
