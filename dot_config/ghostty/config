@@ -1,16 +1,18 @@
 # Ghostty Configuration
 
-# Font Configuration
+# Font Configuration — matches iTerm2 "Default" profile (VictorMonoNFM-SemiBold 18)
 font-family = VictorMono Nerd Font Mono
-font-size = 17
+font-style = SemiBold
+font-style-italic = false
+font-size = 18
 
-# Cursor
-cursor-style = block
+# Cursor — iTerm2 Cursor Type 1 (vertical bar), blinking off
+cursor-style = bar
 cursor-style-blink = false
 
-# Window
-window-padding-x = 4
-window-padding-y = 4
+# Window — iTerm2 default margins (5 horizontal, 2 vertical)
+window-padding-x = 5
+window-padding-y = 2
 window-save-state = always
 
 # Mouse
@@ -19,45 +21,48 @@ mouse-hide-while-typing = true
 # Scrollback
 scrollback-limit = 100000
 
-# Theme - Catppuccin Mocha
-background = 1e1e2e
-foreground = cdd6f4
-selection-background = f5e0dc
-selection-foreground = 1e1e2e
-cursor-color = f5e0dc
-cursor-text = 1e1e2e
+# Theme — iTerm2 "Default" profile
+background = 212121
+foreground = f8f8f2
+selection-background = f8f8f2
+selection-foreground = 545454
+cursor-color = eceff4
+cursor-text = 282828
+
+# iTerm2 "Use Bright Bold"
+bold-color = bright
 
 # Black
-palette = 0=#45475a
-palette = 8=#585b70
+palette = 0=#21222c
+palette = 8=#545454
 
 # Red
-palette = 1=#f38ba8
-palette = 9=#f38ba8
+palette = 1=#ff5555
+palette = 9=#ff6e6e
 
 # Green
-palette = 2=#a6e3a1
-palette = 10=#a6e3a1
+palette = 2=#50fa7b
+palette = 10=#69ff94
 
 # Yellow
-palette = 3=#f9e2af
-palette = 11=#f9e2af
+palette = 3=#ffcb6b
+palette = 11=#ffcb6b
 
 # Blue
-palette = 4=#89b4fa
-palette = 12=#89b4fa
+palette = 4=#82aaff
+palette = 12=#d6acff
 
 # Magenta
-palette = 5=#f5c2e7
-palette = 13=#f5c2e7
+palette = 5=#c792ea
+palette = 13=#ff92df
 
 # Cyan
-palette = 6=#94e2d5
-palette = 14=#94e2d5
+palette = 6=#8be9fd
+palette = 14=#a4ffff
 
 # White
-palette = 7=#bac2de
-palette = 15=#a6adc8
+palette = 7=#f8f8f2
+palette = 15=#f8f8f2
 
 # macOS specific
 macos-option-as-alt = true
