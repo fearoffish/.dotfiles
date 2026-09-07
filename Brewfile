@@ -22,6 +22,7 @@ tap "keidarcy/tap", trusted: true
 tap "kejadlen/git-together", trusted: true
 tap "leg100/tap", trusted: true
 tap "masaushi/tap", trusted: true
+tap "mikker/tap", trusted: { casks: ["poof"] }
 tap "minio/stable", trusted: true
 tap "modem-dev/tap"
 tap "nikitabobko/tap", trusted: true
@@ -29,9 +30,10 @@ tap "osx-cross/arm", trusted: true
 tap "osx-cross/avr", trusted: true
 tap "overmindtech/overmind", trusted: true
 tap "rcmdnk/file", trusted: true
+tap "rjyo/moshi"
 tap "sinelaw/fresh", trusted: true
 tap "socktainer/tap", trusted: true
-tap "superset-sh/tap"
+tap "superset-sh/tap", trusted: { formulae: ["superset"] }
 tap "thecasualcoder/stable", trusted: true
 tap "ttscoff/thelab", trusted: true
 tap "voicetreelab/voicetree", trusted: true
@@ -103,8 +105,6 @@ brew "c-ares"
 brew "libnghttp2"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
-# Language Server for Bash
-brew "bash-language-server"
 # C library implementing the SSH2 protocol
 brew "libssh2"
 # C library of Git core methods that is re-entrant and linkable
@@ -203,6 +203,8 @@ brew "context7-mcp"
 brew "gmp"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
+# Tool for interacting with remote images and registries
+brew "crane"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
 # Reference implementation for the Development Containers specification
@@ -279,8 +281,6 @@ brew "fish"
 brew "libogg"
 # Free lossless audio codec
 brew "flac"
-# Command-line tools for fly.io services
-brew "flyctl"
 # Minimalistic plugin API for video effects
 brew "frei0r"
 # Monitor a directory for changes and run a shell command
@@ -385,6 +385,8 @@ brew "hwloc"
 brew "inframap"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Handy way to save and run project-specific commands
+brew "just"
 # Network authentication protocol
 brew "krb5"
 # Simple terminal UI for git commands
@@ -447,8 +449,8 @@ brew "luajit"
 brew "luarocks"
 # Bare libuv bindings for lua
 brew "luv"
-# Generate a markdown TOC (table of contents) with Remarkable
-brew "markdown-toc"
+# Utility for directing compilation
+brew "make"
 # CLI for Node.js style checker and lint tool for Markdown files
 brew "markdownlint-cli"
 # Language Server Protocol for Markdown
@@ -513,8 +515,6 @@ brew "opentofu"
 brew "parallel"
 # Terminal-based presentations using Pandoc
 brew "patat"
-# Display the PID number for a given process name
-brew "pidof"
 # Pinentry for GPG on Mac
 brew "pinentry-mac"
 # PDF rendering library (based on the xpdf-3.0 code base)
@@ -547,8 +547,6 @@ brew "rubberband"
 brew "s3cmd"
 # Database of common MIME types
 brew "shared-mime-info"
-# Command-line interface for https://speedtest.net bandwidth tests
-brew "speedtest-cli"
 # Audio codec designed for speech
 brew "speex"
 # SQL linter and auto-formatter for Humans
@@ -567,14 +565,8 @@ brew "tcl-tk"
 brew "tealdeer"
 # Terraform Language Server
 brew "terraform-ls"
-# Language Server Protocol for Terraform
-brew "terraform-lsp"
 # MCP server for Terraform
 brew "terraform-mcp-server"
-# CLI tool to generate terraform files from existing infrastructure
-brew "terraformer"
-# Detect compliance and security violations across Infrastructure as Code
-brew "terrascan"
 # Open video compression format
 brew "theora"
 # High-performance, platform-neutral implementation of VNC
@@ -643,23 +635,21 @@ brew "zizmor"
 brew "zlib"
 # Coding agent with the IDE wired in
 brew "can1357/tap/omp", trusted: true
-# Run macOS and Linux VMs on Apple Hardware
-brew "cirruslabs/cli/tart"
 # Dagger is an integrated platform to orchestrate the delivery of applications
-brew "dagger/tap/dagger"
+brew "dagger/tap/dagger", trusted: true
 # Glance at the last 3 runs of your Github Actions
 brew "dhth/tap/act3"
 # Graph-aware task management TUI for beads projects
-brew "dicklesworthstone/tap/bv"
+brew "dicklesworthstone/tap/bv", trusted: true
 # macOS sandbox wrapper for coding agents
 brew "eugene1g/safehouse/agent-safehouse", trusted: true
 # Companion server for automating iOS Simulators
-brew "facebook/fb/idb-companion"
+brew "facebook/fb/idb-companion", trusted: true
 # A window border system for macOS
 brew "felixkratz/formulae/borders", trusted: true
 brew "future-architect/tap/tftarget"
 # See where your AI coding tokens go - by task, tool, model, and project
-brew "getagentseal/codeburn/codeburn"
+brew "getagentseal/codeburn/codeburn", trusted: true
 # Custom GPG pinentry program for macOS that allows using Touch ID for fetching the password from
 # the macOS keychain.
 brew "jorgelbg/tap/pinentry-touchid"
@@ -674,10 +664,10 @@ brew "minio/stable/minio"
 brew "modem-dev/tap/hunk", trusted: true
 # Brewfile manager for Homebrew.
 brew "rcmdnk/file/brew-file"
+# Portable daemon + CLI that bridges AI coding agents to the Moshi mobile app
+brew "rjyo/moshi/moshi-hook", trusted: true
 # Docker-compatible REST API on top of Apple container
-brew "socktainer/tap/socktainer-next"
-# CLI and host-service for Superset
-brew "superset-sh/tap/superset", link: false, trusted: true
+brew "socktainer/tap/socktainer-next", trusted: true
 # A command-line utility to print the summary of the terraform plan
 brew "thecasualcoder/stable/tf-summarize"
 # Marked command line utility
@@ -686,6 +676,8 @@ brew "ttscoff/thelab/mk"
 brew "withgraphite/tap/graphite"
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
+# Command-line interface for 1Password
+cask "1password-cli"
 # Stand alone ad blocker
 cask "adguard"
 # Automatic tiling window manager, driven by macOS's own Spaces
@@ -697,7 +689,7 @@ cask "bambu-studio"
 # Open links in any browser
 cask "choosy"
 # Terminal-based AI coding assistant
-cask "claude-code"
+cask "claude-code@latest"
 # Disk space visualiser
 cask "daisydisk"
 # Voice and text chat software
@@ -720,7 +712,6 @@ cask "font-iosevka-nerd-font"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
 cask "font-material-design-icons-webfont"
-cask "font-monaspace-nerd-font"
 cask "font-monaspice-nerd-font"
 cask "font-noto-color-emoji"
 cask "font-noto-emoji"
@@ -735,8 +726,6 @@ cask "gitfox"
 cask "google-chrome"
 # Tools to protect your files
 cask "gpg-suite-no-mail"
-# Speech to text application
-cask "handy"
 # Utility to hide menu bar items
 cask "hiddenbar"
 # System monitoring app
@@ -751,10 +740,14 @@ cask "karabiner-elements"
 cask "keyboard-maestro"
 # ZSA keyboard firmware flasher
 cask "keymapp"
+# GPU-based terminal emulator
+cask "kitty"
 # App to manage software development and track bugs
 cask "linear"
 # Host-based application firewall
 cask "little-snitch"
+# Visual diff and merge tool
+cask "meld"
 # Display MIDI signals going in and out of your computer
 cask "midi-monitor"
 # Spotlight Search
@@ -765,6 +758,8 @@ cask "navigator"
 cask "ngrok"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
+# WebKit based web browser
+cask "orion"
 # All-in-one bookmark manager
 cask "raindropio"
 # Web browser
@@ -779,8 +774,8 @@ cask "signal"
 cask "slack"
 # Sound and audio controller
 cask "soundsource"
-# Terminal for orchestrating agents
-cask "superset"
+# Application for inspecting installer packages
+cask "suspicious-package"
 # Native GUI tool for relational databases
 cask "tableplus"
 # Application launcher
@@ -815,11 +810,11 @@ mas "Mela", id: 1568924476
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Save to Raindrop.io", id: 1549370672
-mas "Snippety", id: 1530751461
 mas "SponsorBlock", id: 1573461917
 mas "Super Agent", id: 1568262835
 mas "Synido TempoPAD C16", id: 6673905103
 mas "Synido TempoPad P16", id: 6448814964
+mas "System Status Monitor", id: 6753709318
 mas "TestFlight", id: 899247664
 mas "Things", id: 904280696
 mas "Xcode", id: 497799835
@@ -832,7 +827,6 @@ uv "trafilatura"
 npm "@earendil-works/pi-coding-agent"
 npm "@henkey/postgres-mcp-server"
 npm "@openwhispr/cli"
-npm "context-mode"
 npm "corepack"
 npm "firecrawl-cli"
 npm "gulp"
