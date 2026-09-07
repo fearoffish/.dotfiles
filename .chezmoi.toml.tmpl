@@ -9,6 +9,19 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 [edit]
     command = "nvim"
 
+# Merges the live file against what apply would produce, writing the result back
+# to the repo source. --merge implies --wait, so chezmoi blocks until the
+# Kaleidoscope tab is closed. No --base: ksdiff rejects a path that already
+# appears elsewhere in the file list, and the source is already the output.
+[merge]
+    command = "ksdiff"
+    args = [
+        "--merge",
+        "--output", "{{ `{{ .Source }}` }}",
+        "{{ `{{ .Destination }}` }}",
+        "{{ `{{ .Target }}` }}",
+    ]
+
 [git]
     autoCommit = false
     autoPush = false

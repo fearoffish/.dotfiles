@@ -1,11 +1,30 @@
 onboarding = false
 
+# The expanded width auto-scales from workspace names and is clamped to
+# [sidebar_min_width, sidebar_max_width]; sidebar_width alone is only the
+# starting point, so the min is what actually forces it wider.
+[ui]
+sidebar_width = 40
+sidebar_min_width = 40
+sidebar_max_width = 60
+
 [ui.toast]
 delivery = "system"
 
 [theme]
 name = "catppuccin"
 auto_switch = false
+
+# Prefix-free navigation. ctrl+alt is the one modifier family Ghostty leaves
+# alone on macOS (its ctrl+alt bindings are Linux-only), and Amethyst keeps to
+# alt+shift and ctrl+alt+shift, so neither collides. Brackets move between tabs
+# the way cmd+shift+[ / ] does in Ghostty; up/down move between workspaces,
+# matching the sidebar's vertical stack.
+[keys]
+next_tab = ["prefix+n", "ctrl+alt+]"]
+previous_tab = "ctrl+alt+["
+next_workspace = "ctrl+alt+down"
+previous_workspace = "ctrl+alt+up"
 
 [[keys.command]]
 key = "prefix+shift+k"

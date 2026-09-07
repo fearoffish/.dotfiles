@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# The macOS defaults Amethyst depends on.
+# Amethyst's own settings live in .config/amethyst/amethyst.yml; this script
+# only writes the three system keys that no config file can reach. Split out
+# of macos-defaults.sh, which wants sudo and killalls half the desktop.
+
+set -e
+
+# Colors for output
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Logging functions
+log_info() {
+    echo -e "${BLUE}[AMETHYST-DEFAULTS]${NC} $1"
+}
+
+log_success() {
+    echo -e "${GREEN}[AMETHYST-DEFAULTS]${NC} $1"
+}
+
+log_info "Writing the macOS defaults Amethyst depends on..."
+
+# Amethyst tiles each display independently, so every display needs its own
+# Spaces. AeroSpace wanted the opposite, because the Apple APIs it leaned on
+# were not Spaces-aware.
+defaults write com.apple.spaces spans-displays -bool false
+
+# Stop macOS reordering Spaces by recency. The throw-space-1..10 bindings
+# address spaces by index, so the indices have to stay put.
+defaults write com.apple.dock mru-spaces -bool false
+
+# Grouping Mission Control by application was a workaround for AeroSpace
+# parking hidden windows in a screen corner. Amethyst does not do that.
+defaults write com.apple.dock expose-group-apps -bool false
+
+killall Dock &>/dev/null || true
+
+log_success "Done. The Spaces change needs a logout to take effect."

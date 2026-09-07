@@ -36,3 +36,6 @@ LICENSE.md
 *.tmp
 *.bak
 *~
+
+# Debug logs that land in the repo root by accident
+even-terminal*.log

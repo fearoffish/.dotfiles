@@ -1,6 +1,7 @@
 /opt/homebrew/bin/brew shellenv | source
 # Use 1Password SSH agent
 set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+set -gx OP_BIOMETRIC_UNLOCK_ENABLED true
 
 # Add ~/.local/bin to PATH
 fish_add_path -g ~/.local/bin

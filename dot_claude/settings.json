@@ -52,6 +52,7 @@
     "defaultMode": "auto"
   },
   "model": "opus[1m]",
+  "outputStyle": "direct",
   "hooks": {
     "SessionStart": [
       {
@@ -165,7 +166,8 @@
     "beta@fastlane-skill": true,
     "release@fastlane-skill": true,
     "match@fastlane-skill": true,
-    "snapshot@fastlane-skill": true
+    "snapshot@fastlane-skill": true,
+    "lua-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -208,7 +210,8 @@
   "alwaysThinkingEnabled": true,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
+  "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
   "voiceEnabled": false,
-  "agentPushNotifEnabled": true
+  "skipWorkflowUsageWarning": true
 }

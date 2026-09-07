@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Point Poof at the snippets this repo manages.
+# Poof defaults to ~/Library/Application Support/Poof/snippets, which chezmoi
+# has no business writing to. The config directory is a preference, so this
+# redirects it at .config/poof, where dot_config/poof/snippets lands. Without
+# this the snippets get installed on a new machine and Poof quietly ignores
+# them.
+
+set -e
+
+# Colors for output
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Logging functions
+log_info() {
+    echo -e "${BLUE}[POOF-DEFAULTS]${NC} $1"
+}
+
+log_success() {
+    echo -e "${GREEN}[POOF-DEFAULTS]${NC} $1"
+}
+
+log_info "Pointing Poof at ~/.config/poof..."
+
+# Absolute, because Poof stores it verbatim and does not expand ~.
+defaults write com.brnbw.Poof Poof.configDirectoryPath -string {{ (printf "%s/.config/poof" .chezmoi.homeDir) | quote }}
+
+log_success "Done. Restart Poof, or use its reload-snippets command, to pick it up."

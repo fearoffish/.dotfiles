@@ -60,9 +60,10 @@ The bootstrap process runs these scripts in order:
 1. **`run_once_before_install-prerequisites.sh`** - Installs Homebrew, 1Password CLI, essential tools
 2. **`run_once_before_macos-defaults.sh`** - Configures macOS settings (keyboard repeat, Finder, Dock, etc.)
 3. **Dotfiles Applied** - All `dot_*` files are copied to your home directory
-4. **`run_once_after_aerospace-defaults.sh`** - Writes the two macOS defaults AeroSpace needs (takes effect after a logout)
-5. **`run_onchange_install-packages.sh`** - Installs packages from Brewfile (re-runs when Brewfile changes)
-6. **`run_once_after_setup-shell.sh`** - Sets fish as default shell, reminds about 1Password setup
+4. **`run_once_after_amethyst-defaults.sh`** - Writes the three macOS defaults Amethyst needs (the Spaces change takes effect after a logout). Amethyst's own settings live in `dot_config/amethyst/amethyst.yml`
+5. **`run_once_after_poof-defaults.sh`** - Points Poof at `~/.config/poof`, where its managed snippets land
+6. **`run_onchange_install-packages.sh`** - Installs packages from Brewfile (re-runs when Brewfile changes)
+7. **`run_once_after_setup-shell.sh`** - Sets fish as default shell, reminds about 1Password setup
 
 ## 🛠️ Daily Usage
 
@@ -209,7 +210,8 @@ Note that commits are signed, so `git commit` and any `chezmoi add` or
 │   └── ...
 ├── run_once_before_install-prerequisites.sh.tmpl
 ├── run_once_before_macos-defaults.sh.tmpl
-├── run_once_after_aerospace-defaults.sh.tmpl
+├── run_once_after_amethyst-defaults.sh.tmpl
+├── run_once_after_poof-defaults.sh.tmpl
 ├── run_onchange_install-packages.sh.tmpl
 ├── run_once_after_setup-shell.sh.tmpl
 └── README.md

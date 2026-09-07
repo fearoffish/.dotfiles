@@ -65,4 +65,8 @@ palette = 7=#f8f8f2
 palette = 15=#f8f8f2
 
 # macOS specific
+# Both option keys are Alt, so shell word motion (opt-arrows, opt-B/F,
+# opt-backspace) works on either. That kills opt-3, which is hash on a UK
+# layout, so bind it back explicitly.
 macos-option-as-alt = true
+keybind = alt+3=text:#

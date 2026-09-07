@@ -323,6 +323,8 @@ brew "git-delta"
 brew "git-lfs"
 # Git repository organizer & rebase workflow automation tool
 brew "git-machete"
+# Audit git repos for secrets
+brew "gitleaks"
 # Render markdown on the CLI
 brew "glow"
 # GNU implementation of the famous stream editor
@@ -379,8 +381,6 @@ brew "heroku"
 brew "httpie"
 # Portable abstraction of the hierarchical topology of modern architectures
 brew "hwloc"
-# Command-line calendar access, feeds the sketchybar event item
-brew "ical-buddy"
 # Read your tfstate or HCL to generate a graph
 brew "inframap"
 # Lightweight and flexible command-line JSON processor
@@ -657,8 +657,6 @@ brew "eugene1g/safehouse/agent-safehouse", trusted: true
 brew "facebook/fb/idb-companion"
 # A window border system for macOS
 brew "felixkratz/formulae/borders", trusted: true
-# Custom macOS statusbar with shell plugin, interaction and graph support
-brew "felixkratz/formulae/sketchybar", trusted: true
 brew "future-architect/tap/tftarget"
 # See where your AI coding tokens go - by task, tool, model, and project
 brew "getagentseal/codeburn/codeburn"
@@ -688,10 +686,10 @@ brew "ttscoff/thelab/mk"
 brew "withgraphite/tap/graphite"
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
-# i3-like tiling window manager for macOS, no SIP changes needed
-cask "nikitabobko/tap/aerospace"
 # Stand alone ad blocker
 cask "adguard"
+# Automatic tiling window manager, driven by macOS's own Spaces
+cask "amethyst"
 # Application uninstaller
 cask "appcleaner"
 # 3D model slicing software for 3D printers, maintained by Bambu Lab
@@ -722,10 +720,10 @@ cask "font-iosevka-nerd-font"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
 cask "font-material-design-icons-webfont"
+cask "font-monaspace-nerd-font"
 cask "font-monaspice-nerd-font"
 cask "font-noto-color-emoji"
 cask "font-noto-emoji"
-cask "font-sketchybar-app-font"
 cask "font-source-code-pro-for-powerline"
 cask "font-symbols-only-nerd-font"
 cask "font-victor-mono-nerd-font"
@@ -737,8 +735,6 @@ cask "gitfox"
 cask "google-chrome"
 # Tools to protect your files
 cask "gpg-suite-no-mail"
-# Desktop automation application
-cask "hammerspoon"
 # Speech to text application
 cask "handy"
 # Utility to hide menu bar items
@@ -765,6 +761,8 @@ cask "midi-monitor"
 cask "monarch"
 # Companion app for ZSA's Navigator trackpad
 cask "navigator"
+# Reverse proxy, secure introspectable tunnels to localhost
+cask "ngrok"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 # All-in-one bookmark manager
