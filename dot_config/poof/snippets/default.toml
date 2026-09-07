@@ -15,5 +15,15 @@ description = "Paste current clipboard text"
 
 [[snippets]]
 trigger = ":sig"
-replace = "Best regards,\nYour Name{{cursor}}"
+replace = "Cheers,\nJamie{{cursor}}"
 description = "Signature snippet with cursor placement"
+
+[[snippets]]
+trigger = ":bi"
+replace = "op run --env-file=.env.development -- bundle install"
+description = "Run bundle install with 1Password cli"
+
+[[snippets]]
+trigger = ":def"
+replace = "def {{prompt:Method name}}\n  echo \"{{prompt:Echo what\"}}\nend"
+description = "Create an echo method"

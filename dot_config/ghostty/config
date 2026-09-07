@@ -19,7 +19,7 @@ window-save-state = always
 mouse-hide-while-typing = true
 
 # Scrollback
-scrollback-limit = 100000
+scrollback-limit = 50000000
 
 # Theme — iTerm2 "Default" profile
 background = 212121

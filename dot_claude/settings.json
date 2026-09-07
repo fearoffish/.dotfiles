@@ -51,8 +51,7 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "opus[1m]",
-  "outputStyle": "direct",
+  "model": "claude-fable-5-1[1m]",
   "hooks": {
     "SessionStart": [
       {
@@ -167,7 +166,8 @@
     "release@fastlane-skill": true,
     "match@fastlane-skill": true,
     "snapshot@fastlane-skill": true,
-    "lua-lsp@claude-plugins-official": true
+    "lua-lsp@claude-plugins-official": true,
+    "claudish-to-english@gvzdv-plugins": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -205,13 +205,26 @@
         "source": "github",
         "repo": "greenstevester/fastlane-skill"
       }
+    },
+    "claude-community": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-community"
+      }
+    },
+    "gvzdv-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "gvzdv/claudish-to-english"
+      }
     }
   },
+  "outputStyle": "direct",
   "alwaysThinkingEnabled": true,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
+  "skipWorkflowUsageWarning": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": false,
-  "skipWorkflowUsageWarning": true
+  "voiceEnabled": false
 }

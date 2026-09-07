@@ -8,11 +8,9 @@ if [ -n "$input" ]; then
   printf '%s\n' "$input" | while read -r local_ref local_sha remote_ref remote_sha; do
     [ -z "$local_sha" ] && continue
     [ "$local_sha" = "$zero" ] && continue
-    if [ "$remote_sha" = "$zero" ]; then
-      range="$local_sha --not --remotes"
-    else
-      range="$remote_sha..$local_sha"
-    fi
+    # Only commits no remote ref already has: a rebase onto main pulls other
+    # people's unsigned commits into remote_sha..local_sha, and those are not ours.
+    range="$local_sha --not --remotes"
     # G only: a U is a real signature by a key that is not in allowed_signers,
     # which is exactly the case this gate exists to catch.
     bad=$(git log --format='%h %G? %an: %s' $range | awk '$2 != "G"')
