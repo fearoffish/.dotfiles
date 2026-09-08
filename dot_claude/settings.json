@@ -145,6 +145,17 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/block-dangerous-git.sh"
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
@@ -220,6 +231,7 @@
     }
   },
   "outputStyle": "direct",
+  "includeCoAuthoredBy": false,
   "alwaysThinkingEnabled": true,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
