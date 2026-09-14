@@ -692,8 +692,6 @@ cask "claude-code@latest"
 cask "daisydisk"
 # Voice and text chat software
 cask "discord"
-# Assign keys, and then decorate and label them
-cask "elgato-stream-deck"
 # Calendar software
 cask "fantastical"
 # Web browser
@@ -794,19 +792,15 @@ mas "1Password for Safari", id: 1569813296
 mas "Bear", id: 1091189122
 mas "Capo", id: 696977615
 mas "Developer", id: 640199958
-mas "Email", id: 1489591003
 mas "GarageBand", id: 682658836
 mas "iA Writer", id: 775737590
 mas "iMovie", id: 408981434
 mas "Infuse", id: 1136220934
 mas "JustChords", id: 1632968272
 mas "Kagi for Safari", id: 1622835804
-mas "Keynote", id: 409183694
 mas "Logic Pro", id: 634148309
 mas "Marked 2", id: 890031187
 mas "Mela", id: 1568924476
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
 mas "Save to Raindrop.io", id: 1549370672
 mas "SponsorBlock", id: 1573461917
 mas "Super Agent", id: 1568262835
