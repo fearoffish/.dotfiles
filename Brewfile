@@ -800,13 +800,9 @@ mas "JustChords", id: 1632968272
 mas "Kagi for Safari", id: 1622835804
 mas "Logic Pro", id: 634148309
 mas "Marked 2", id: 890031187
-mas "Mela", id: 1568924476
 mas "Save to Raindrop.io", id: 1549370672
 mas "SponsorBlock", id: 1573461917
 mas "Super Agent", id: 1568262835
-mas "Synido TempoPAD C16", id: 6673905103
-mas "Synido TempoPad P16", id: 6448814964
-mas "System Status Monitor", id: 6753709318
 mas "TestFlight", id: 899247664
 mas "Things", id: 904280696
 mas "Xcode", id: 497799835
