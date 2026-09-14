@@ -106,11 +106,14 @@ step "4. Applications"
 ###############################################################################
 
 log_info "Installing everything in the Brewfile. This takes a while."
-if brew bundle --file="$SCRIPT_DIR/Brewfile"; then
+# HOMEBREW_DEVELOPER skips the tap-time syntax audit that brew 7 runs across
+# every formula in a tap. dicklesworthstone/tap, jorgelbg/tap and ttscoff/thelab
+# fail it upstream (Linux-only stanzas with no URL) and cannot be tapped without it.
+if HOMEBREW_DEVELOPER=1 brew bundle --file="$SCRIPT_DIR/Brewfile"; then
     log_success "All packages installed"
 else
     log_warning "Some packages failed. Continuing, you can re-run this later with:"
-    log_warning "  brew bundle --file=$SCRIPT_DIR/Brewfile"
+    log_warning "  HOMEBREW_DEVELOPER=1 brew bundle --file=$SCRIPT_DIR/Brewfile"
 fi
 
 ###############################################################################

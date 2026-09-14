@@ -52,9 +52,9 @@ if [ ! -f "$BREWFILE" ]; then
     exit 1
 fi
 
-# Run brew bundle
+# HOMEBREW_DEVELOPER skips brew 7's tap-time syntax audit; see setup.sh.
 cd "$SOURCE_DIR"
-if brew bundle --file="$BREWFILE"; then
+if HOMEBREW_DEVELOPER=1 brew bundle --file="$BREWFILE"; then
     log_success "Packages installed successfully from Brewfile"
     if command_exists mas; then
         log_info "Mac App Store apps installed via brew bundle"

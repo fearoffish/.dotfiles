@@ -3,26 +3,25 @@ tap "basicmachines-co/basic-memory", trusted: true
 tap "busser/tap", trusted: true
 tap "can1357/tap"
 tap "cantino/mcfly", trusted: true
-tap "cirruslabs/cli", trusted: true
 tap "dagger/tap", trusted: true
 tap "dhth/tap", trusted: true
 tap "dicklesworthstone/tap", trusted: true
 tap "eugene1g/safehouse"
 tap "facebook/fb", trusted: true
-tap "felixkratz/formulae", "https://github.com/FelixKratz/homebrew-formulae", trusted: { formulae: ["jankyborders"] }
+tap "felixkratz/formulae", "https://github.com/FelixKratz/homebrew-formulae", trusted: true
 tap "future-architect/tap", trusted: true
 tap "gechr/tap", trusted: true
 tap "getagentseal/codeburn", trusted: true
 tap "hamed-elfayome/claude-usage", trusted: true
 tap "heroku/brew", trusted: true
-tap "hewigovens/tap", "https://github.com/hewigovens/tap.git", trusted: { casks: ["jayjay"] }
+tap "hewigovens/tap", "https://github.com/hewigovens/tap.git", trusted: true
 tap "human37/open-wispr", trusted: true
 tap "jorgelbg/tap", trusted: true
 tap "keidarcy/tap", trusted: true
 tap "kejadlen/git-together", trusted: true
 tap "leg100/tap", trusted: true
 tap "masaushi/tap", trusted: true
-tap "mikker/tap", trusted: { casks: ["poof"] }
+tap "mikker/tap", trusted: true
 tap "minio/stable", trusted: true
 tap "modem-dev/tap"
 tap "nikitabobko/tap", trusted: true
@@ -38,7 +37,6 @@ tap "thecasualcoder/stable", trusted: true
 tap "ttscoff/thelab", trusted: true
 tap "voicetreelab/voicetree", trusted: true
 tap "withgraphite/tap", trusted: true
-tap "wtfutil/wtfutil", trusted: true
 # Run your GitHub Actions locally
 brew "act"
 # Mozilla CA certificate store
