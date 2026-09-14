@@ -1,3 +1,14 @@
+[catalogConfiguration]
+customFolders = []
+folderDepthOverrides = []
+scriptsDirectories = []
+
+    [[catalogConfiguration.customItems]]
+    id = '63FAE8F3-98B0-4A3F-850A-D1F10AA432CF'
+    kind = 'url'
+    label = 'AWS Console'
+    value = 'https://accounts.google.com/o/saml2/initsso?idpid=C041a81td&spid=432877161643&forceauthn=false'
+
 [catalogs]
 searchPriorities = []
 sortOrders = []
@@ -219,11 +230,12 @@ id = '40D93EE3-3DD0-4BDD-B026-19995845BAC8'
 comboModeDoublePressTrigger = 'leftCommand'
 comboModeTriggerType = 'doublePress'
 dictationActivationMode = 'toggle'
-dictationWindowPosition = 'bottomCenter'
 resultListNavigationBindings = 'vimStyle'
 screenPreference = 'primary'
+shelfAutoCloseWhenTasksComplete = true
 shortcutDisplayUsesHyperSymbol = false
 spacebarBehavior = 'switchToTextMode'
+themeIdentifier = 'com.brnbw.tuna.themes.logicboard'
 
 [[smartLinks.entries]]
 enabled = true

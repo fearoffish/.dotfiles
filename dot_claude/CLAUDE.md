@@ -16,6 +16,13 @@
 - When unsure, do the reversible in-scope parts, then ask about the rest rather than stopping with nothing delivered.
 - Individual projects may loosen or tighten this. Their rules win.
 
+## Config and dotfiles
+
+- My dotfiles are managed with chezmoi, source directory `~/a/dotfiles`. `~/.claude/CLAUDE.md`, `~/.claude/settings.json`, hooks and shell config are all managed files.
+- Never edit a managed file in `$HOME` directly — the next `chezmoi apply` will overwrite it. Edit the source (`chezmoi source-path <file>` gives the path), then run `chezmoi apply <file>`.
+- Run `chezmoi managed` if you're unsure whether a file is managed.
+- Leave committing and pushing the dotfiles repo to me.
+
 ## Verification
 
 - Check the thing itself, not a proxy for it. Empty output is not proof of success. Check exit codes, and prefer a positive assertion (a `diff` reporting identical, a test passing) over the absence of a negative signal.
@@ -29,6 +36,7 @@
 - For bug fixes and regressions, use red-green TDD and change the fewest lines needed.
 - Prefer self-documenting code to new explanatory comments.
 - Use `&>/dev/null` instead of `>/dev/null 2>&1`.
+- Never add Claude attribution to commits or pull requests: no `Co-Authored-By` trailer, no `Claude-Session` link, no mention of Claude in the message or description.
 - Before finishing, check your work, identify what I may not have considered in relation to my goals and ask useful follow-up questions, including what I should have asked.
 
 ## Communication

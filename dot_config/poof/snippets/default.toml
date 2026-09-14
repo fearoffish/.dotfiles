@@ -20,8 +20,18 @@ description = "Signature snippet with cursor placement"
 
 [[snippets]]
 trigger = ":bi"
-replace = "op run --env-file=.env.development -- bundle install"
+replace = "op run --env-file=.env.development.local -- bundle install"
 description = "Run bundle install with 1Password cli"
+
+[[snippets]]
+trigger = ":be"
+replace = "op run --no-masking --env-file=.env.development.local -- bundle exec "
+description = "Run bundle exec with 1Password cli"
+
+[[snippets]]
+trigger = ":op"
+replace = "op run --no-masking --env-file=.env.development.local -- "
+description = "Run with 1Password cli"
 
 [[snippets]]
 trigger = ":def"

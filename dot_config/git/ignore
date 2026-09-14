@@ -60,7 +60,6 @@ Gemfile.local
 
 # Claude Tools
 .claude/
-CLAUDE.md
 
 # Pluqqy Tools
 .pluqqy/
