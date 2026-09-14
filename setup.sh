@@ -156,14 +156,22 @@ wait_for_user
 CHECK="$HOME/.local/bin/1p-check"
 [ -x "$CHECK" ] || CHECK="$SCRIPT_DIR/private_dot_local/bin/executable_1p-check"
 
+ONEP_OK=1
 while ! bash "$CHECK"; do
     echo
     read -rp "Try again? [Y/n] " -n 1 -r reply
     echo
     case "$reply" in
-        [Nn]) log_warning "Skipping. Run 1p-check yourself once it is sorted."; break ;;
+        [Nn]) log_warning "Skipping. Run 1p-check yourself once it is sorted."; ONEP_OK=0; break ;;
     esac
 done
+
+# The clone had to be HTTPS because no keys existed yet. Now the agent works,
+# switch to SSH so pushes use the same key that signs commits.
+if [ "$ONEP_OK" = 1 ] && [ "$(git -C "$SCRIPT_DIR" remote get-url origin)" = "https://github.com/fearoffish/.dotfiles.git" ]; then
+    git -C "$SCRIPT_DIR" remote set-url origin git@github.com:fearoffish/.dotfiles.git
+    log_success "Dotfiles remote switched to SSH"
+fi
 
 ###############################################################################
 step "Done"
@@ -174,4 +182,5 @@ echo
 log_info "Worth knowing:"
 log_info "  - Restart your terminal to pick up fish and the new PATH"
 log_info "  - Commits are signed, so they will fail until 1p-check passes"
-log_info "  - Some macOS defaults need a logout to take effect"
+log_info "  - Log out and back in: Amethyst and some macOS defaults need it"
+log_info "  - Sign in to Claude Code with 'claude' when you first need it"

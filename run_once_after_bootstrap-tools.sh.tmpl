@@ -1,0 +1,81 @@
+#!/bin/bash
+
+# Bootstrap the tools whose config chezmoi just wrote but which manage their
+# own installs: fisher plugins, mise runtimes, and nvim's lazy.nvim plugins.
+# This runs once after dotfiles are applied.
+
+set -e
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Logging functions
+log_info() {
+    echo -e "${BLUE}[TOOLS]${NC} $1"
+}
+
+log_success() {
+    echo -e "${GREEN}[TOOLS]${NC} $1"
+}
+
+log_warning() {
+    echo -e "${YELLOW}[TOOLS]${NC} $1"
+}
+
+# Check if command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Chezmoi scripts inherit a bare PATH before the shell config is loaded.
+for prefix in /opt/homebrew /usr/local; do
+    [ -x "$prefix/bin/brew" ] && eval "$("$prefix/bin/brew" shellenv)" && break
+done
+
+###############################################################################
+# Fisher plugins, from ~/.config/fish/fish_plugins
+###############################################################################
+
+if command_exists fish; then
+    if fish -c 'type -q fisher'; then
+        log_info "fisher already installed, syncing plugins..."
+        fish -c 'fisher update' || log_warning "fisher update failed"
+    else
+        log_info "Installing fisher and plugins..."
+        fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update' \
+            || log_warning "fisher install failed. Run it by hand from fish."
+    fi
+    log_success "Fish plugins ready"
+else
+    log_warning "fish not installed, skipping fisher"
+fi
+
+###############################################################################
+# mise runtimes, from ~/.config/mise/config.toml
+###############################################################################
+
+if command_exists mise; then
+    log_info "Installing mise runtimes. Ruby compiles from source, so this takes a while..."
+    mise install --yes || log_warning "Some mise runtimes failed. Re-run with: mise install"
+    log_success "mise runtimes ready"
+else
+    log_warning "mise not installed, skipping runtimes"
+fi
+
+###############################################################################
+# Neovim plugins via lazy.nvim
+###############################################################################
+
+if command_exists nvim; then
+    log_info "Syncing nvim plugins..."
+    nvim --headless "+Lazy! sync" +qa || log_warning "lazy.nvim sync failed. Open nvim and run :Lazy sync"
+    log_success "nvim plugins ready"
+else
+    log_warning "nvim not installed, skipping plugins"
+fi
+
+log_success "Tool bootstrap complete!"

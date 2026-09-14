@@ -13,6 +13,10 @@ git clone https://github.com/fearoffish/.dotfiles.git ~/a/dotfiles
 cd ~/a/dotfiles && ./setup.sh
 ```
 
+The first `git` on a bare Mac prompts to install the command line tools.
+Accept, wait, then run the clone again. HTTPS because no SSH keys exist yet;
+`setup.sh` switches the remote to SSH once 1Password is verified.
+
 It walks through, in order:
 
 1. Xcode command line tools
@@ -20,10 +24,15 @@ It walks through, in order:
 3. A pause to sign in to the App Store, so the `mas` apps are not skipped
 4. Every package in the Brewfile, which takes a while and needs no input
 5. A pause to sign in to 1Password and turn on its SSH agent
-6. Dotfiles, macOS defaults, and fish as the login shell
-7. `1p-check`, looping until the 1Password chain verifies
+6. Dotfiles, macOS defaults, fish as the login shell, then fisher plugins,
+   mise runtimes, and nvim plugins
+7. `1p-check`, looping until the 1Password chain verifies, then the dotfiles
+   remote is switched to SSH
 
 Safe to re-run. Every step checks before it acts.
+
+Left to you afterwards: log out and back in for Amethyst and the macOS
+defaults, and sign in to Claude Code the first time you run `claude`.
 
 ### On a machine that is already set up
 
@@ -61,9 +70,10 @@ The bootstrap process runs these scripts in order:
 2. **`run_once_before_macos-defaults.sh`** - Configures macOS settings (keyboard repeat, Finder, Dock, etc.)
 3. **Dotfiles Applied** - All `dot_*` files are copied to your home directory
 4. **`run_once_after_amethyst-defaults.sh`** - Writes the three macOS defaults Amethyst needs (the Spaces change takes effect after a logout). Amethyst's own settings live in `dot_config/amethyst/amethyst.yml`
-5. **`run_once_after_poof-defaults.sh`** - Points Poof at `~/.config/poof`, where its managed snippets land
-6. **`run_onchange_install-packages.sh`** - Installs packages from Brewfile (re-runs when Brewfile changes)
-7. **`run_once_after_setup-shell.sh`** - Sets fish as default shell, reminds about 1Password setup
+5. **`run_once_after_bootstrap-tools.sh`** - Installs fisher plugins from `fish_plugins`, mise runtimes from `mise/config.toml`, and nvim plugins via lazy.nvim
+6. **`run_once_after_poof-defaults.sh`** - Points Poof at `~/.config/poof`, where its managed snippets land
+7. **`run_onchange_install-packages.sh`** - Installs packages from Brewfile (re-runs when Brewfile changes)
+8. **`run_once_after_setup-shell.sh`** - Sets fish as default shell, reminds about 1Password setup
 
 ## 🛠️ Daily Usage
 
@@ -211,6 +221,7 @@ Note that commits are signed, so `git commit` and any `chezmoi add` or
 ├── run_once_before_install-prerequisites.sh.tmpl
 ├── run_once_before_macos-defaults.sh.tmpl
 ├── run_once_after_amethyst-defaults.sh.tmpl
+├── run_once_after_bootstrap-tools.sh.tmpl
 ├── run_once_after_poof-defaults.sh.tmpl
 ├── run_onchange_install-packages.sh.tmpl
 ├── run_once_after_setup-shell.sh.tmpl
