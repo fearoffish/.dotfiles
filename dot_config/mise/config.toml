@@ -2,12 +2,17 @@
 ruby = "3.4.7"
 node = "24"
 python = "3.13.2"
-terraform = "1.11.2"
+terraform = "1.11.4"
 sops = "latest"
 age = "latest"
 rust = "latest"
 go = "latest"
 fnox = "latest"
+claude = "latest"
+awscli = { version = "latest", symlink_bins = "true" }
+newrelic-cli = "latest"
+lazygit = "latest"
+"github:can1357/oh-my-pi" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["ruby", "terraform"]

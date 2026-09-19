@@ -24,6 +24,23 @@ local function when_major(lo, hi)
   end
 end
 
+-- `rubocop --lsp` arrived in RuboCop 1.53; older bundles exit with "invalid option".
+local function rubocop_lsp_root(bufnr, on_dir)
+  local lockfile = vim.fs.find("Gemfile.lock", { path = vim.api.nvim_buf_get_name(bufnr), upward = true })[1]
+  if not lockfile then
+    return
+  end
+  for line in io.lines(lockfile) do
+    local version = line:match("^    rubocop %(([%d.]+)%)$")
+    if version then
+      if vim.version.ge(version, "1.53") then
+        on_dir(vim.fs.dirname(lockfile))
+      end
+      return
+    end
+  end
+end
+
 -- Mason's bin dir sits ahead of the mise Ruby on PATH and its binstubs hardcode
 -- a shebang, so resolve the executable to an absolute path per project first.
 local bins = {}
@@ -68,6 +85,7 @@ return {
         rubocop = {
           mason = false,
           cmd = mise("bundle", "exec", "rubocop", "--lsp"),
+          root_dir = rubocop_lsp_root,
         },
       },
     },

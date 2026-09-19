@@ -1,8 +1,9 @@
 return {
+  { "Mofiqul/dracula.nvim" },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin-macchiato",
+      colorscheme = "dracula",
     },
   },
 }

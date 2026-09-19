@@ -27,3 +27,4 @@ set -xg EDITOR 'zed --wait'
 
 # Add bun binary location
 fish_add_path ~/.bun/bin
+

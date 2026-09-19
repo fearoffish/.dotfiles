@@ -1,0 +1,85 @@
+projects_dir = "~/a/nevaya"
+
+[projects.keeper]
+path = "~/a/nevaya/keeper_seeker/keeper"
+
+[projects.seeker]
+path = "~/a/nevaya/keeper_seeker/seeker"
+
+[projects.nevaya-cast]
+path = "~/a/nevaya/nevaya-cast"
+
+[projects.genie]
+path = "~/a/nevaya/keeper_seeker/genieacs-docker"
+
+[ui]
+pane_layout = "splits"
+confirm_close = true
+prefix = "ctrl-b"
+
+[ui.icons]
+preset = "nerd_font" # Pill caps on the focused tab / workspace need this preset.
+
+[ui.spinner]
+style = "dots"
+
+# Focused tab and current workspace: blue pill.
+[ui.styles.current]
+foreground = "blue"
+add_modifiers = ["reversed"]
+remove_modifiers = ["underlined"]
+
+[ui.styles.selected]
+background = "dark_gray"
+remove_modifiers = ["reversed"]
+
+[ui.styles.divider]
+foreground = "dark_gray"
+
+[ui.styles.added]
+foreground = "green"
+
+[ui.styles.deleted]
+foreground = "red"
+
+# Bottom bar: tabs on the left, workspace name on the right.
+[ui.tab_bar]
+position = "bottom"
+left = [
+  { segments = [{ component = "tabs" }], priority = 100 },
+]
+center = []
+right = [
+  { segments = [{ token = "client.zoom", suffix = " " }], priority = 255 },
+  { segments = [{ token = "workspace.name", max_width = 20 }], style = "muted", priority = 200 },
+  { segments = [{ token = "client.help" }], style = "muted", priority = 0 },
+]
+
+[ui.tab_bar.item]
+segments = [
+  { text = " " },
+  { token = "tab.index" },
+  { token = "tab.name", prefix = " " },
+  { token = "tab.closing", prefix = " " },
+  { token = "tab.activity", prefix = " " },
+  { text = " " },
+]
+
+# Left side stays an on-demand drawer (Ctrl-b w) holding the agents list.
+[ui.sidebar.left]
+width = 28
+display = "expanded"
+visibility = "hidden"
+components = [
+  { component = "agents", size = "fill", scope = "session" },
+]
+
+# Right side: session name header, numbered workspaces with branch/diff detail,
+# "expanded · automatic" footer.
+[ui.sidebar.right]
+width = 28
+display = "expanded"
+visibility = "automatic"
+components = [
+  { component = "workspaces", size = "fill", header = [{ token = "session.name" }], footer = [{ token = "sidebar.display", style = "muted" }, { token = "sidebar.visibility", prefix = " · ", style = "muted" }], row = { left = [{ text = " " }], body = [{ token = "workspace.index" }, { token = "workspace.name", prefix = " " }], right = [{ token = "workspace.closing", prefix = " " }, { text = " " }], detail = [{ text = "    " }, { token = "workspace.git_branch", style = "muted" }, { token = "workspace.git_added", prefix = " " }, { token = "workspace.git_deleted", prefix = " " }] } },
+]

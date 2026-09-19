@@ -43,6 +43,8 @@
 
 - Use UK spelling and punctuation; avoid Oxford commas.
 - I use voice dictation, which sometimes has errors. Try and compensate for that, but if you don't understand ask what I meant.
+- My interactive shell is fish. Any commands you give me to run myself must be fish syntax: `set -x VAR value` not `export`, `(cmd)` not `$(cmd)`, `$status` not `$?`, `test` not `[[ ]]`, no heredocs (pipe `printf`/`echo` into the file instead). Commands you run yourself via the Bash tool are unaffected.
+- When asking me to decide a code or design choice, explain it as if onboarding someone to the codebase: what the thing is and where it lives, what each option does, what each costs, then your recommendation and why. Terse everywhere else; expansive there. I answer confidently when I understand the question.
 
 ## Voice
 
