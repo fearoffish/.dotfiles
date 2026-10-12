@@ -16,10 +16,9 @@ name = "catppuccin"
 auto_switch = false
 
 # Prefix-free navigation. ctrl+alt is the one modifier family Ghostty leaves
-# alone on macOS (its ctrl+alt bindings are Linux-only), and Amethyst keeps to
-# alt+shift and ctrl+alt+shift, so neither collides. Brackets move between tabs
-# the way cmd+shift+[ / ] does in Ghostty; up/down move between workspaces,
-# matching the sidebar's vertical stack.
+# alone on macOS (its ctrl+alt bindings are Linux-only), so it doesn't collide.
+# Brackets move between tabs the way cmd+shift+[ / ] does in Ghostty; up/down
+# move between workspaces, matching the sidebar's vertical stack.
 [keys]
 next_tab = ["prefix+n", "ctrl+alt+]"]
 previous_tab = "ctrl+alt+["
