@@ -55,13 +55,26 @@ local function resolve(bin, cwd)
   return bins[key]
 end
 
+-- The servers re-exec themselves through `bundle exec <bin>`, which Bundler
+-- resolves via PATH, so Mason's shims must not be visible to them either.
+local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
+
+local function path_without_mason()
+  local dirs = vim.tbl_filter(function(dir)
+    return dir ~= mason_bin
+  end, vim.split(vim.env.PATH or "", ":", { plain = true }))
+  return table.concat(dirs, ":")
+end
+
+-- Terminals spawned under Homebrew's Ruby inherit BUNDLER_VERSION (its own
+-- bundler 4.x), which Bundler treats as mandatory and no project Ruby has.
 local function mise(bin, ...)
   local args = { ... }
   return function(dispatchers, config)
     local cwd = config and (config.cmd_cwd or config.root_dir)
-    local argv = { "mise", "x", "--", resolve(bin, cwd) or bin }
+    local argv = { "env", "-u", "BUNDLER_VERSION", "mise", "x", "--", resolve(bin, cwd) or bin }
     vim.list_extend(argv, args)
-    return vim.lsp.rpc.start(argv, dispatchers, { cwd = cwd })
+    return vim.lsp.rpc.start(argv, dispatchers, { cwd = cwd, env = { PATH = path_without_mason() } })
   end
 end
 

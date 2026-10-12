@@ -643,8 +643,6 @@ brew "dicklesworthstone/tap/bv", trusted: true
 brew "eugene1g/safehouse/agent-safehouse", trusted: true
 # Companion server for automating iOS Simulators
 brew "facebook/fb/idb-companion", trusted: true
-# A window border system for macOS
-brew "felixkratz/formulae/borders", trusted: true
 brew "future-architect/tap/tftarget"
 # See where your AI coding tokens go - by task, tool, model, and project
 brew "getagentseal/codeburn/codeburn", trusted: true
@@ -678,8 +676,6 @@ cask "1password"
 cask "1password-cli"
 # Stand alone ad blocker
 cask "adguard"
-# Automatic tiling window manager, driven by macOS's own Spaces
-cask "amethyst"
 # Application uninstaller
 cask "appcleaner"
 # 3D model slicing software for 3D printers, maintained by Bambu Lab
@@ -748,6 +744,8 @@ cask "meld"
 cask "midi-monitor"
 # Spotlight Search
 cask "monarch"
+# Window manager: move and zoom windows, save and restore layouts
+cask "moom"
 # Companion app for ZSA's Navigator trackpad
 cask "navigator"
 # Reverse proxy, secure introspectable tunnels to localhost

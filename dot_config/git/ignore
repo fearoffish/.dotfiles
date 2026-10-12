@@ -80,3 +80,5 @@ docs/superpowers/
 .superpowers/
 
 .juggler/
+
+*.rswp

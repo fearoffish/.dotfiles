@@ -185,5 +185,5 @@ echo
 log_info "Worth knowing:"
 log_info "  - Restart your terminal to pick up fish and the new PATH"
 log_info "  - Commits are signed, so they will fail until 1p-check passes"
-log_info "  - Log out and back in: Amethyst and some macOS defaults need it"
+log_info "  - Log out and back in: some macOS defaults need it"
 log_info "  - Sign in to Claude Code with 'claude' when you first need it"

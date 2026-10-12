@@ -20,6 +20,12 @@ sortOrders = []
         kind = 'none'
 
     [[catalogs.globalScopes]]
+    catalogIdentifier = 'camera-preview.commands'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
     catalogIdentifier = 'tuna.effects'
 
         [catalogs.globalScopes.scope]
@@ -186,9 +192,7 @@ label = 'Links'
 
             [comboMode.bindings.destination.bindings.destination]
             type = 'url'
-
-                [comboMode.bindings.destination.bindings.destination.url]
-                relative = 'https://accounts.google.com/o/saml2/initsso?idpid=C041a81td&spid=432877161643&forceauthn=false'
+            url = 'https://accounts.google.com/o/saml2/initsso?idpid=C041a81td&spid=432877161643&forceauthn=false'
 
         [[comboMode.bindings.destination.bindings]]
         key = 'n'
@@ -196,9 +200,163 @@ label = 'Links'
 
             [comboMode.bindings.destination.bindings.destination]
             type = 'url'
+            url = 'https://one.eu.newrelic.com/nr1-core/logger/logs-summary/Mjg5NzIxOHxBUE18QVBQTElDQVRJT058NDIwNjcyMTIz?account=2897218&duration=1800000&state=b6f820ef-14c3-5f8a-c2cd-cb6b66eefdfd'
 
-                [comboMode.bindings.destination.bindings.destination.url]
-                relative = 'https://one.eu.newrelic.com/nr1-core/logger/logs-summary/Mjg5NzIxOHxBUE18QVBQTElDQVRJT058NDIwNjcyMTIz?account=2897218&duration=1800000&state=b6f820ef-14c3-5f8a-c2cd-cb6b66eefdfd'
+[[comboMode.bindings]]
+iconPath = 'macwindow'
+key = 'w'
+label = 'Window'
+
+    [comboMode.bindings.destination]
+    type = 'group'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'h'
+        label = 'Left half'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'hidden'
+                subjectIdentifiers = [ "text:~/.local/bin/moom 'run \"Left Half\"'" ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'l'
+        label = 'Right half'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'hidden'
+                subjectIdentifiers = [ "text:~/.local/bin/moom 'run \"Right Half\"'" ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'k'
+        label = 'Top half'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'hidden'
+                subjectIdentifiers = [ "text:~/.local/bin/moom 'run \"Top Half\"'" ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'j'
+        label = 'Bottom half'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'hidden'
+                subjectIdentifiers = [ "text:~/.local/bin/moom 'run \"Bottom Half\"'" ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'm'
+        label = 'Maximise'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'hidden'
+                subjectIdentifiers = [ "text:~/.local/bin/moom 'run \"Maximise\"'" ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'c'
+        label = 'Centre'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'hidden'
+                subjectIdentifiers = [ "text:~/.local/bin/moom 'center frontmost window'" ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'n'
+        label = 'Next display'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'hidden'
+                subjectIdentifiers = [ "text:~/.local/bin/moom 'run \"Next Display\"'" ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        iconPath = 'rectangle.split.2x1'
+        key = 'a'
+        label = 'Arrange'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'group'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'c'
+                label = 'Coding'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'hidden'
+                        subjectIdentifiers = [ "text:~/.local/bin/moom 'apply layout \"Coding\"'" ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'm'
+                label = 'Communications'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'hidden'
+                        subjectIdentifiers = [ "text:~/.local/bin/moom 'apply layout \"Communications\"'" ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 's'
+                label = 'Two columns'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'hidden'
+                        subjectIdentifiers = [ "text:~/.local/bin/moom 'apply layout \"Two Columns\"'" ]
+                        type = 'savedCommand'
 
 [hotkeys.app.activate]
 carbonKeyCode = 49

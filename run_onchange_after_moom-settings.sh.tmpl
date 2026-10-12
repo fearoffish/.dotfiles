@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Load Moom's custom actions and layouts from moom.plist.
+# Moom has no config file, only its preferences domain, so this replaces that
+# domain wholesale. Moom rewrites its preferences when it quits, so it has to
+# be closed first or it would put the old actions straight back. After
+# changing anything in Moom's Settings, run moom-export to bring it back here.
+#
+# moom.plist hash: {{ include "moom.plist" | sha256sum }}
+
+set -e
+
+# Colors for output
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Logging functions
+log_info() {
+    echo -e "${BLUE}[MOOM-SETTINGS]${NC} $1"
+}
+
+log_success() {
+    echo -e "${GREEN}[MOOM-SETTINGS]${NC} $1"
+}
+
+log_info "Loading Moom settings from moom.plist..."
+
+running=false
+if pgrep -xq Moom; then
+    running=true
+    osascript -e 'quit app "Moom"'
+    while pgrep -xq Moom; do sleep 0.2; done
+fi
+
+defaults import com.manytricks.Moom {{ joinPath .chezmoi.sourceDir "moom.plist" | quote }}
+
+if $running; then
+    open -a Moom
+fi
+
+log_success "Done."

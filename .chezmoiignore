@@ -15,6 +15,7 @@ Brewfile.lock.json
 
 # Repo infrastructure, read from the source dir and never applied to home
 Brewfile
+moom.plist
 setup.sh
 
 # Documentation and project files

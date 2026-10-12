@@ -31,8 +31,8 @@ It walks through, in order:
 
 Safe to re-run. Every step checks before it acts.
 
-Left to you afterwards: log out and back in for Amethyst and the macOS
-defaults, and sign in to Claude Code the first time you run `claude`.
+Left to you afterwards: log out and back in for the macOS defaults, and sign
+in to Claude Code the first time you run `claude`.
 
 ### On a machine that is already set up
 
@@ -69,7 +69,7 @@ The bootstrap process runs these scripts in order:
 1. **`run_once_before_install-prerequisites.sh`** - Installs Homebrew, 1Password CLI, essential tools
 2. **`run_once_before_macos-defaults.sh`** - Configures macOS settings (keyboard repeat, Finder, Dock, etc.)
 3. **Dotfiles Applied** - All `dot_*` files are copied to your home directory
-4. **`run_once_after_amethyst-defaults.sh`** - Writes the three macOS defaults Amethyst needs (the Spaces change takes effect after a logout). Amethyst's own settings live in `dot_config/amethyst/amethyst.yml`
+4. **`run_onchange_after_moom-settings.sh`** - Loads Moom's custom actions and layouts from `moom.plist` (re-runs when that file changes). Moom keeps these in its preferences, not a file, so after changing anything in Moom's Settings run `moom-export` to copy it back into the repo
 5. **`run_once_after_bootstrap-tools.sh`** - Installs fisher plugins from `fish_plugins`, mise runtimes from `mise/config.toml`, and nvim plugins via lazy.nvim
 6. **`run_once_after_poof-defaults.sh`** - Points Poof at `~/.config/poof`, where its managed snippets land
 7. **`run_onchange_install-packages.sh`** - Installs packages from Brewfile (re-runs when Brewfile changes)
@@ -208,6 +208,7 @@ Note that commits are signed, so `git commit` and any `chezmoi add` or
 ├── .chezmoi.toml.tmpl                    # Name, email, editor, git
 ├── .chezmoiignore                        # Repo files never applied to home
 ├── Brewfile                              # Package definitions
+├── moom.plist                            # Moom custom actions and layouts
 ├── dot_gitconfig.tmpl                    # Git configuration
 ├── private_dot_ssh/
 │   ├── config                            # SSH configuration
@@ -220,7 +221,7 @@ Note that commits are signed, so `git commit` and any `chezmoi add` or
 │   └── ...
 ├── run_once_before_install-prerequisites.sh.tmpl
 ├── run_once_before_macos-defaults.sh.tmpl
-├── run_once_after_amethyst-defaults.sh.tmpl
+├── run_onchange_after_moom-settings.sh.tmpl
 ├── run_once_after_bootstrap-tools.sh.tmpl
 ├── run_once_after_poof-defaults.sh.tmpl
 ├── run_onchange_install-packages.sh.tmpl

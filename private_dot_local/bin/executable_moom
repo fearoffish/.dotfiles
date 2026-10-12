@@ -1,0 +1,38 @@
+#!/usr/bin/osascript -l JavaScript
+
+// Run one Moom AppleScript command against the window I was just using.
+//
+//   moom 'run "Left Half"'
+//   moom 'apply layout "Coding"'
+//   moom 'center frontmost window'
+//
+// Moom acts on the frontmost window, but while Tuna's combo mode runs a shell
+// command its own panel is still frontmost, so a bare osascript call would aim
+// Moom at Tuna. This finds the frontmost ordinary window that isn't Tuna's,
+// activates its app, then sends the command. Everything happens in this one
+// process because each extra osascript launch costs about 100ms.
+
+ObjC.import('AppKit')
+ObjC.import('CoreGraphics')
+
+function run(argv) {
+  const onScreenOnly = 1
+  const excludeDesktopElements = 16
+  const windows = ObjC.castRefToObject($.CGWindowListCopyWindowInfo(onScreenOnly | excludeDesktopElements, 0))
+
+  let pid
+  for (let i = 0; i < windows.count; i++) {
+    const window = windows.objectAtIndex(i)
+    if (window.objectForKey('kCGWindowLayer').intValue === 0 && window.objectForKey('kCGWindowOwnerName').js !== 'Tuna') {
+      pid = window.objectForKey('kCGWindowOwnerPID').intValue
+      break
+    }
+  }
+  if (pid === undefined) throw new Error('no window to act on')
+
+  $.NSRunningApplication.runningApplicationWithProcessIdentifier(pid).activateWithOptions(0)
+
+  const error = Ref()
+  $.NSAppleScript.alloc.initWithSource(`tell application "Moom" to ${argv[0]}`).executeAndReturnError(error)
+  if (!error[0].isNil()) throw new Error(ObjC.unwrap(error[0].objectForKey('NSAppleScriptErrorMessage')))
+}

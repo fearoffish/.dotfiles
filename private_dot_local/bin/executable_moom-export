@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Copy Moom's live settings into the dotfiles as moom.plist.
+# Moom keeps its custom actions and layouts in its preferences, not a file, so
+# anything changed in Moom's Settings (a new saved layout, say) only reaches
+# the repo when this runs. Window positions and update-check bookkeeping are
+# dropped; they change constantly and mean nothing on another Mac.
+
+set -euo pipefail
+
+out="$(chezmoi source-path)/moom.plist"
+
+defaults export com.manytricks.Moom "$out"
+
+plutil -p "$out" | sed -n 's/^  "\(.*\)" => .*/\1/p' | while IFS= read -r key; do
+    case "$key" in
+        "NSWindow Frame"* | WebKit* | SULastCheckTime | PMSparkle*)
+            plutil -remove "$key" "$out"
+            ;;
+    esac
+done
+
+echo "Wrote $out"
