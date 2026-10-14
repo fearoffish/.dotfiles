@@ -686,6 +686,8 @@ cask "choosy"
 cask "claude-code@latest"
 # Disk space visualiser
 cask "daisydisk"
+# Tiling window manager for macOS on native Spaces, with SIP left on
+cask "dinky"
 # Voice and text chat software
 cask "discord"
 # Calendar software
