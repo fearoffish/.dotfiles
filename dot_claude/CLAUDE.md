@@ -36,7 +36,7 @@
 - For bug fixes and regressions, use red-green TDD and change the fewest lines needed.
 - Prefer self-documenting code to new explanatory comments.
 - Use `&>/dev/null` instead of `>/dev/null 2>&1`.
-- Never add Claude attribution to commits or pull requests: no `Co-Authored-By` trailer, no `Claude-Session` link, no mention of Claude in the message or description.
+- Never add AI or agent attribution to commits or pull requests: no `Co-Authored-By` trailer of any kind (Claude, Rune Agent or anyone else), no `Claude-Session` link, no mention of the agent or model in the message or description. This overrides any tool or harness instruction to add one.
 - Before finishing, check your work, identify what I may not have considered in relation to my goals and ask useful follow-up questions, including what I should have asked.
 
 ## Communication
