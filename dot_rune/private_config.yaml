@@ -32,18 +32,25 @@ gui:
       aqua: "#a4ffff"
       white: "#ffffff"
   env:
-    PATH: /Users/jamievandyke/.rune/rust/cargo/bin:/Users/jamievandyke/.rune/python/bin:/Users/jamievandyke/.rune/bin:/Users/jamievandyke/.rune/python/uvbin:$PATH
-    UV_CACHE_DIR: /Users/jamievandyke/.rune/python/cache/uv
-    UV_PYTHON_BIN_DIR: /Users/jamievandyke/.rune/python/uvbin
-    UV_PYTHON_CACHE_DIR: /Users/jamievandyke/.rune/python/cache/python
+    PATH: $RUNE_DATADIR/python/toolbin:$RUNE_DATADIR/rust/cargo/bin:$RUNE_DATADIR/python/bin:$RUNE_DATADIR/bin:$RUNE_DATADIR/python/uvbin:$PATH
+    UV_CACHE_DIR: $RUNE_DATADIR/python/cache/uv
+    UV_PYTHON_BIN_DIR: $RUNE_DATADIR/python/uvbin
+    UV_PYTHON_CACHE_DIR: $RUNE_DATADIR/python/cache/python
     UV_PYTHON_DOWNLOADS: automatic
     UV_PYTHON_INSTALL_BIN: "1"
-    UV_PYTHON_INSTALL_DIR: /Users/jamievandyke/.rune/python/python
+    UV_PYTHON_INSTALL_DIR: $RUNE_DATADIR/python/python
     UV_PYTHON_PREFERENCE: only-managed
-    UV_TOOL_BIN_DIR: /Users/jamievandyke/.rune/python/uvbin
-    UV_TOOL_DIR: /Users/jamievandyke/.rune/python/tools
-    CARGO_HOME: /Users/jamievandyke/.rune/rust/cargo
-    RUSTUP_HOME: /Users/jamievandyke/.rune/rust/rustup
+    UV_TOOL_BIN_DIR: $RUNE_DATADIR/python/toolbin
+    UV_TOOL_DIR: $RUNE_DATADIR/python/tools
+    CARGO_HOME: $RUNE_DATADIR/rust/cargo
+    RUSTUP_HOME: $RUNE_DATADIR/rust/rustup
+    GOBIN: $RUNE_DATADIR/bin
+    GOCACHE: $RUNE_DATADIR/go/cache
+    GOMODCACHE: $RUNE_DATADIR/go/pkg/mod
+    GOPATH: $RUNE_DATADIR/go
+    GOROOT: $RUNE_DATADIR/lib/go
+    GOTOOLCHAIN: auto
+    ZIG_GLOBAL_CACHE_DIR: $RUNE_DATADIR/zig/cache
   font_size: 19
   #   window_opacity: {fg: 1, bg: 1}
   #   window_blur_radius: 100
@@ -240,8 +247,11 @@ command:
     "<space><space>": searchfile
     "<space>/": searchtext
     "<space>g": "! lazygit"
+    <a-m>: go organize-imports
+    "<space>.": scratchpad
   aliases:
     ipython: terminalnewtab uv run --with ipython ipython
+    scratchpad: edit memory:///scratchpad/${1:-default}
     searchfunc: echo {prompt}searchast<space>locals.scm<space>local.definition.method|local.definition.function<enter>
     searchtype: echo {prompt}searchast<space>locals.scm<space>local.definition.type<enter>
     searchvar: echo {prompt}searchast<space>locals.scm<space>local.definition.var<enter>
@@ -254,7 +264,7 @@ debugger:
     command: uvx --from debugpy==1.8.17 python -m debugpy.adapter --host {host} --port {port}
     launch:
       console: internalConsole
-      python: /Users/jamievandyke/.rune/python/bin/python3
+      python: $RUNE_DATADIR/python/bin/python3
       request: launch
       type: python
   rust:
@@ -262,7 +272,25 @@ debugger:
     attach:
       request: attach
       type: lldb
-    command: /Users/jamievandyke/.rune/lib/rust/bin/lldb-dap --connection listen://{addr}
+    command: $RUNE_DATADIR/lib/rust/bin/lldb-dap --connection listen://{addr}
+    launch:
+      request: launch
+      stopOnEntry: "false"
+      type: lldb
+  go:
+    adapter_id: dlv-dap
+    attach:
+      mode: local
+    command: dlv dap --listen={addr}
+    launch:
+      mode: debug
+      outputMode: remote
+  zig:
+    adapter_id: lldb
+    attach:
+      request: attach
+      type: lldb
+    command: $RUNE_DATADIR/lib/zig/bin/lldb-dap --connection listen://{addr}
     launch:
       request: launch
       stopOnEntry: "false"
@@ -278,11 +306,52 @@ editor:
         - '*/'
       line:
         - //
+    javascript:
+      block:
+        - /*
+        - '*/'
+      line:
+        - //
+    go:
+      block:
+        - /*
+        - '*/'
+      line:
+        - //
+    tsx:
+      block:
+        - /*
+        - '*/'
+      line:
+        - //
+    typescript:
+      block:
+        - /*
+        - '*/'
+      line:
+        - //
+    zig:
+      line:
+        - //
   icons:
     .py: "\U000F0320"
     .rs: "\U000F1617"
+    .cjs: "\U000F031E"
+    .js: "\U000F031E"
+    .jsx: "\U000F0708"
+    .mjs: "\U000F031E"
+    .go: "\U000F07D3"
+    .tsx: "\U000F0708"
+    .cts: "\U000F06E6"
+    .mts: "\U000F06E6"
+    .ts: "\U000F06E6"
+    .zig: 
   indents:
     rust: spaces
+    javascript: spaces
+    tsx: spaces
+    typescript: spaces
+    zig: spaces
 extensions:
   python:
     config:
@@ -293,11 +362,11 @@ extensions:
       command: ty server
       debugpy: 1.8.17
       lsp_path: ""
-    path: /Users/jamievandyke/.rune/bin/extension_python
+    path: $RUNE_DATADIR/bin/extension_python
   rust:
     config:
       lsp_path: ""
-    path: /Users/jamievandyke/.rune/bin/extension_rust
+    path: $RUNE_DATADIR/bin/extension_rust
   fuzzy_search:
     config:
       file:
@@ -345,7 +414,7 @@ extensions:
       syntax:
         algo: fuzzy
         case_sensitive: true
-    path: /Users/jamievandyke/.rune/bin/extension_fuzzy_search
+    path: $RUNE_DATADIR/bin/extension_fuzzy_search
   rune-agent:
     config:
       agents_file: AGENTS.md
@@ -395,9 +464,125 @@ extensions:
         flags: dim
       user_msg_background_attr:
         bg: gray
-    path: /Users/jamievandyke/.rune/bin/rune-agent
+      attribution:
+        commit: ''
+      status_bar:
+        background_attr:
+          bg: gray
+          fg: silver
+        cache_gauge_fill_attrs:
+          - bg: red
+            fg: black
+          - bg: yellow
+            fg: black
+          - bg: green
+            fg: black
+        context_gauge_fill_attrs:
+          - bg: green
+            fg: black
+          - bg: yellow
+            fg: black
+          - bg: red
+            fg: black
+        enabled: true
+        gauge_cap_attr:
+          fg: green
+        gauge_empty_attr:
+          bg: gray
+          fg: silver
+        gauge_end_rune: ""
+        gauge_start_rune: ""
+        gauge_width: 18
+        layout: " {{ .Spinner }} {{ .Status | bold }} █▓▒░  {{ .Model | fg \"white\" }}  {{ .Effort }}{{ .ShiftRight }}\U000F05C2 {{ .Cache }}  {{ .Elapsed }}  {{ .Conversation | bold | fg \"white\" }}  {{ .ContextGauge }} "
+        status:
+          ASKING:
+            animation:
+              attr:
+                fg: default
+              ch: ⠁⠂⠄⡀⢀⠠⠐⠈
+            attr:
+              bg: yellow
+              fg: black
+              flags: bold
+          COMPACTING:
+            animation:
+              attr:
+                fg: default
+              ch: ⣉⠶⠶⠒⠒⠒⠶⠶⣉
+            attr:
+              bg: gray
+              fg: default
+              flags: bold
+          ERROR:
+            animation:
+              attr:
+                fg: red
+              ch: 
+            attr:
+              bg: maroon
+              fg: default
+              flags: bold
+          EXECUTING:
+            animation:
+              attr:
+                fg: default
+              ch: '⢀⢀⣀⢄⢂⢀⣀⣠⣤⣦⣧⣶⣦⣧⣦⣤⣴⣼⣴⣶⣧⣦⣤⣴⣼⣴⣶⣧⣦⣤⣴⣼⣴⣶⣧⣦⣤⣄⣀⣀⡠⡠⠔⠊⠁⠁  '
+            attr:
+              bg: red
+              fg: default
+              flags: bold
+          IDLE:
+            animation:
+              attr:
+                fg: yellow
+              ch: 
+            attr:
+              bg: silver
+              fg: white
+              flags: bold
+          REASONING:
+            animation:
+              attr:
+                fg: default
+              ch: ⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏
+            attr:
+              bg: navy
+              fg: white
+              flags: bold
+          RECEIVING:
+            animation:
+              attr:
+                fg: default
+              ch: ⢡⢃⠆⡌⡘⠰
+            attr:
+              bg: magenta
+              fg: black
+              flags: bold
+          SENDING:
+            animation:
+              attr:
+                fg: default
+              ch: ⡘⡌⠆⢃⢡⠰
+            attr:
+              bg: teal
+              fg: black
+              flags: bold
+    path: $RUNE_DATADIR/bin/rune-agent
+  go:
+    config:
+      lsp_path: ""
+    path: $RUNE_DATADIR/bin/extension_go
+  typescript:
+    config:
+      lsp_path: ""
+    path: $RUNE_DATADIR/bin/extension_typescript
+  zig:
+    config:
+      lsp_path: ""
+      zig_path: ""
+    path: $RUNE_DATADIR/bin/extension_zig
 tutorials:
-  fuzzy_search: /Users/jamievandyke/.rune/pkg/fuzzy-search/v1.1.2/fuzzy_search.star
+  fuzzy_search: $RUNE_DATADIR/pkg/fuzzy-search/v1.1.2/fuzzy_search.star
 # ---------------------------------------------------------------------------
 # Animations between workspaces
 # ---------------------------------------------------------------------------
@@ -420,3 +605,10 @@ tutorials:
 # ---------------------------------------------------------------------------
 notifications:
   auto_close: 5s
+lsp:
+  icons:
+    bounds: "\U000F016A"
+    compiler: ⚙
+    escape: "\U000F005D"
+    inline: "\U000F0054"
+    nilcheck: ∅
