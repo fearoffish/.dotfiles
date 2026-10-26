@@ -48,9 +48,6 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 # Display ASCII control characters using caret notation in standard text views
 defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
 
-# Set Help Viewer windows to non-floating mode
-defaults write com.apple.helpviewer DevMode -bool true
-
 # Reveal IP address, hostname, OS version when clicking clock in login window
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
@@ -249,9 +246,6 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 ###############################################################################
 # Mac App Store                                                               #
 ###############################################################################
-
-# Enable the WebKit Developer Tools in the Mac App Store
-defaults write com.apple.appstore WebKitDeveloperExtras -bool true
 
 # Enable the automatic update check
 defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true

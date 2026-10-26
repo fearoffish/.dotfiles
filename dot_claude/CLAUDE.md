@@ -8,6 +8,7 @@
 - **Never commit to `main`, `master` or `trunk`.** Branch first.
 - **Ask before destructive operations**: `git reset --hard`, `git clean`, rebasing published history, branch deletion or anything else that rewrites or discards work.
 - **Never install software without my explicit consent.** Includes Homebrew packages and casks, language packages (gem, npm, pip, cargo), system tools, browsers and drivers; anything writing to the system outside the project working tree. Ask every time. Approval for one install does not extend to the next.
+- **Never use Google Chrome.** Don't launch it, drive it or point any browser tool at it, not even for a quick local check. For browser checks use Safari through `safaridriver` (WebDriver; remote automation is enabled): start `safaridriver -p <port>` and drive it over HTTP. If Safari can't do the job, ask; any other browser is an install and needs my consent.
 
 ## Act or Ask
 
