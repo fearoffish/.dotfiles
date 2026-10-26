@@ -1,14 +1,12 @@
 tap "axiomhq/tap", trusted: true
 tap "basicmachines-co/basic-memory", trusted: true
 tap "busser/tap", trusted: true
-tap "can1357/tap"
 tap "cantino/mcfly", trusted: true
 tap "dagger/tap", trusted: true
 tap "dhth/tap", trusted: true
 tap "dicklesworthstone/tap", trusted: true
 tap "eugene1g/safehouse"
 tap "facebook/fb", trusted: true
-tap "felixkratz/formulae", "https://github.com/FelixKratz/homebrew-formulae", trusted: true
 tap "future-architect/tap", trusted: true
 tap "gechr/tap", trusted: true
 tap "getagentseal/codeburn", trusted: true
@@ -22,7 +20,6 @@ tap "kejadlen/git-together", trusted: true
 tap "leg100/tap", trusted: true
 tap "masaushi/tap", trusted: true
 tap "mikker/tap", trusted: true
-tap "minio/stable", trusted: true
 tap "modem-dev/tap"
 tap "nikitabobko/tap", trusted: true
 tap "osx-cross/arm", trusted: true
@@ -87,8 +84,6 @@ brew "autoconf"
 brew "automake"
 # Text processing scripting language
 brew "awk"
-# Official Amazon AWS command-line interface
-brew "awscli"
 # GNU internationalization (i18n) and localization (l10n) library
 brew "gettext"
 # Text-based UI library
@@ -387,8 +382,6 @@ brew "jq"
 brew "just"
 # Network authentication protocol
 brew "krb5"
-# Simple terminal UI for git commands
-brew "lazygit"
 # Pager program similar to more
 brew "less"
 # Implementation of the Unicode line- and word-breaking algorithms
@@ -479,10 +472,6 @@ brew "unibilium"
 brew "utf8proc"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
-# No Nonsense Neovim Client in Rust
-brew "neovide", args: ["HEAD"]
-# Command-line interface for New Relic
-brew "newrelic-cli"
 # Small build system for use with gyp or CMake
 brew "ninja"
 # Port scanning utility for large networks
@@ -631,8 +620,6 @@ brew "zimg"
 brew "zizmor"
 # General-purpose lossless data-compression library
 brew "zlib"
-# Coding agent with the IDE wired in
-brew "can1357/tap/omp", trusted: true
 # Dagger is an integrated platform to orchestrate the delivery of applications
 brew "dagger/tap/dagger", trusted: true
 # Glance at the last 3 runs of your Github Actions
@@ -654,8 +641,6 @@ brew "keidarcy/tap/e1s"
 # Better commit attribution when pairing
 brew "kejadlen/git-together/git-together"
 brew "masaushi/tap/ecsplorer"
-# High Performance Object Storage compatible with Amazon S3 API
-brew "minio/stable/minio"
 # Desktop-inspired terminal diff viewer for agent-authored changesets
 brew "modem-dev/tap/hunk", trusted: true
 # Brewfile manager for Homebrew.
@@ -682,8 +667,6 @@ cask "appcleaner"
 cask "bambu-studio"
 # Open links in any browser
 cask "choosy"
-# Terminal-based AI coding assistant
-cask "claude-code@latest"
 # Disk space visualiser
 cask "daisydisk"
 # Tiling window manager for macOS on native Spaces, with SIP left on
@@ -805,18 +788,6 @@ mas "SponsorBlock", id: 1573461917
 mas "Super Agent", id: 1568262835
 mas "TestFlight", id: 899247664
 mas "Things", id: 904280696
-mas "Xcode", id: 497799835
-go "cmd/go"
-go "cmd/gofmt"
-go "golang.org/x/tools/gopls"
 cargo "json-mcp-server"
 uv "rich-cli"
 uv "trafilatura"
-npm "@earendil-works/pi-coding-agent"
-npm "@henkey/postgres-mcp-server"
-npm "@openwhispr/cli"
-npm "corepack"
-npm "firecrawl-cli"
-npm "gulp"
-npm "stimulus"
-npm "task-master-ai"
