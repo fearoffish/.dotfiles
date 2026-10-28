@@ -34,7 +34,9 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
+{{ $hostBrewfile := joinPath "hosts" .host "Brewfile" -}}
 # Brewfile hash: {{ include "Brewfile" | sha256sum }}
+# {{ $hostBrewfile }} hash: {{ if stat (joinPath .chezmoi.sourceDir $hostBrewfile) }}{{ include $hostBrewfile | sha256sum }}{{ end }}
 
 if ! command_exists brew; then
     log_error "Homebrew is not installed. Please run prerequisites installation first."
@@ -45,16 +47,14 @@ log_info "Installing packages from Brewfile..."
 
 # Get the source directory
 SOURCE_DIR="{{ .chezmoi.sourceDir }}"
-BREWFILE="$SOURCE_DIR/Brewfile"
-
-if [ ! -f "$BREWFILE" ]; then
-    log_error "Brewfile not found at $BREWFILE"
-    exit 1
-fi
+BREWFILES=("$SOURCE_DIR/Brewfile")
+{{- if stat (joinPath .chezmoi.sourceDir $hostBrewfile) }}
+BREWFILES+=("$SOURCE_DIR/{{ $hostBrewfile }}")
+{{- end }}
 
 # HOMEBREW_DEVELOPER skips brew 7's tap-time syntax audit; see setup.sh.
 cd "$SOURCE_DIR"
-if HOMEBREW_DEVELOPER=1 brew bundle --file="$BREWFILE"; then
+if cat "${BREWFILES[@]}" | HOMEBREW_DEVELOPER=1 brew bundle --file=-; then
     log_success "Packages installed successfully from Brewfile"
     if command_exists mas; then
         log_info "Mac App Store apps installed via brew bundle"

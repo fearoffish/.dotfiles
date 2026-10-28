@@ -19,14 +19,17 @@ Accept, wait, then run the clone again. HTTPS because no SSH keys exist yet;
 
 It walks through, in order:
 
-1. Xcode command line tools
-2. Homebrew
-3. A pause to sign in to the App Store, so the `mas` apps are not skipped
-4. Every package in the Brewfile, which takes a while and needs no input
-5. A pause to sign in to 1Password and turn on its SSH agent
-6. Dotfiles, macOS defaults, fish as the login shell, then fisher plugins,
+1. Which Mac this is. A Mac whose name isn't in `hosts/` gets a menu of the
+   known hosts and is renamed to the one you pick
+2. Xcode command line tools
+3. Homebrew
+4. A pause to sign in to the App Store, so the `mas` apps are not skipped
+5. Every package in the Brewfile plus this host's `hosts/<name>/Brewfile`,
+   which takes a while and needs no input
+6. A pause to sign in to 1Password and turn on its SSH agent
+7. Dotfiles, macOS defaults, fish as the login shell, then fisher plugins,
    mise runtimes, and nvim plugins
-7. `1p-check`, looping until the 1Password chain verifies, then the dotfiles
+8. `1p-check`, looping until the 1Password chain verifies, then the dotfiles
    remote is switched to SSH
 
 Safe to re-run. Every step checks before it acts.
@@ -70,9 +73,9 @@ The bootstrap process runs these scripts in order:
 2. **`run_once_before_macos-defaults.sh`** - Configures macOS settings (keyboard repeat, Finder, Dock, etc.)
 3. **Dotfiles Applied** - All `dot_*` files are copied to your home directory
 4. **`run_onchange_after_moom-settings.sh`** - Loads Moom's custom actions and layouts from `moom.plist` (re-runs when that file changes). Moom keeps these in its preferences, not a file, so after changing anything in Moom's Settings run `moom-export` to copy it back into the repo
-5. **`run_once_after_bootstrap-tools.sh`** - Installs fisher plugins from `fish_plugins`, mise runtimes from `mise/config.toml`, and nvim plugins via lazy.nvim
+5. **`run_once_after_bootstrap-tools.sh`** - Installs fisher plugins from `fish_plugins`, mise runtimes from `mise/config.toml` and `mise/conf.d/host.toml`, and nvim plugins via lazy.nvim
 6. **`run_once_after_poof-defaults.sh`** - Points Poof at `~/.config/poof`, where its managed snippets land
-7. **`run_onchange_install-packages.sh`** - Installs packages from Brewfile (re-runs when Brewfile changes)
+7. **`run_onchange_install-packages.sh`** - Installs packages from the Brewfile and this host's `hosts/<name>/Brewfile` (re-runs when either changes)
 8. **`run_once_after_setup-shell.sh`** - Sets fish as default shell, reminds about 1Password setup
 
 ## 🛠️ Daily Usage
@@ -101,7 +104,8 @@ chezmoi update
 
 ### Adding New Packages
 
-Edit the Brewfile in your chezmoi source directory:
+Shared packages go in `Brewfile`. Packages only one Mac should get go in that
+host's `hosts/<name>/Brewfile` instead (see [Per-host differences](#-per-host-differences)).
 
 ```bash
 chezmoi edit Brewfile
@@ -119,7 +123,7 @@ Then apply:
 chezmoi apply
 ```
 
-The `run_onchange_install-packages.sh` script will automatically detect the Brewfile changed and run `brew bundle`.
+The `run_onchange_install-packages.sh` script will automatically detect that either Brewfile changed and run `brew bundle` on both together.
 
 ### Updating Brewfile from Currently Installed Packages
 
@@ -139,7 +143,7 @@ git commit -m "Update Brewfile with new packages"
 git push
 ```
 
-**Pro tip**: Keep your Brewfile clean by reviewing what `brew bundle dump` adds. It includes all dependencies, which you may not want to explicitly track.
+**Pro tip**: Keep your Brewfile clean by reviewing what `brew bundle dump` adds. It includes all dependencies, which you may not want to explicitly track. It also writes this Mac's host-only packages into the shared `Brewfile`, so move those back to `hosts/<name>/Brewfile` before committing.
 
 ### Alternative: Selective Adding
 
@@ -159,6 +163,31 @@ git add Brewfile
 git commit -m "Add new-tool to Brewfile"
 git push
 ```
+
+## 🖥️ Per-host differences
+
+Each Mac has a directory under `hosts/`, named after its `LocalHostName`
+(`scutil --get LocalHostName`):
+
+| Host | Machine |
+|---|---|
+| `fearofair` | Personal laptop |
+| `fearofwork` | Work laptop |
+
+`chezmoi init` refuses to run on a Mac with no matching directory, and exposes
+the name to templates as `.host`. Inside a host's directory, every file is
+optional:
+
+| File | Effect |
+|---|---|
+| `Brewfile` | Installed on top of the shared `Brewfile` |
+| `mise.toml` | Written to `~/.config/mise/conf.d/host.toml`, which mise loads alongside `config.toml` |
+
+For anything else that differs by host, branch in a template:
+`{{ if eq .host "fearofwork" }}…{{ end }}`.
+
+To add a Mac, create `hosts/<name>/` with at least one file in it, then run
+`setup.sh` on the new machine.
 
 ## 🔧 Configuration
 
@@ -205,9 +234,14 @@ Note that commits are signed, so `git commit` and any `chezmoi add` or
 ```
 .dotfiles/
 ├── setup.sh                              # Entry point for a new Mac
-├── .chezmoi.toml.tmpl                    # Name, email, editor, git
+├── .chezmoi.toml.tmpl                    # Name, email, host, editor, git
 ├── .chezmoiignore                        # Repo files never applied to home
-├── Brewfile                              # Package definitions
+├── Brewfile                              # Shared package definitions
+├── hosts/                                # Per-host packages and mise tools
+│   ├── fearofair/Brewfile                # Personal laptop
+│   └── fearofwork/                       # Work laptop
+│       ├── Brewfile
+│       └── mise.toml
 ├── moom.plist                            # Moom custom actions and layouts
 ├── dot_gitconfig.tmpl                    # Git configuration
 ├── private_dot_ssh/

@@ -51,7 +51,30 @@ echo "${BOLD}Setting up this Mac from $SCRIPT_DIR${NC}"
 log_info "You will be asked to sign in to 1Password partway through."
 
 ###############################################################################
-step "1. Xcode command line tools"
+step "1. Which Mac this is"
+###############################################################################
+
+# hosts/<name>/ holds per-host packages, matched on LocalHostName.
+HOST="$(scutil --get LocalHostName)"
+if [ -d "$SCRIPT_DIR/hosts/$HOST" ]; then
+    log_success "This is $HOST"
+else
+    log_warning "$HOST is not in hosts/. Pick which Mac this is, and it will be renamed:"
+    HOSTS=()
+    for dir in "$SCRIPT_DIR"/hosts/*/; do HOSTS+=("$(basename "$dir")"); done
+    select HOST in "${HOSTS[@]}"; do [ -n "$HOST" ] && break; done
+    if [ -z "${HOST:-}" ]; then
+        log_error "No host picked."
+        exit 1
+    fi
+    for key in ComputerName LocalHostName HostName; do
+        sudo scutil --set "$key" "$HOST"
+    done
+    log_success "Renamed this Mac to $HOST"
+fi
+
+###############################################################################
+step "2. Xcode command line tools"
 ###############################################################################
 
 if xcode-select -p >/dev/null 2>&1; then
@@ -72,7 +95,7 @@ else
 fi
 
 ###############################################################################
-step "2. Homebrew"
+step "3. Homebrew"
 ###############################################################################
 
 if command_exists brew; then
@@ -92,7 +115,7 @@ if ! command_exists brew; then
 fi
 
 ###############################################################################
-step "3. App Store sign-in"
+step "4. App Store sign-in"
 ###############################################################################
 
 log_info "The Brewfile installs Xcode and other Mac App Store apps."
@@ -102,22 +125,24 @@ echo "  Open the App Store and sign in."
 wait_for_user
 
 ###############################################################################
-step "4. Applications"
+step "5. Applications"
 ###############################################################################
 
-log_info "Installing everything in the Brewfile. This takes a while."
+BREWFILES=("$SCRIPT_DIR/Brewfile")
+[ -f "$SCRIPT_DIR/hosts/$HOST/Brewfile" ] && BREWFILES+=("$SCRIPT_DIR/hosts/$HOST/Brewfile")
+
+log_info "Installing everything in ${BREWFILES[*]#"$SCRIPT_DIR/"}. This takes a while."
 # HOMEBREW_DEVELOPER skips the tap-time syntax audit that brew 7 runs across
 # every formula in a tap. dicklesworthstone/tap, jorgelbg/tap and ttscoff/thelab
 # fail it upstream (Linux-only stanzas with no URL) and cannot be tapped without it.
-if HOMEBREW_DEVELOPER=1 brew bundle --file="$SCRIPT_DIR/Brewfile"; then
+if cat "${BREWFILES[@]}" | HOMEBREW_DEVELOPER=1 brew bundle --file=-; then
     log_success "All packages installed"
 else
-    log_warning "Some packages failed. Continuing, you can re-run this later with:"
-    log_warning "  HOMEBREW_DEVELOPER=1 brew bundle --file=$SCRIPT_DIR/Brewfile"
+    log_warning "Some packages failed. Continuing, re-run this script later to retry."
 fi
 
 ###############################################################################
-step "5. 1Password"
+step "6. 1Password"
 ###############################################################################
 
 log_info "1Password is installed but needs signing in to by hand."
@@ -131,7 +156,7 @@ echo "  3. Turn on ${BOLD}Settings > Developer > Use the SSH agent${NC}."
 wait_for_user
 
 ###############################################################################
-step "6. Dotfiles"
+step "7. Dotfiles"
 ###############################################################################
 
 if ! command_exists chezmoi; then
@@ -149,7 +174,7 @@ else
 fi
 
 ###############################################################################
-step "7. Checking 1Password"
+step "8. Checking 1Password"
 ###############################################################################
 
 log_warning "agent.toml was only just written, so quit and reopen 1Password now"

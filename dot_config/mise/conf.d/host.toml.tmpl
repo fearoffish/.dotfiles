@@ -1,0 +1,2 @@
+{{- $hostMise := joinPath "hosts" .host "mise.toml" -}}
+{{- if stat (joinPath .chezmoi.sourceDir $hostMise) }}{{ include $hostMise }}{{ end -}}

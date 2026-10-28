@@ -1,0 +1,44 @@
+# Packages only fearofwork (work laptop) gets, on top of the shared Brewfile.
+tap "superset-sh/tap", trusted: { formulae: ["superset"] }
+# Agent multiplexer that lives in your terminal
+brew "herdr", restart_service: :changed
+# Open links in any browser
+cask "choosy"
+# Calendar software
+cask "fantastical"
+# Git client
+cask "gitfox"
+# Web browser
+cask "google-chrome"
+# Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2"
+# ZSA keyboard firmware flasher
+cask "keymapp"
+# GPU-based terminal emulator
+cask "kitty"
+# App to manage software development and track bugs
+cask "linear"
+# Visual diff and merge tool
+cask "meld"
+# Window manager: move and zoom windows, save and restore layouts
+cask "moom"
+# Companion app for ZSA's Navigator trackpad
+cask "navigator"
+# Reverse proxy, secure introspectable tunnels to localhost
+cask "ngrok"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
+# WebKit based web browser
+cask "orion"
+# Web browser
+cask "safari-technology-preview"
+# Plugin for AWS CLI to start and end sessions that connect to managed instances
+cask "session-manager-plugin"
+# Collection of apps available by subscription
+cask "setapp"
+# Virtual machines UI using QEMU
+cask "utm@beta"
+# Multimedia player
+cask "vlc"
+# Administration tool for MikroTik RouterOS
+cask "winbox"

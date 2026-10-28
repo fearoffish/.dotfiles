@@ -29,7 +29,6 @@ tap "rcmdnk/file", trusted: true
 tap "rjyo/moshi"
 tap "sinelaw/fresh", trusted: true
 tap "socktainer/tap", trusted: true
-tap "superset-sh/tap", trusted: { formulae: ["superset"] }
 tap "thecasualcoder/stable", trusted: true
 tap "ttscoff/thelab", trusted: true
 tap "voicetreelab/voicetree", trusted: true
@@ -366,8 +365,6 @@ brew "pkgconf"
 brew "hdf5"
 # Post-modern modal text editor
 brew "helix"
-# Agent multiplexer that lives in your terminal
-brew "herdr", restart_service: :changed
 # CLI for Heroku
 brew "heroku"
 # User-friendly cURL replacement (command-line HTTP client)
@@ -665,16 +662,12 @@ cask "adguard"
 cask "appcleaner"
 # 3D model slicing software for 3D printers, maintained by Bambu Lab
 cask "bambu-studio"
-# Open links in any browser
-cask "choosy"
 # Disk space visualiser
 cask "daisydisk"
 # Tiling window manager for macOS on native Spaces, with SIP left on
 cask "dinky"
 # Voice and text chat software
 cask "discord"
-# Calendar software
-cask "fantastical"
 # Web browser
 cask "firefox"
 cask "font-anonymous-pro"
@@ -697,56 +690,26 @@ cask "font-symbols-only-nerd-font"
 cask "font-victor-mono-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
-# Git client
-cask "gitfox"
-# Web browser
-cask "google-chrome"
 # Tools to protect your files
 cask "gpg-suite-no-mail"
 # Utility to hide menu bar items
 cask "hiddenbar"
 # System monitoring app
 cask "istat-menus"
-# Terminal emulator as alternative to Apple's Terminal app
-cask "iterm2"
 # Spot and merge differences in text and image files or folders
 cask "kaleidoscope"
 # Keyboard customiser
 cask "karabiner-elements"
 # Automation software
 cask "keyboard-maestro"
-# ZSA keyboard firmware flasher
-cask "keymapp"
-# GPU-based terminal emulator
-cask "kitty"
-# App to manage software development and track bugs
-cask "linear"
 # Host-based application firewall
 cask "little-snitch"
-# Visual diff and merge tool
-cask "meld"
 # Display MIDI signals going in and out of your computer
 cask "midi-monitor"
 # Spotlight Search
 cask "monarch"
-# Window manager: move and zoom windows, save and restore layouts
-cask "moom"
-# Companion app for ZSA's Navigator trackpad
-cask "navigator"
-# Reverse proxy, secure introspectable tunnels to localhost
-cask "ngrok"
-# Knowledge base that works on top of a local folder of plain text Markdown files
-cask "obsidian"
-# WebKit based web browser
-cask "orion"
 # All-in-one bookmark manager
 cask "raindropio"
-# Web browser
-cask "safari-technology-preview"
-# Plugin for AWS CLI to start and end sessions that connect to managed instances
-cask "session-manager-plugin"
-# Collection of apps available by subscription
-cask "setapp"
 # Instant messaging application focusing on security
 cask "signal"
 # Team communication and collaboration software
@@ -759,14 +722,8 @@ cask "suspicious-package"
 cask "tableplus"
 # Application launcher
 cask "tuna"
-# Virtual machines UI using QEMU
-cask "utm@beta"
-# Multimedia player
-cask "vlc"
 # Network monitoring and troubleshooting tool
 cask "wifiman"
-# Administration tool for MikroTik RouterOS
-cask "winbox"
 # Multiplayer code editor
 cask "zed"
 # Gecko based web browser
