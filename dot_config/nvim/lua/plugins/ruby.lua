@@ -1,105 +1,48 @@
--- Ruby LSP only supports Ruby >= 3.0 (since ruby-lsp 0.6.0), so Ruby 2.7
+-- Ruby LSP only supports Ruby >= 3.0 (since ruby-lsp 0.6.0), so Ruby 2.x
 -- projects fall back to solargraph 0.52.0, the last release supporting 2.6+.
 -- Servers are launched via `mise x` so each project gets its own Ruby.
-local cache = {}
+local majors = {}
 
 local function ruby_major(root)
-  if cache[root] == nil then
+  if majors[root] == nil then
     local res = vim.system({ "mise", "current", "ruby" }, { cwd = root, text = true }):wait()
-    cache[root] = tonumber((res.stdout or ""):match("(%d+)")) or 0
+    majors[root] = tonumber((res.stdout or ""):match "(%d+)") or 0
   end
-  return cache[root]
+  return majors[root]
 end
 
 local function when_major(lo, hi)
   return function(bufnr, on_dir)
     local root = vim.fs.root(bufnr, { "Gemfile", ".git" })
-    if not root then
-      return
-    end
-    local m = ruby_major(root)
-    if m >= lo and m <= hi then
-      on_dir(root)
-    end
+    if not root then return end
+    local major = ruby_major(root)
+    if major >= lo and major <= hi then on_dir(root) end
   end
-end
-
--- `rubocop --lsp` arrived in RuboCop 1.53; older bundles exit with "invalid option".
-local function rubocop_lsp_root(bufnr, on_dir)
-  local lockfile = vim.fs.find("Gemfile.lock", { path = vim.api.nvim_buf_get_name(bufnr), upward = true })[1]
-  if not lockfile then
-    return
-  end
-  for line in io.lines(lockfile) do
-    local version = line:match("^    rubocop %(([%d.]+)%)$")
-    if version then
-      if vim.version.ge(version, "1.53") then
-        on_dir(vim.fs.dirname(lockfile))
-      end
-      return
-    end
-  end
-end
-
--- Mason's bin dir sits ahead of the mise Ruby on PATH and its binstubs hardcode
--- a shebang, so resolve the executable to an absolute path per project first.
-local bins = {}
-
-local function resolve(bin, cwd)
-  local key = bin .. "\0" .. (cwd or "")
-  if bins[key] == nil then
-    local res = vim.system({ "mise", "which", bin }, { cwd = cwd, text = true }):wait()
-    local path = vim.trim(res.stdout or "")
-    bins[key] = (res.code == 0 and path ~= "") and path or false
-  end
-  return bins[key]
-end
-
--- The servers re-exec themselves through `bundle exec <bin>`, which Bundler
--- resolves via PATH, so Mason's shims must not be visible to them either.
-local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
-
-local function path_without_mason()
-  local dirs = vim.tbl_filter(function(dir)
-    return dir ~= mason_bin
-  end, vim.split(vim.env.PATH or "", ":", { plain = true }))
-  return table.concat(dirs, ":")
 end
 
 -- Terminals spawned under Homebrew's Ruby inherit BUNDLER_VERSION (its own
 -- bundler 4.x), which Bundler treats as mandatory and no project Ruby has.
-local function mise(bin, ...)
-  local args = { ... }
+local function mise(...)
+  local args = { "env", "-u", "BUNDLER_VERSION", "mise", "x", "--", ... }
   return function(dispatchers, config)
-    local cwd = config and (config.cmd_cwd or config.root_dir)
-    local argv = { "env", "-u", "BUNDLER_VERSION", "mise", "x", "--", resolve(bin, cwd) or bin }
-    vim.list_extend(argv, args)
-    return vim.lsp.rpc.start(argv, dispatchers, { cwd = cwd, env = { PATH = path_without_mason() } })
+    return vim.lsp.rpc.start(args, dispatchers, { cwd = config.cmd_cwd or config.root_dir })
   end
 end
 
+---@type LazySpec
 return {
-  {
-    "neovim/nvim-lspconfig",
-    ---@type PluginLspOpts
-    opts = {
-      servers = {
-        ruby_lsp = {
-          mason = false,
-          cmd = mise("ruby-lsp"),
-          root_dir = when_major(3, 99),
-        },
-        solargraph = {
-          enabled = true,
-          mason = false,
-          cmd = mise("solargraph", "stdio"),
-          root_dir = when_major(0, 2),
-        },
-        rubocop = {
-          mason = false,
-          cmd = mise("bundle", "exec", "rubocop", "--lsp"),
-          root_dir = rubocop_lsp_root,
-        },
+  "AstroNvim/astrolsp",
+  ---@type AstroLSPOpts
+  opts = {
+    servers = { "ruby_lsp", "solargraph" },
+    config = {
+      ruby_lsp = {
+        cmd = mise "ruby-lsp",
+        root_dir = when_major(3, math.huge),
+      },
+      solargraph = {
+        cmd = mise("solargraph", "stdio"),
+        root_dir = when_major(0, 2),
       },
     },
   },

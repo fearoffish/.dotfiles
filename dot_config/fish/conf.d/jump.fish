@@ -1,8 +1,0 @@
-# Directories that `j` searches. Add as many roots as you like; every directory
-# under them (any depth, .gitignore honoured) becomes a jump target.
-set -g jump_roots ~/a
-
-# Ctrl+O opens the picker without typing `j`; repaint so the prompt shows the new cwd
-if status is-interactive
-    bind ctrl-o 'j; commandline --function repaint'
-end

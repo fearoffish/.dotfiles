@@ -4,7 +4,7 @@
 # Every key and command: https://dinky.rodeo/configuration/
 
 start-at-login = true
-workspaces = 5                  # across all displays, one native Space each
+workspaces = 7                  # across all displays, one native Space each
 default-layout = 'tiles'        # tiles (dwindle) | dwindle | accordion | fixed | scrolling
 default-tiling = true           # false leaves workspaces untiled unless overridden
 follow-app-activation = true    # Cmd-Tab and Dock clicks switch Spaces the fast way
@@ -33,8 +33,14 @@ outer = 8                       # or { top = 8, bottom = 8, left = 8, right = 8 
 
 # Display patterns: main, secondary, or part of a name as `dinky list-displays` prints it.
 # A workspace lives on the first display its patterns match, else on the main display.
-# [workspace-to-display]
-# 5 = 'secondary'
+[workspace-to-display]
+1 = 'aorus'
+2 = 'aorus'
+3 = 'aorus'
+4 = 'aorus'
+5 = 'built-in'
+6 = 'built-in'
+7 = 'built-in'
 
 # Overrides for one display.
 # [display.main]
@@ -81,23 +87,47 @@ shift = 'both'
 app-id = 'com.apple.systempreferences'   # also: app-name, title (regexes), kind (normal|dialog|sheet|panel)
 run = 'layout floating'
 
-[mode.main]
-ctrl-left = 'workspace prev'
-ctrl-right = 'workspace next'
-alt-tab = 'workspace-back-and-forth'
-alt-minus = 'resize smart -50'
-alt-equal = 'resize smart +50'
-alt-shift-f = 'layout floating tiling'
-alt-comma = 'layout accordion'
-alt-slash = 'layout tiles'
-alt-shift-n = 'move-window-to-display next'
-alt-shift-semicolon = 'mode service'
-ctrl-alt-cmd-s = 'layout tiles accordion scrolling'
+[[rules]]
+app-id = 'com.brnbw.Tuna'
+run = 'layout floating'
 
-[mode.service]
-esc = ['reload-config', 'mode main']
-r = ['flatten-workspace-tree', 'mode main']
-alt-shift-h = ['join-with left', 'mode main']
-alt-shift-j = ['join-with down', 'mode main']
-alt-shift-k = ['join-with up', 'mode main']
-alt-shift-l = ['join-with right', 'mode main']
+[[rules]]
+app-id = 'cc.ffitch.shottr'
+run = 'layout floating'
+
+# Caps Lock sends ctrl-alt-cmd (Karabiner); Caps+Shift is hyper. Rarer commands live in Tuna's Combo `w` group.
+[mode.main]
+ctrl-alt-cmd-1 = 'workspace 1'
+ctrl-alt-cmd-2 = 'workspace 2'
+ctrl-alt-cmd-3 = 'workspace 3'
+ctrl-alt-cmd-4 = 'workspace 4'
+ctrl-alt-cmd-5 = 'workspace 5'
+ctrl-alt-cmd-6 = 'workspace 6'
+ctrl-alt-cmd-7 = 'workspace 7'
+hyper-1 = 'move-window-to-workspace --follow 1'
+hyper-2 = 'move-window-to-workspace --follow 2'
+hyper-3 = 'move-window-to-workspace --follow 3'
+hyper-4 = 'move-window-to-workspace --follow 4'
+hyper-5 = 'move-window-to-workspace --follow 5'
+hyper-6 = 'move-window-to-workspace --follow 6'
+hyper-7 = 'move-window-to-workspace --follow 7'
+ctrl-alt-cmd-h = 'focus left'
+ctrl-alt-cmd-j = 'focus down'
+ctrl-alt-cmd-k = 'focus up'
+ctrl-alt-cmd-l = 'focus right'
+ctrl-alt-cmd-left = 'move left'
+ctrl-alt-cmd-down = 'move down'
+ctrl-alt-cmd-up = 'move up'
+ctrl-alt-cmd-right = 'move right'
+hyper-left = 'move-window-to-display prev --follow'
+hyper-right = 'move-window-to-display next --follow'
+ctrl-alt-cmd-tab = 'workspace next'
+hyper-tab = 'workspace prev'
+alt-tab = 'workspace-back-and-forth'
+ctrl-alt-cmd-f = 'fullscreen'
+ctrl-alt-cmd-t = 'layout floating tiling'
+ctrl-alt-cmd-s = 'layout tiles accordion scrolling'
+ctrl-alt-cmd-minus = 'resize smart -50'
+ctrl-alt-cmd-equal = 'resize smart +50'
+hyper-minus = 'resize height -50'
+hyper-equal = 'resize height +50'

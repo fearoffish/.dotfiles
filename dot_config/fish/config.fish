@@ -1,7 +1,11 @@
+set -gx XDG_CONFIG_HOME ~/.config
 /opt/homebrew/bin/brew shellenv | source
 # Use 1Password SSH agent
 set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 set -gx OP_BIOMETRIC_UNLOCK_ENABLED true
+
+# Point Docker clients at the Lima dev VM's Podman socket
+set -gx DOCKER_HOST unix://$HOME/.lima/dev/sock/podman.sock
 
 # Add ~/.local/bin to PATH
 fish_add_path -g ~/.local/bin

@@ -7,12 +7,13 @@ tap "dhth/tap", trusted: true
 tap "dicklesworthstone/tap", trusted: true
 tap "eugene1g/safehouse"
 tap "facebook/fb", trusted: true
+
 tap "future-architect/tap", trusted: true
 tap "gechr/tap", trusted: true
 tap "getagentseal/codeburn", trusted: true
 tap "hamed-elfayome/claude-usage", trusted: true
 tap "heroku/brew", trusted: true
-tap "hewigovens/tap", "https://github.com/hewigovens/tap.git", trusted: true
+tap "hewigovens/tap", "https://github.com/hewigovens/tap.git", trusted: { casks: ["jayjay"] }
 tap "human37/open-wispr", trusted: true
 tap "jorgelbg/tap", trusted: true
 tap "keidarcy/tap", trusted: true
@@ -27,7 +28,6 @@ tap "osx-cross/avr", trusted: true
 tap "overmindtech/overmind", trusted: true
 tap "rcmdnk/file", trusted: true
 tap "rjyo/moshi"
-tap "sinelaw/fresh", trusted: true
 tap "socktainer/tap", trusted: true
 tap "superset-sh/tap", trusted: { formulae: ["superset"] }
 tap "thecasualcoder/stable", trusted: true
@@ -44,8 +44,6 @@ brew "certifi"
 brew "pycparser"
 # C Foreign Function Interface for Python
 brew "cffi"
-# Cryptography and SSL/TLS Toolkit
-brew "openssl@3"
 # Cryptographic recipes and primitives for Python
 brew "cryptography"
 # NaCl networking and cryptography library
@@ -90,26 +88,24 @@ brew "gettext"
 brew "ncurses"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
-# Generic-purpose lossless compression algorithm by Google
-brew "brotli"
-# Asynchronous DNS library
-brew "c-ares"
-# HTTP/2 C Library
-brew "libnghttp2"
-# Open-source, cross-platform JavaScript runtime environment
-brew "node"
 # C library implementing the SSH2 protocol
 brew "libssh2"
 # C library of Git core methods that is re-entrant and linkable
 brew "libgit2"
 # Regular expressions library
 brew "oniguruma"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@3", link: true
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Cross platform file encryption utility using blowfish
 brew "bcrypt"
 # Yet another cross-platform graphical process/system monitor
 brew "bottom"
+# Generic-purpose lossless compression algorithm by Google
+brew "brotli"
+# Asynchronous DNS library
+brew "c-ares"
 # Software library to render fonts
 brew "freetype"
 # XML-based font configuration API for X Windows
@@ -190,6 +186,10 @@ brew "lima"
 brew "colima", restart_service: :changed
 # Manage Apple Container with Docker Compose files
 brew "container-compose"
+# HTTP/2 C Library
+brew "libnghttp2"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
 # Up-to-date code documentation for LLMs and AI code editors
 brew "context7-mcp"
 # GNU multiple precision arithmetic library
@@ -246,10 +246,6 @@ brew "entr"
 brew "espeak-ng"
 # Modern, maintained replacement for ls
 brew "eza"
-# Powerful, clean, object-oriented scripting language
-brew "ruby"
-# Easiest way to build and release mobile apps
-brew "fastlane"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
 # MP3 player for Linux and UNIX
@@ -346,6 +342,8 @@ brew "npth"
 brew "pinentry"
 # GNU Privacy Guard (OpenPGP)
 brew "gnupg"
+# Fast linters runner for Go
+brew "golangci-lint"
 # Library access to GnuPG
 brew "gpgme"
 # Manage your GnuPG keys with ease!
@@ -366,8 +364,6 @@ brew "pkgconf"
 brew "hdf5"
 # Post-modern modal text editor
 brew "helix"
-# Agent multiplexer that lives in your terminal
-brew "herdr", restart_service: :changed
 # CLI for Heroku
 brew "heroku"
 # User-friendly cURL replacement (command-line HTTP client)
@@ -454,8 +450,6 @@ brew "mbedtls"
 brew "mcfly"
 # Polyglot runtime manager (asdf rust clone)
 brew "mise"
-# MongoDB Shell to connect, configure, query, and work with your MongoDB database
-brew "mongosh"
 # Message broker implementing the MQTT protocol
 brew "mosquitto"
 # Improved JPEG encoder
@@ -562,10 +556,12 @@ brew "tiger-vnc"
 brew "tmux"
 # Shell completion for Tmuxinator
 brew "tmuxinator-completion"
-# Manage complex tmux sessions easily
-brew "tmuxinator"
+# Official command-line interface for Todoist
+brew "todoist-cli"
 # Color-based alternative to figlet (uses libcaca)
 brew "toilet"
+# Parser generator tool
+brew "tree-sitter-cli"
 # Vulnerability scanner for container images, file systems, and Git repos
 brew "trivy"
 # Source code spell checker
@@ -592,8 +588,6 @@ brew "wget"
 brew "wireshark"
 # CLI for Git worktree management, designed for parallel AI agent workflows
 brew "worktrunk"
-# Personal information dashboard for your terminal
-brew "wtfutil"
 # Little beautifier tool for xcodebuild
 brew "xcbeautify"
 # Generate your Xcode project from a spec file and your folder structure
@@ -624,8 +618,6 @@ brew "zlib"
 brew "dagger/tap/dagger", trusted: true
 # Glance at the last 3 runs of your Github Actions
 brew "dhth/tap/act3"
-# Graph-aware task management TUI for beads projects
-brew "dicklesworthstone/tap/bv", trusted: true
 # macOS sandbox wrapper for coding agents
 brew "eugene1g/safehouse/agent-safehouse", trusted: true
 # Companion server for automating iOS Simulators
@@ -670,11 +662,9 @@ cask "choosy"
 # Disk space visualiser
 cask "daisydisk"
 # Tiling window manager for macOS on native Spaces, with SIP left on
-cask "dinky"
+cask "mikker/tap/dinky", trusted: true
 # Voice and text chat software
 cask "discord"
-# Calendar software
-cask "fantastical"
 # Web browser
 cask "firefox"
 cask "font-anonymous-pro"
@@ -686,6 +676,8 @@ cask "font-hack-nerd-font"
 cask "font-inconsolata-for-powerline"
 cask "font-iosevka-aile"
 cask "font-iosevka-nerd-font"
+cask "font-ioskeley-mono"
+cask "font-ioskeley-mono-term-nerd-font"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
 cask "font-material-design-icons-webfont"
@@ -705,10 +697,10 @@ cask "google-chrome"
 cask "gpg-suite-no-mail"
 # Utility to hide menu bar items
 cask "hiddenbar"
+# Keyboard shortcuts for every button on your screen
+cask "homerow"
 # System monitoring app
 cask "istat-menus"
-# Terminal emulator as alternative to Apple's Terminal app
-cask "iterm2"
 # Spot and merge differences in text and image files or folders
 cask "kaleidoscope"
 # Keyboard customiser
@@ -723,14 +715,16 @@ cask "kitty"
 cask "linear"
 # Host-based application firewall
 cask "little-snitch"
+# Shows the next meeting in the menu bar
+cask "meetingbar"
 # Visual diff and merge tool
 cask "meld"
 # Display MIDI signals going in and out of your computer
 cask "midi-monitor"
+# Manage your windows in Mission Control
+cask "mission-control-plus"
 # Spotlight Search
 cask "monarch"
-# Window manager: move and zoom windows, save and restore layouts
-cask "moom"
 # Companion app for ZSA's Navigator trackpad
 cask "navigator"
 # Reverse proxy, secure introspectable tunnels to localhost
@@ -745,8 +739,8 @@ cask "raindropio"
 cask "safari-technology-preview"
 # Plugin for AWS CLI to start and end sessions that connect to managed instances
 cask "session-manager-plugin"
-# Collection of apps available by subscription
-cask "setapp"
+# Screenshot measurement and annotation tool
+cask "shottr"
 # Instant messaging application focusing on security
 cask "signal"
 # Team communication and collaboration software
@@ -757,6 +751,8 @@ cask "soundsource"
 cask "suspicious-package"
 # Native GUI tool for relational databases
 cask "tableplus"
+# To-do list
+cask "todoist-app"
 # Application launcher
 cask "tuna"
 # Virtual machines UI using QEMU
@@ -775,19 +771,32 @@ mas "1Password for Safari", id: 1569813296
 mas "Bear", id: 1091189122
 mas "Capo", id: 696977615
 mas "Developer", id: 640199958
+mas "Email", id: 1489591003
 mas "GarageBand", id: 682658836
+mas "Gifski", id: 1351639930
 mas "iA Writer", id: 775737590
 mas "iMovie", id: 408981434
 mas "Infuse", id: 1136220934
 mas "JustChords", id: 1632968272
 mas "Kagi for Safari", id: 1622835804
+mas "Keynote", id: 409183694
 mas "Logic Pro", id: 634148309
 mas "Marked 2", id: 890031187
+mas "Mela", id: 1568924476
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
 mas "Save to Raindrop.io", id: 1549370672
 mas "SponsorBlock", id: 1573461917
 mas "Super Agent", id: 1568262835
+mas "Synido TempoPAD C16", id: 6673905103
+mas "Synido TempoPad P16", id: 6448814964
+mas "System Status Monitor", id: 6753709318
 mas "TestFlight", id: 899247664
 mas "Things", id: 904280696
+mas "Xcode", id: 497799835
+go "cmd/go"
+go "cmd/gofmt"
 cargo "json-mcp-server"
 uv "rich-cli"
 uv "trafilatura"
+npm "corepack"

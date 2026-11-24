@@ -28,6 +28,7 @@
 
 - Check the thing itself, not a proxy for it. Empty output is not proof of success. Check exit codes, and prefer a positive assertion (a `diff` reporting identical, a test passing) over the absence of a negative signal.
 - When reporting work as verified, say how it was verified.
+- When I make a claim about how a tool, platform or library behaves (defaults, security consequences, API semantics), link the official docs that back it up, next to the claim. If I can't find a source, say the claim is unverified. If a claim also depends on our own setup (AMI, account settings, config), check it with a read-only command and show what I found.
 - Verification never justifies a destructive or outward-facing action. The Safety rules above win. If the only way to check something is to run a destructive command or write to a remote, stop and ask.
 
 ## Working Style

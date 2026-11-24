@@ -1,0 +1,8 @@
+gui:
+  tabWidth: 2
+worktree:
+  defaultPath: ~/a/worktrees
+git:
+  diffRenderers:
+    - command: delta --{{colorScheme}} --no-gitconfig --syntax-theme="Monokai Extended" --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+    - command: delta --{{colorScheme}} --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
