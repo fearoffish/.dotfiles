@@ -124,44 +124,39 @@ chezmoi apply
 
 The `run_onchange_install-packages.sh` script will automatically detect that either Brewfile changed and run `brew bundle` on both together.
 
-### Updating Brewfile from Currently Installed Packages
+### Keeping the Brewfiles in step with what's installed
 
-If you've installed packages manually with `brew install` and want to update your Brewfile:
+In fish, `brew` is wrapped: after a successful `brew install` or
+`brew uninstall`, it runs `brewsync` for just those packages. A new package
+goes into this host's `hosts/<name>/Brewfile` unless you choose the shared
+`Brewfile`. An uninstalled one is offered for removal from whichever file
+tracks it.
 
-```bash
-# Dump all currently installed packages to Brewfile
-brew bundle dump --file=~/a/dotfiles/Brewfile --force
+Anything installed some other way (agents running brew from bash, `mas`, the
+App Store) is caught by running `brewsync` with no arguments. It compares
+`brew bundle dump`, which
+lists only packages installed on request, against the shared and host
+Brewfiles. For each installed package nobody tracks, it asks whether it
+belongs to this host, the shared `Brewfile` or this host's skip list. For each
+tracked package that isn't installed, it offers to drop or install it.
 
-# Review the changes
-chezmoi diff
+`brew bundle install` never uninstalls, so removing a package from the shared
+`Brewfile` on one Mac leaves it on the other. Running `brewsync` there shows it
+as untracked.
 
-# Add and commit the updated Brewfile
-cd ~/a/dotfiles
-git add Brewfile
-git commit -m "Update Brewfile with new packages"
-git push
-```
+If an untracked package is already in another host's Brewfile, it now belongs
+on both Macs, so the default moves it to the shared `Brewfile`. Packages listed
+in both hosts' files are offered the same move.
 
-**Pro tip**: Keep your Brewfile clean by reviewing what `brew bundle dump` adds. It includes all dependencies, which you may not want to explicitly track. It also writes this Mac's host-only packages into the shared `Brewfile`, so move those back to `hosts/<name>/Brewfile` before committing.
+`misesync` does the same for mise. `mise use -g` and `mise unuse -g` edit
+`~/.config/mise/config.toml`, which chezmoi owns, so the next apply would undo
+them. `misesync` asks where each added, changed or removed tool belongs (this
+host's `hosts/<name>/mise.toml` by default, or the shared
+`dot_config/mise/config.toml`). It offers to move tools listed in both hosts'
+files to the shared config, then applies both mise files. If you haven't
+edited the live file since the last apply, it just applies.
 
-### Alternative: Selective Adding
-
-Instead of dumping everything, you can manually add what you installed:
-
-```bash
-# After installing something manually
-brew install new-tool
-
-# Add it to your Brewfile
-chezmoi edit Brewfile
-# (add the line: brew "new-tool")
-
-# Commit the change
-cd ~/a/dotfiles
-git add Brewfile
-git commit -m "Add new-tool to Brewfile"
-git push
-```
+Neither command commits. Review with `git -C ~/a/dotfiles diff`.
 
 ## 🖥️ Per-host differences
 
@@ -180,6 +175,7 @@ optional:
 | File | Effect |
 |---|---|
 | `Brewfile` | Installed on top of the shared `Brewfile` |
+| `brew-ignore` | Packages `brewsync` leaves untracked on this host, one Brewfile entry per line (`cask "moom"`) |
 | `mise.toml` | Written to `~/.config/mise/conf.d/host.toml`, which mise loads alongside `config.toml` |
 
 For anything else that differs by host, branch in a template:
