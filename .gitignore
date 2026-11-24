@@ -2,5 +2,8 @@
 # never land in project repos. This repo is where it is meant to live.
 !dot_claude/CLAUDE.md
 
+# The global excludes file ignores mise.toml; per-host tool lists live here
+!hosts/*/mise.toml
+
 # Debug logs that land in the repo root by accident
 even-terminal*.log

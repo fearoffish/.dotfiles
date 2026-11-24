@@ -1,3 +1,10 @@
+{{- /* LocalHostName, not .chezmoi.hostname: the latter follows DHCP and can
+       change with the network. setup.sh renames a fresh Mac to match. */ -}}
+{{- $host := output "scutil" "--get" "LocalHostName" | trim -}}
+{{- if not (stat (joinPath .chezmoi.sourceDir "hosts" $host)) -}}
+{{-   fail (printf "No hosts/%s/ in the dotfiles repo. Add it, or rename this Mac to an existing host." $host) -}}
+{{- end -}}
+
 # Pinned to wherever this was initialised from, so the repo can live
 # alongside other projects rather than under ~/.local/share.
 sourceDir = {{ .chezmoi.sourceDir | quote }}
@@ -5,6 +12,7 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 [data]
     name = "Jamie van Dyke"
     email = "me@fearof.fish"
+    host = {{ $host | quote }}
 
 [edit]
     command = "nvim"

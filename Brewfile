@@ -29,7 +29,6 @@ tap "overmindtech/overmind", trusted: true
 tap "rcmdnk/file", trusted: true
 tap "rjyo/moshi"
 tap "socktainer/tap", trusted: true
-tap "superset-sh/tap", trusted: { formulae: ["superset"] }
 tap "thecasualcoder/stable", trusted: true
 tap "ttscoff/thelab", trusted: true
 tap "voicetreelab/voicetree", trusted: true
@@ -657,8 +656,6 @@ cask "adguard"
 cask "appcleaner"
 # 3D model slicing software for 3D printers, maintained by Bambu Lab
 cask "bambu-studio"
-# Open links in any browser
-cask "choosy"
 # Disk space visualiser
 cask "daisydisk"
 # Tiling window manager for macOS on native Spaces, with SIP left on
@@ -689,10 +686,6 @@ cask "font-symbols-only-nerd-font"
 cask "font-victor-mono-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
-# Git client
-cask "gitfox"
-# Web browser
-cask "google-chrome"
 # Tools to protect your files
 cask "gpg-suite-no-mail"
 # Utility to hide menu bar items
@@ -707,38 +700,18 @@ cask "kaleidoscope"
 cask "karabiner-elements"
 # Automation software
 cask "keyboard-maestro"
-# ZSA keyboard firmware flasher
-cask "keymapp"
-# GPU-based terminal emulator
-cask "kitty"
-# App to manage software development and track bugs
-cask "linear"
 # Host-based application firewall
 cask "little-snitch"
 # Shows the next meeting in the menu bar
 cask "meetingbar"
-# Visual diff and merge tool
-cask "meld"
 # Display MIDI signals going in and out of your computer
 cask "midi-monitor"
 # Manage your windows in Mission Control
 cask "mission-control-plus"
 # Spotlight Search
 cask "monarch"
-# Companion app for ZSA's Navigator trackpad
-cask "navigator"
-# Reverse proxy, secure introspectable tunnels to localhost
-cask "ngrok"
-# Knowledge base that works on top of a local folder of plain text Markdown files
-cask "obsidian"
-# WebKit based web browser
-cask "orion"
 # All-in-one bookmark manager
 cask "raindropio"
-# Web browser
-cask "safari-technology-preview"
-# Plugin for AWS CLI to start and end sessions that connect to managed instances
-cask "session-manager-plugin"
 # Screenshot measurement and annotation tool
 cask "shottr"
 # Instant messaging application focusing on security
@@ -755,14 +728,8 @@ cask "tableplus"
 cask "todoist-app"
 # Application launcher
 cask "tuna"
-# Virtual machines UI using QEMU
-cask "utm@beta"
-# Multimedia player
-cask "vlc"
 # Network monitoring and troubleshooting tool
 cask "wifiman"
-# Administration tool for MikroTik RouterOS
-cask "winbox"
 # Multiplayer code editor
 cask "zed"
 # Gecko based web browser

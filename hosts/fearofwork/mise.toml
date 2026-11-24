@@ -1,0 +1,5 @@
+[tools]
+terraform = "1.11.2"
+awscli = { version = "latest", symlink_bins = "true" }
+newrelic-cli = "latest"
+"npm:@henkey/postgres-mcp-server" = "latest"
