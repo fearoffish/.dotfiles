@@ -18,6 +18,7 @@ tap "human37/open-wispr", trusted: true
 tap "jorgelbg/tap", trusted: true
 tap "keidarcy/tap", trusted: true
 tap "kejadlen/git-together", trusted: true
+tap "kshitijl/tap", trusted: true
 tap "leg100/tap", trusted: true
 tap "masaushi/tap", trusted: true
 tap "mikker/tap", trusted: true
@@ -631,6 +632,8 @@ brew "jorgelbg/tap/pinentry-touchid"
 brew "keidarcy/tap/e1s"
 # Better commit attribution when pairing
 brew "kejadlen/git-together/git-together"
+# Smarter file explorer and cd replacement that learns from your actions
+brew "kshitijl/tap/psychic"
 brew "masaushi/tap/ecsplorer"
 # Desktop-inspired terminal diff viewer for agent-authored changesets
 brew "modem-dev/tap/hunk", trusted: true
